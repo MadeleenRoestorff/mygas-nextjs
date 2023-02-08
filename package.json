@@ -7,7 +7,8 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
-        "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest"
+        "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest",
+        "prepare": "husky install"
     },
     "dependencies": {
         "@emotion/cache": "latest",
@@ -29,7 +30,17 @@
         "eslint-config-next": "latest",
         "eslint-config-prettier": "^8.6.0",
         "eslint-plugin-prettier": "^4.2.1",
+        "husky": "^8.0.0",
+        "jira-prepare-commit-msg": "^1.7.2",
         "prettier": "^2.8.3",
         "typescript": "latest"
+    },
+    "jira-prepare-commit-msg": {
+        "messagePattern": "$J: $M",
+        "jiraTicketPattern": "([A-Z]+-\\d+)",
+        "commentChar": "#",
+        "isConventionalCommit": false,
+        "allowEmptyCommitMessage": false,
+        "gitRoot": ""
     }
 }
