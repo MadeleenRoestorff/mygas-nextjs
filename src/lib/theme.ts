@@ -90,9 +90,29 @@ const unresponseiveTheme = createTheme({
           borderRadius: "32px"
         }
       }
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          textTransform: "capitalize",
+          "&.Mui-focused": {
+            color: theme.palette.primary.light
+          }
+        })
+      }
+    },
+
+    MuiTextField: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          "input:-webkit-autofill": {
+            WebkitBoxShadow: `0 0 0 100px ${theme.palette.background.default} inset`
+          }
+        })
+      }
     }
   }
 });
-
+// -webkit-tap-highlight-color
 const theme = responsiveFontSizes(unresponseiveTheme);
 export default theme;
