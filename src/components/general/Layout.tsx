@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import { styled } from "@mui/material/styles";
 import Container from "@mui/material/Container";
 import AppBar from "@mui/material/AppBar";
@@ -6,8 +7,17 @@ import Typography from "@mui/material/Typography";
 import Crocuta from "../../icons/crocuta";
 import Grid from "@mui/material/Unstable_Grid2";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
+// import { GlobalStateProvider } from "../services/TokenContext";
 
-export default function Layout({ children = null, className = "", isHomePage = false }) {
+export default function Layout({
+  children = null,
+  className = "",
+  isHomePage = false
+}: {
+  children: ReactNode;
+  className?: string;
+  isHomePage?: boolean;
+}) {
   const trigger = useScrollTrigger({
     threshold: 0
   });
@@ -33,7 +43,9 @@ export default function Layout({ children = null, className = "", isHomePage = f
           </InnerGridStyling>
         </Grid>
       </AppBarStyling>
+      {/* <GlobalStateProvider> */}
       <Container>{children}</Container>
+      {/* </GlobalStateProvider> */}
       <StyledFooter>
         <FooterSectionStyling>
           {!isHomePage && (

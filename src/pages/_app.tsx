@@ -6,6 +6,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { CacheProvider, EmotionCache } from "@emotion/react";
 import theme from "../lib/theme";
 import createEmotionCache from "../lib/createEmotionCache";
+import { GlobalStateProvider } from "../components/services/TokenContext";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -22,9 +23,11 @@ export default function MyApp(props: MyAppProps) {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <ThemeProvider theme={theme}>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-        <CssBaseline enableColorScheme={true} />
-        <Component {...pageProps} />
+        <GlobalStateProvider>
+          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+          <CssBaseline enableColorScheme={true} />
+          <Component {...pageProps} />
+        </GlobalStateProvider>
       </ThemeProvider>
     </CacheProvider>
   );

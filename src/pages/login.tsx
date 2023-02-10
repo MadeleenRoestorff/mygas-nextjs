@@ -24,7 +24,6 @@ export default function Login() {
 
   async function LoginResult() {
     const newInputs = { ...inputs };
-
     Object.entries(newInputs).map(([label, val]) => {
       if (val.value.length === 0) {
         newInputs[label].err = true;
