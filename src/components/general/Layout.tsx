@@ -13,7 +13,7 @@ export default function Layout({ children = null, className = "", isHomePage = f
   });
   return (
     <LayoutStyling className={className}>
-      <AppBar position="sticky" elevation={trigger ? 1 : 0}>
+      <AppBarStyling position="sticky" elevation={trigger ? 1 : 0}>
         <Grid container columns={3}>
           <InnerGridStyling xs={1} justifyContent="flex-start">
             <Typography variant="h4">
@@ -32,7 +32,7 @@ export default function Layout({ children = null, className = "", isHomePage = f
             </Typography>
           </InnerGridStyling>
         </Grid>
-      </AppBar>
+      </AppBarStyling>
       <Container>{children}</Container>
       <StyledFooter>
         <FooterSectionStyling>
@@ -58,6 +58,10 @@ const LayoutStyling = styled("div")`
   align-items: center;
 `;
 
+const AppBarStyling = styled(AppBar)`
+  margin-bottom: ${({ theme }) => theme.spacing(2)};
+`;
+
 const InnerGridStyling = styled(Grid)`
   display: flex;
   align-items: center;
@@ -70,8 +74,9 @@ const InnerGridStyling = styled(Grid)`
 `;
 
 const StyledFooter = styled("footer")`
+  margin-top: ${({ theme }) => theme.spacing(3)};
   width: 100%;
-  height: 51px;
+  height: ${({ theme }) => theme.spacing(7)};
   border-top: 1px solid ${({ theme }) => theme.palette.primary.main};
   display: flex;
   justify-content: space-between;
@@ -79,8 +84,6 @@ const StyledFooter = styled("footer")`
 `;
 
 const BackToHomeLinkStyling = styled("div")`
-  height: 50px;
-  display: flex;
   flex-direction: column;
   justify-content: center;
 `;
