@@ -2,15 +2,14 @@ import { ReactNode } from "react";
 import { styled } from "@mui/material/styles";
 import Container from "@mui/material/Container";
 import AppBar from "@mui/material/AppBar";
-import Link from "../../components/Link";
+import Link from "../Link";
 import Typography from "@mui/material/Typography";
 import Crocuta from "../../icons/crocuta";
 import Grid from "@mui/material/Unstable_Grid2";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
-// import { GlobalStateProvider } from "../services/TokenContext";
 
 export default function Layout({
-  children = null,
+  children,
   className = "",
   isHomePage = false
 }: {
@@ -23,17 +22,17 @@ export default function Layout({
   });
   return (
     <LayoutStyling className={className}>
-      <AppBarStyling position="sticky" elevation={trigger ? 1 : 0}>
-        <Grid container columns={3}>
-          <InnerGridStyling xs={1} justifyContent="flex-start">
+      <AppBarStyling elevation={trigger ? 1 : 0} position="sticky">
+        <Grid columns={3} container>
+          <InnerGridStyling justifyContent="flex-start" xs={1}>
             <Typography variant="h4">
               <Link href="/">My Gas App</Link>
             </Typography>
           </InnerGridStyling>
-          <InnerGridStyling xs={1} justifyContent="center">
+          <InnerGridStyling justifyContent="center" xs={1}>
             <Crocuta />
           </InnerGridStyling>
-          <InnerGridStyling xs={1} justifyContent="flex-end">
+          <InnerGridStyling justifyContent="flex-end" xs={1}>
             <Typography variant="h4">
               <Link href="/">Quick Link 1</Link>
             </Typography>
@@ -43,16 +42,14 @@ export default function Layout({
           </InnerGridStyling>
         </Grid>
       </AppBarStyling>
-      {/* <GlobalStateProvider> */}
       <Container>{children}</Container>
-      {/* </GlobalStateProvider> */}
       <StyledFooter>
         <FooterSectionStyling>
-          {!isHomePage && (
+          {isHomePage ? (
             <BackToHomeLinkStyling>
-              <Link href="/">&larr; Back to home</Link>
+              <Link href="/">{"&larr; Back to home"}</Link>
             </BackToHomeLinkStyling>
-          )}
+          ) : null}
         </FooterSectionStyling>
         <CopyrightTextStyling>
           {`Copyright © ${new Date().getFullYear()} - Madeleen Roestorff - All Rights Reserved.`}

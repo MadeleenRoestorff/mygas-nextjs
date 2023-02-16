@@ -21,18 +21,28 @@ const content = [
 export default function Home() {
   const router = useRouter();
 
+  const routePush = (link: string): void => {
+    new Promise((resolve) => {
+      void (async () => {
+        await router.push(link);
+        resolve("ready");
+      })();
+      //   () at the end Immediately invokes the void async funtion
+    }).catch((promiseError: Error) => console.error(promiseError));
+  };
+
   return (
     <Layout>
-      <Link href="/about" color="secondary">
+      <Link color="secondary" href="/about">
         Go to the about page
       </Link>
       <Box sx={{ flexGrow: 1, my: 2 }}>
-        <Grid container spacing={2} justifyContent="center">
-          {content.map(({ title, Icon, link }, index) => {
+        <Grid container justifyContent="center" spacing={2}>
+          {content.map(({ title, Icon, link }) => {
             return (
-              <Grid key={`cotent${index}`} xs={12} md={6}>
+              <Grid key={title} md={6} xs={12}>
                 <Paper
-                  onClick={() => router.push(link)}
+                  onClick={() => routePush(link)}
                   sx={{ cursor: "pointer", p: 4, textAlign: "center" }}
                 >
                   <Icon />

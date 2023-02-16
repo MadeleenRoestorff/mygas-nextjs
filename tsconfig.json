@@ -21,7 +21,8 @@
     "include": [
         "next-env.d.ts",
         "**/*.ts",
-        "**/*.tsx"
+        "**/*.tsx",
+        "src/components/Link.tsx"
     ],
     "exclude": [
         "node_modules"

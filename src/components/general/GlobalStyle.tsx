@@ -43,5 +43,6 @@ const cssGlobal = css`
   }
 `;
 
-const GlobalStyle = (props) => <Global {...props} styles={cssGlobal} />;
-export default GlobalStyle;
+export default function GlobalStyle() {
+  return <Global styles={cssGlobal} />;
+}

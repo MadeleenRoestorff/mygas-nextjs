@@ -19,7 +19,7 @@ export const pompiere = Pompiere({
   weight: "400",
   subsets: ["latin"]
 });
-export const annie_use_your_telescope = Annie_Use_Your_Telescope({
+export const annieUseYourTelescope = Annie_Use_Your_Telescope({
   weight: "400",
   subsets: ["latin"]
 });
@@ -27,15 +27,15 @@ export const babylonica = Babylonica({
   weight: "400",
   subsets: ["latin"]
 });
-export const poiret_one = Poiret_One({
+export const poiretOne = Poiret_One({
   weight: "400",
   subsets: ["latin"]
 });
-export const rubik_glitch = Rubik_Glitch({
+export const rubikGlitch = Rubik_Glitch({
   weight: "400",
   subsets: ["latin"]
 });
-export const sue_ellen_francisco = Sue_Ellen_Francisco({
+export const sueEllenFrancisco = Sue_Ellen_Francisco({
   weight: "400",
   subsets: ["latin"]
 });
@@ -56,7 +56,7 @@ const unresponseiveTheme = createTheme({
     divider: "#777777"
   },
   typography: {
-    fontFamily: sue_ellen_francisco.style.fontFamily,
+    fontFamily: sueEllenFrancisco.style.fontFamily,
     h1: {
       textAlign: "center"
     },

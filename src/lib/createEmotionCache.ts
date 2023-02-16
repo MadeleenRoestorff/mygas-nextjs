@@ -1,3 +1,8 @@
+// Using createEmotionCache from MUI template as is
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable init-declarations */
+/* eslint-disable no-undefined */
+/* eslint-disable quotes */
 import createCache from "@emotion/cache";
 
 const isBrowser = typeof document !== "undefined";

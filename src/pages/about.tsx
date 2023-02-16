@@ -19,14 +19,14 @@ export default function About() {
           alignItems: "center"
         }}
       >
-        <Typography variant="h4" component="h1" gutterBottom>
+        <Typography component="h1" gutterBottom variant="h4">
           MUI v5 + Next.js with TypeScript example
         </Typography>
         <Box maxWidth="sm">
-          <Button variant="contained" component={Link} noLinkStyle href="/">
+          <Button component={Link} href="/" noLinkStyle variant="contained">
             Go to the home page
           </Button>
-          <Link href="/about" color="secondary">
+          <Link color="secondary" href="/about">
             Go to the about page
           </Link>
         </Box>
