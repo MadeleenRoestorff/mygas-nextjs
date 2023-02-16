@@ -1,3 +1,8 @@
+// Using nextjs _document as is
+/* eslint-disable @typescript-eslint/unbound-method */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
