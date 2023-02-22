@@ -1,4 +1,6 @@
-# Next.js with TypeScript example
+# My gas app nextjs frontend
+
+Uses [Mintlify](https://marketplace.visualstudio.com/items?itemname=mintlify.document)
 
 ## How to use
 

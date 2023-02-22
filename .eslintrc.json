@@ -117,11 +117,11 @@
         ],
         "max-params": [
             "error",
-            5
+            7
         ],
         "max-statements": [
             "error",
-            14
+            15
         ],
         "new-cap": [
             "error",
@@ -183,6 +183,7 @@
                 "ignoreArrayIndexes": true,
                 "ignore": [
                     // styling
+                    -1,
                     0,
                     1,
                     2,
@@ -417,7 +418,13 @@
         "@typescript-eslint/prefer-for-of": "error",
         "@typescript-eslint/no-invalid-void-type": "error",
         "@typescript-eslint/no-non-null-asserted-nullish-coalescing": "error",
-        "@typescript-eslint/no-unsafe-declaration-merging": "error"
+        "@typescript-eslint/no-unsafe-declaration-merging": "error",
+        "@typescript-eslint/consistent-type-assertions": [
+            "error",
+            {
+                "assertionStyle": "never"
+            }
+        ]
         // "@typescript-eslint/no-floating-promises": [
         //     "error",
         //     {
