@@ -11,17 +11,9 @@ import Stack from "@mui/system/Stack";
 
 import Layout from "../components/general/Layout";
 
-interface InputValues {
-  value: string;
-  error: boolean;
-}
-interface Inputs {
-  [key: string]: InputValues;
-}
-
 export default function LoginPage() {
   const router = useRouter();
-  const [error, setError] = useState<null | Error>(null);
+  const [loginError, setLoginError] = useState<null | Error>(null);
   const [inputs, setInputs] = useState<Inputs>({
     username: { value: "", error: false },
     password: { value: "", error: false }
@@ -29,9 +21,16 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const { updateToken } = useTokenContext();
 
+  /**
+   * If the username and password inputs are not empty, then send a POST request to the server with the
+   * username and password, and if the server responds with a token, then save the token in the browser and as a context
+   * and redirect to the redirect query supplied in the router or the home page.
+   */
   const handleLogin = () => {
     const newInputs = { ...inputs };
 
+    // Checking if the inputs (username & password) are empty and if they are,
+    // it sets the corresponding input error to true.
     Object.entries(newInputs).forEach(([label, val]) => {
       if (val.value.length === 0) {
         newInputs[label].error = true;
@@ -39,20 +38,21 @@ export default function LoginPage() {
       }
     });
 
+    // Check if input errors is false and then send a post axios request
+    // to the server with the username and password.
     if (!newInputs.password.error && !newInputs.username.error) {
       setLoading(true);
-      setError(null);
+      setLoginError(null);
       const userData = {
         username: inputs.username.value,
         password: inputs.password.value
       };
       const loginUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/login`;
-
       axios
         .post(loginUrl, userData)
         .then((response) => {
           if (typeof response.data === "string") {
-            updateToken({ newToken: response.data });
+            updateToken({ saveNewToken: response.data });
             void router.push(
               typeof router.query.redirect === "string"
                 ? router.query.redirect
@@ -63,7 +63,7 @@ export default function LoginPage() {
           }
         })
         .catch((errorAxios: Error) => {
-          setError(errorAxios);
+          setLoginError(errorAxios);
           console.error("errorAxios", errorAxios);
           updateToken({ destroyToken: true });
         });
@@ -97,7 +97,7 @@ export default function LoginPage() {
                   newInputs[label].value = event.target.value;
                   newInputs[label].error = false;
                   setInputs(newInputs);
-                  setError(null);
+                  setLoginError(null);
                 }}
                 required
                 type={label}
@@ -109,8 +109,9 @@ export default function LoginPage() {
         <Button onClick={handleLogin} sx={{ mt: 2 }} variant="outlined">
           {loading ? "loading..." : "Sign In"}
         </Button>
-        {/* {error ? <Alert severity="error">{error.message}</Alert> : null} */}
-        {error ? <Alert severity="error">{error.message}</Alert> : null}
+        {loginError ? (
+          <Alert severity="error">{loginError.message}</Alert>
+        ) : null}
       </Stack>
     </Layout>
   );

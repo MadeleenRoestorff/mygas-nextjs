@@ -1,24 +1,24 @@
 import {
   createContext,
-  useContext,
   Dispatch,
   ReactNode,
   useReducer,
   useEffect,
-  useMemo
+  useMemo,
+  Reducer,
+  useContext
 } from "react";
 import { useRouter, NextRouter } from "next/router";
-import tokenReducer, { TokenDispatchInterface } from "./tokenReducer";
+import tokenReducer from "./tokenReducer";
 
-export interface TokenContextInterface {
-  token: Partial<string>;
-  updateToken: Dispatch<TokenDispatchInterface>;
-}
-const TokenStateContext = createContext({
-  token: "" as Partial<string>,
+/* Creating a context object with a token and updateToken property. */
+export const tokenStateContext = createContext({
+  token: "",
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   updateToken: {} as Dispatch<TokenDispatchInterface>
 });
 
+/* This is a function that is used to redirect the user to the login page. */
 const loginPathname = "/login";
 const goToLogin = async (router: NextRouter): Promise<void> => {
   await router.push({
@@ -27,9 +27,14 @@ const goToLogin = async (router: NextRouter): Promise<void> => {
   });
 };
 
-export default function TokenProvider({ children }: { children: ReactNode }) {
-  const [token, updateToken] = useReducer(tokenReducer, "");
+export default function TokenProvider({ children }: { children?: ReactNode }) {
+  const [token, updateToken] = useReducer<TokenReducerType>(tokenReducer, "");
   const router = useRouter();
+
+  // This is a useEffect hook that is checking if the token is empty. If it is empty, it checks if
+  // the localStorage token is empty and if the router is ready. If all of these are true, it redirects the user
+  // to the login page (if not already on the login page). If not, it
+  // is setting the context's token to the localStorage token.
   useEffect(() => {
     if (token.length === 0) {
       if (
@@ -37,10 +42,9 @@ export default function TokenProvider({ children }: { children: ReactNode }) {
         router.isReady &&
         router.pathname !== loginPathname
       ) {
-        console.log("gotologin");
         void goToLogin(router);
       } else {
-        updateToken({ setToken: true });
+        updateToken({ setStorageToken: true });
       }
     }
   }, [token.length, router]);
@@ -48,13 +52,20 @@ export default function TokenProvider({ children }: { children: ReactNode }) {
   const values = useMemo(() => ({ token, updateToken }), [token]);
 
   return (
-    <TokenStateContext.Provider value={values}>
+    <tokenStateContext.Provider value={values}>
       {children}
-    </TokenStateContext.Provider>
+    </tokenStateContext.Provider>
   );
 }
 
 export const useTokenContext = () => {
-  const context = useContext(TokenStateContext);
+  const context: TokenContextInterface = useContext(tokenStateContext);
   return context;
 };
+
+type TokenReducerType = Reducer<string, TokenDispatchInterface>;
+
+export interface TokenContextInterface {
+  token: Partial<string>;
+  updateToken: Dispatch<TokenDispatchInterface>;
+}

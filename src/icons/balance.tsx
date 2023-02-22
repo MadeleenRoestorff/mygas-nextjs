@@ -1,4 +1,4 @@
-import { styled } from "@mui/system";
+import { styled } from "@mui/material/styles";
 
 export default function Balance() {
   return (
@@ -9,5 +9,5 @@ export default function Balance() {
 }
 
 const SVGStyling = styled("svg")`
-  fill: ${({ theme }) => theme.palette.primary.main};
+  fill: ${({ theme }) => theme?.palette?.primary?.main};
 `;

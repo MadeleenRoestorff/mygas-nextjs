@@ -1,11 +1,10 @@
-import { useRouter } from "next/router";
+import { useRouter, NextRouter } from "next/router";
 
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Unstable_Grid2";
 import Paper from "@mui/material/Paper";
 
-import Link from "../components/Link";
 import Layout from "../components/general/Layout";
 
 import Heat from "../icons/heat";
@@ -18,31 +17,36 @@ const content = [
   { title: "Budget", Icon: Balance, link: "/login" }
 ];
 
+/**
+ * The function takes a link as a string and a Next.js router,
+ * and then it uses the Next Router to push the user to that link
+ * @param {NextRouter} router - NextRouter - This is the router object that Next.js provides.
+ * @param {string} link - string - The link to direct to.
+ */
+const directToLink = (router: NextRouter, link: string): void => {
+  /* A promise that resolves when the router has pushed the link. */
+  /* () at the end Immediately invokes the void async funtion */
+  /* to make sure routePush returns void and not a Promise<void>*/
+  new Promise((resolve) => {
+    void (async () => {
+      await router.push(link);
+      resolve("");
+    })();
+  }).catch((promiseError: Error) => console.error(promiseError));
+};
+
 export default function Home() {
   const router = useRouter();
 
-  const routePush = (link: string): void => {
-    new Promise((resolve) => {
-      void (async () => {
-        await router.push(link);
-        resolve("ready");
-      })();
-      //   () at the end Immediately invokes the void async funtion
-    }).catch((promiseError: Error) => console.error(promiseError));
-  };
-
   return (
     <Layout>
-      <Link color="secondary" href="/about">
-        Go to the about page
-      </Link>
       <Box sx={{ flexGrow: 1, my: 2 }}>
         <Grid container justifyContent="center" spacing={2}>
           {content.map(({ title, Icon, link }) => {
             return (
               <Grid key={title} md={6} xs={12}>
                 <Paper
-                  onClick={() => routePush(link)}
+                  onClick={() => directToLink(router, link)}
                   sx={{ cursor: "pointer", p: 4, textAlign: "center" }}
                 >
                   <Icon />
