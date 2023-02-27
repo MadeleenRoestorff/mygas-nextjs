@@ -34,10 +34,10 @@ export default function Layout({
           </InnerGridStyling>
           <InnerGridStyling justifyContent="flex-end" xs={1}>
             <Typography variant="h4">
-              <Link href="/">Quick Link 1</Link>
+              <Link href="/gas">Gas</Link>
             </Typography>
             <Typography variant="h4">
-              <Link href="/">Quick Link 2</Link>
+              <Link href="/electricity">Electricity</Link>
             </Typography>
           </InnerGridStyling>
         </Grid>

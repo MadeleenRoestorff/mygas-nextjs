@@ -58,6 +58,7 @@ export default function TokenProvider({ children }: { children?: ReactNode }) {
   );
 }
 
+// Returns the tokenStateContext object
 export const useTokenContext = () => {
   const context: TokenContextInterface = useContext(tokenStateContext);
   return context;

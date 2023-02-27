@@ -1,46 +1,64 @@
-# My gas app nextjs frontend
+# My Utilities Fontend
 
-Uses [Mintlify](https://marketplace.visualstudio.com/items?itemname=mintlify.document)
+This repository contains the frontend code for My Utilities, a web application designed to help you track your utility usage, including electricity and gas. The project uses Next.js and MUI for frontend development, and TypeScript for type checking. Axios is used to make API calls to the backend, which is located in a separate repository. The application allows users to log in securely with a username and password, and upon successful verification, receives a JSON web token that is stored in the browser's local storage and used in a context provider. Users can add and edit utility data through the frontend. ESLint and Prettier are used for code formatting and consistency.
 
-## How to use
+## Installation
 
-Download the example [or clone the repo](https://github.com/mui/material-ui):
+To install My Utilities Fontend, clone the repository and install the dependencies using npm:
 
-<!-- #default-branch-switch -->
-
-```sh
-curl https://codeload.github.com/mui/material-ui/tar.gz/master | tar -xz --strip=2  material-ui-master/examples/nextjs-with-typescript
-cd nextjs-with-typescript
+```bash
+git clone https://github.com/MadeleenRoestorff/mygas-nextjs.git
+cd mygas-nextjs
+npm install
 ```
 
-Install it and run:
+## Usage Steps
 
-```sh
-npm install
+To run the app during development, use the following command:
+
+```bash
 npm run dev
 ```
 
-or:
+This will compile the TypeScript code and start the server on http://localhost:3000.
 
-<!-- #default-branch-switch -->
+To start the production server, use the following command:
 
-[![Edit on StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/mui/material-ui/tree/master/examples/nextjs-with-typescript)
+```bash
+npm start
+```
 
-[![Edit on CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/mui/material-ui/tree/master/examples/nextjs-with-typescript)
+This will start the server using the pre-compiled (npm run build) JavaScript files.
 
-## The idea behind the example
+## Login
 
-The project uses [Next.js](https://github.com/vercel/next.js), which is a framework for server-rendered React apps.
-It includes `@mui/material` and its peer dependencies, including `emotion`, the default style engine in MUI v5. If you prefer, you can [use styled-components instead](https://mui.com/material-ui/guides/interoperability/#styled-components).
+The login functionality is provided in the app for authentication purposes. The frontend sends a POST request to the backend with the username and password. If authentication is successful, the backend sends back a json webtoken. This token is stored in the browser's local storage and used in a useContext hook to allow access to restricted endpoints.
 
-## The link component
+## Utility Data
 
-The [example folder](https://github.com/mui/material-ui/tree/HEAD/examples/nextjs-with-typescript) provides an adapter for the use of [Next.js's Link component](https://nextjs.org/docs/api-reference/next/link) with MUI.
-More information [in the documentation](https://mui.com/material-ui/guides/routing/#next-js).
+The frontend makes axios calls to the backend to fetch utility data, which is displayed in the frontend. You can add new utility data by making a POST request, and edit existing utility data by making a PUT request. The utility data includes electricity and gas usage and is displayed in a table format.
 
-## What's next?
+## License
 
-<!-- #default-branch-switch -->
+The scripts and documentation in this project are released under the [MIT License](LICENSE)
 
-You now have a working example project.
-You can head back to the documentation, continuing browsing it from the [templates](https://mui.com/material-ui/getting-started/templates/) section.
+## Tech Stack
+
+- [Next.js](https://nextjs.org/)
+- [MUI](https://mui.com/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Axios](https://axios-http.com/)
+- [ESLint](https://eslint.org/)
+- [Prettier](https://prettier.io/)
+- [Husky](https://typicode.github.io/husky/)
+
+### Notes
+
+If you want skip the husky validate (ESlint and prettier) hook use --no-verify
+git commit -m "yolo!" --no-verify.
+Run npm test to ensure that your changes pass all tests.
+
+## Acknowledgements
+
+- [OpenAI](https://openai.com/) for providing the ChatGPT model used to generate this README.
+- [Mintlify](https://marketplace.visualstudio.com/items?itemname=mintlify.document) for helping me write code comments.

@@ -56,7 +56,7 @@ const unresponseiveTheme = createTheme({
     divider: "#777777"
   },
   typography: {
-    fontFamily: annieUseYourTelescope.style.fontFamily,
+    fontFamily: poiretOne.style.fontFamily,
     h1: {
       textAlign: "center"
     },

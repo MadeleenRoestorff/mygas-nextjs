@@ -13,7 +13,7 @@ import Balance from "../icons/balance";
 
 const content = [
   { title: "Gas", Icon: Heat, link: "/gas" },
-  { title: "Electricity", Icon: ElectricBolt, link: "/" },
+  { title: "Electricity", Icon: ElectricBolt, link: "/electricity" },
   { title: "Budget", Icon: Balance, link: "/login" }
 ];
 
