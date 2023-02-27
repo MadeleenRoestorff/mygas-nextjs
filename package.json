@@ -3,6 +3,12 @@
     "version": "1.0.0",
     "description": "The frontend for a web application designed to help you track your utility usage",
     "private": false,
+    "author": "Madeleen Roestorff",
+    "keywords": [
+        "utilities",
+        "nextjs"
+    ],
+    "license": "MIT",
     "scripts": {
         "dev": "next dev",
         "build": "next build",
