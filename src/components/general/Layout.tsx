@@ -1,12 +1,8 @@
 import { ReactNode } from "react";
 import { styled } from "@mui/material/styles";
 import Container from "@mui/material/Container";
-import AppBar from "@mui/material/AppBar";
 import Link from "../Link";
-import Typography from "@mui/material/Typography";
-import Crocuta from "../../icons/crocuta";
-import Grid from "@mui/material/Unstable_Grid2";
-import useScrollTrigger from "@mui/material/useScrollTrigger";
+import Header from "./Header/Header";
 
 export default function Layout({
   children,
@@ -17,32 +13,10 @@ export default function Layout({
   className?: string;
   isHomePage?: boolean;
 }) {
-  const trigger = useScrollTrigger({
-    threshold: 0
-  });
   return (
     <LayoutStyling className={className}>
-      <AppBarStyling elevation={trigger ? 1 : 0} position="sticky">
-        <Grid columns={3} container>
-          <InnerGridStyling justifyContent="flex-start" xs={1}>
-            <Typography variant="h4">
-              <Link href="/">My Gas App</Link>
-            </Typography>
-          </InnerGridStyling>
-          <InnerGridStyling justifyContent="center" xs={1}>
-            <Crocuta />
-          </InnerGridStyling>
-          <InnerGridStyling justifyContent="flex-end" xs={1}>
-            <Typography variant="h4">
-              <Link href="/">Quick Link 1</Link>
-            </Typography>
-            <Typography variant="h4">
-              <Link href="/">Quick Link 2</Link>
-            </Typography>
-          </InnerGridStyling>
-        </Grid>
-      </AppBarStyling>
-      <Container>{children}</Container>
+      <Header />
+      <ContainerStyling>{children}</ContainerStyling>
       <StyledFooter>
         <FooterSectionStyling>
           {isHomePage ? (
@@ -67,18 +41,10 @@ const LayoutStyling = styled("div")`
   align-items: center;
 `;
 
-const AppBarStyling = styled(AppBar)`
-  margin-bottom: ${({ theme }) => theme.spacing(2)};
-`;
-
-const InnerGridStyling = styled(Grid)`
-  display: flex;
-  align-items: center;
-  h4 {
-    padding: 0 ${({ theme }) => theme.spacing(2)};
-  }
-  svg {
-    max-height: ${({ theme }) => theme.spacing(8)};
+const ContainerStyling = styled(Container)`
+  @media (max-width: ${({ theme }) => theme.breakpoints.values.md}px) {
+    padding-left: 0;
+    padding-right: 0;
   }
 `;
 

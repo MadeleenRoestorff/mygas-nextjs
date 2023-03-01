@@ -56,7 +56,7 @@ const unresponseiveTheme = createTheme({
     divider: "#777777"
   },
   typography: {
-    fontFamily: annieUseYourTelescope.style.fontFamily,
+    fontFamily: poiretOne.style.fontFamily,
     h1: {
       textAlign: "center"
     },
@@ -114,5 +114,5 @@ const unresponseiveTheme = createTheme({
   }
 });
 // -webkit-tap-highlight-color
-const theme = responsiveFontSizes(unresponseiveTheme);
+const theme = responsiveFontSizes(unresponseiveTheme, { factor: 4 });
 export default theme;
