@@ -37,9 +37,9 @@ export default function TokenProvider({ children }: { children?: ReactNode }) {
   // is setting the context's token to the localStorage token.
 
   useEffect(() => {
-    if (token.length === 0 && typeof localStorage !== "undefined") {
+    if (token === "" && typeof localStorage !== "undefined") {
       if (
-        localStorage.getItem("token").length === 0 &&
+        !localStorage.getItem("token") &&
         router.isReady &&
         router.pathname !== loginPathname
       ) {

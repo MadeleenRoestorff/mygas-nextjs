@@ -34,7 +34,7 @@ const apiRequest = async ({
   method?: string;
   payload?: Partial<Payload>;
 }) => {
-  const url = `${process.env.PUBLIC_SERVER_URL}/${urlPathName}`;
+  const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/${urlPathName}`;
   const { token, updateToken } = tokenContext;
   const headers = { Authorization: `Bearer ${token}` };
 

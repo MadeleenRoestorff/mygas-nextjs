@@ -47,7 +47,9 @@ export default function LoginPage() {
         username: inputs.username.value,
         password: inputs.password.value
       };
-      const loginUrl = `${process.env.PUBLIC_SERVER_URL}/login`;
+      const loginUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/login`;
+
+      console.log(loginUrl);
       axios
         .post(loginUrl, userData)
         .then((response) => {
