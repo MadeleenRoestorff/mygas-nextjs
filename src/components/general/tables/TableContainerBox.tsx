@@ -8,6 +8,8 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import Paper from "@mui/material/Paper";
 
+import { styled } from "@mui/material/styles";
+
 export default function TableContainerBox({
   children,
   headCells,
@@ -18,10 +20,10 @@ export default function TableContainerBox({
   tableLable?: string;
 }) {
   return (
-    <Box sx={{ width: "80%", m: "auto" }}>
+    <BoxStyling sx={{ width: "80%", m: "auto" }}>
       <Paper sx={{ my: 2, borderRadius: 1 }}>
         <TableContainer>
-          <Table sx={{ minWidth: 750 }} aria-labelledby={tableLable}>
+          <Table aria-labelledby={tableLable}>
             <TableHead>
               <TableRow>
                 {headCells.map(({ id, numeric, disablePadding, label }) => (
@@ -39,6 +41,13 @@ export default function TableContainerBox({
           </Table>
         </TableContainer>
       </Paper>
-    </Box>
+    </BoxStyling>
   );
 }
+
+const BoxStyling = styled(Box)`
+  @media (max-width: ${({ theme }) => theme.breakpoints.values.md}px) {
+    width: 100%;
+    margin: 0;
+  }
+`;
