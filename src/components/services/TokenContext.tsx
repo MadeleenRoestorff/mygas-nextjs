@@ -47,7 +47,7 @@ export default function TokenProvider({ children }: { children?: ReactNode }) {
         updateToken({ setStorageToken: true });
       }
     }
-  }, [token.length, router]);
+  }, [token, router]);
 
   const values = useMemo(() => ({ token, updateToken }), [token]);
 
