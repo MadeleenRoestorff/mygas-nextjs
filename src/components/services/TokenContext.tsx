@@ -35,8 +35,9 @@ export default function TokenProvider({ children }: { children?: ReactNode }) {
   // the localStorage token is empty and if the router is ready. If all of these are true, it redirects the user
   // to the login page (if not already on the login page). If not, it
   // is setting the context's token to the localStorage token.
+
   useEffect(() => {
-    if (token.length === 0) {
+    if (token.length === 0 && typeof localStorage !== "undefined") {
       if (
         localStorage.getItem("token").length === 0 &&
         router.isReady &&
