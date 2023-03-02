@@ -75,7 +75,15 @@ export default function GasPage() {
 
   return (
     <Layout>
-      <Box sx={{ flexGrow: 1, my: 2 }}>
+      <Box
+        sx={{
+          flexGrow: 1,
+          my: 2,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center"
+        }}
+      >
         <Typography variant="h4">Gas Home Page</Typography>
         <Stack
           direction="row"
@@ -98,7 +106,7 @@ export default function GasPage() {
           </Button>
         </Stack>
         {loading ? (
-          <CircularProgress />
+          <CircularProgress sx={{ mt: 4 }} />
         ) : (
           <GasTable gasData={tableGasData.displayTableData} />
         )}

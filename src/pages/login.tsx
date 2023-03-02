@@ -49,8 +49,6 @@ export default function LoginPage() {
         password: inputs.password.value
       };
       const loginUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/login`;
-
-      console.log(loginUrl);
       axios
         .post(loginUrl, userData)
         .then((response) => {
@@ -113,7 +111,11 @@ export default function LoginPage() {
           {loading ? "loading..." : "Sign In"}
         </Button>
 
-        {loading ? <CircularProgress /> : null}
+        {loading ? (
+          <CircularProgress
+            sx={{ mt: 4, mb: 2, mx: "auto", display: "block" }}
+          />
+        ) : null}
         {loginError ? (
           <Alert severity="error">{loginError.message}</Alert>
         ) : null}

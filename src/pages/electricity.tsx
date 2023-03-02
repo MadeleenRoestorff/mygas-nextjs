@@ -66,7 +66,15 @@ export default function ElectricityPage() {
 
   return (
     <Layout>
-      <Box sx={{ flexGrow: 1, my: 2 }}>
+      <Box
+        sx={{
+          flexGrow: 1,
+          my: 2,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center"
+        }}
+      >
         <Typography variant="h4">Electricity Home Page</Typography>
         <Stack
           direction="row"
@@ -86,7 +94,7 @@ export default function ElectricityPage() {
           </Button>
         </Stack>
         {loading ? (
-          <CircularProgress />
+          <CircularProgress sx={{ mt: 4 }} />
         ) : (
           <ElectricityTable elecData={elecTableData.displayTableData} />
         )}
