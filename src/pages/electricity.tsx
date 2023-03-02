@@ -48,9 +48,9 @@ export default function ElectricityPage() {
         });
       };
       void getResults();
-      setLoading(false);
     } else {
       updateElecTableData({ displayTableData: allElecData });
+      setLoading(false);
     }
   }, [tokenContext, allElecData]);
 

@@ -50,9 +50,9 @@ export default function GasPage() {
         });
       };
       void getResults();
-      setLoading(false);
     } else {
       updateTableGasData({ displayTableData: allGasData });
+      setLoading(false);
     }
   }, [tokenContext, allGasData]);
 
