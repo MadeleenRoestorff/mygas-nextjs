@@ -70,6 +70,7 @@ const InnerGridStyling = styled(Grid)`
     &.navlinks {
       justify-content: center;
       padding-top: ${({ theme }) => theme.spacing(1)};
+      padding-bottom: ${({ theme }) => theme.spacing(1)};
     }
     &.title {
       padding-top: ${({ theme }) => theme.spacing(1)};
