@@ -82,6 +82,7 @@ export default function GasPage() {
           divider={<Divider orientation="vertical" flexItem />}
           spacing={2}
           justifyContent="center"
+          sx={{ mt: 2 }}
         >
           <Button onClick={handleReset} variant="outlined">
             Reset

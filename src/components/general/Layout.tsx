@@ -56,6 +56,9 @@ const StyledFooter = styled("footer")`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media (max-width: ${({ theme }) => theme.breakpoints.values.md}px) {
+    flex-direction: column;
+  }
 `;
 
 const BackToHomeLinkStyling = styled("div")`

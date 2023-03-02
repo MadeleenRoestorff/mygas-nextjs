@@ -1,68 +1,13 @@
-import { useState, useEffect } from "react";
-import { styled, useTheme } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Link from "../../Link";
 import Typography from "@mui/material/Typography";
 import Crocuta from "../../../icons/crocuta";
 import Grid from "@mui/material/Unstable_Grid2";
 
-interface AppPropsInterface {
-  show?: number;
-}
-
-let showHeader = 0;
-const navHeight = 64;
-
 export default function Header() {
-  const [scrollDown, setScrollDown] = useState(true);
-  const [maxScrollDown, setMaxScrollDown] = useState(0);
-  const [maxScrollUp, setMaxScrollUp] = useState(0);
-  const [lastScrollY, setLastScrollY] = useState(0);
-
-  const theme = useTheme();
-  const height = Number(theme.spacing(8).replace("px", "")) || navHeight;
-
-  useEffect(() => {
-    if (typeof window === "undefined")
-      return () => {
-        // VOID
-      };
-    const controlNavbar = () => {
-      if (window.scrollY > lastScrollY) {
-        // scrolling down
-        setScrollDown(true);
-        setMaxScrollDown(window.scrollY);
-      } else if (window.scrollY === 0) {
-        setScrollDown(true);
-      } else {
-        // scrolling down
-        setScrollDown(false);
-        setMaxScrollUp(window.scrollY);
-      }
-      // remember current page location to use in the next move
-      setLastScrollY(window.scrollY);
-    };
-
-    window.addEventListener("scroll", controlNavbar);
-    return () => {
-      window.removeEventListener("scroll", controlNavbar);
-    };
-  }, [lastScrollY]);
-
-  if (scrollDown) {
-    if (lastScrollY - maxScrollUp < height) {
-      showHeader = lastScrollY - maxScrollUp;
-    } else {
-      showHeader = height;
-    }
-  } else if (maxScrollDown - lastScrollY < height) {
-    showHeader = height - maxScrollDown + lastScrollY;
-  } else {
-    showHeader = 0;
-  }
-
   return (
-    <AppBarStyling elevation={1} show={showHeader}>
+    <AppBarStyling elevation={1} position="sticky">
       <Grid columns={12} container>
         <InnerGridStyling
           className="title"
@@ -103,13 +48,9 @@ export default function Header() {
   );
 }
 
-const AppBarStyling = styled(AppBar)<AppPropsInterface>`
+const AppBarStyling = styled(AppBar)`
   border-radius: 0;
-  position: ${({ show }) => (show === 0 ? "sticky" : "relative")};
 `;
-
-// transform: ${({ transitionstyle }) =>
-// `translateY(-${transitionstyle}px)`};
 
 const InnerGridStyling = styled(Grid)`
   display: flex;

@@ -114,5 +114,5 @@ const unresponseiveTheme = createTheme({
   }
 });
 // -webkit-tap-highlight-color
-const theme = responsiveFontSizes(unresponseiveTheme, { factor: 4 });
+const theme = responsiveFontSizes(unresponseiveTheme, { factor: 3 });
 export default theme;
