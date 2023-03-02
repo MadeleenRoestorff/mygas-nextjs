@@ -14,7 +14,8 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
-        "prepare": "husky install"
+        "prepare": "husky install",
+        "validate": "scripts/validate.sh"
     },
     "dependencies": {
         "@emotion/cache": "latest",

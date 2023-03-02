@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { styled } from "@mui/material/styles";
 import Container from "@mui/material/Container";
 import Link from "../Link";
-import Header from "./Header/Header";
+import Header from "./header/Header";
 
 export default function Layout({
   children,
@@ -58,9 +58,10 @@ const StyledFooter = styled("footer")`
   align-items: center;
   @media (max-width: ${({ theme }) => theme.breakpoints.values.md}px) {
     flex-direction: column;
-    margin-top: ${({ theme }) => theme.spacing(2)};
-    padding-left: ${({ theme }) => theme.spacing(1)};
-    padding-right: ${({ theme }) => theme.spacing(1)};
+    margin-top: ${({ theme }) => theme.spacing(1)};
+    margin-bottom: ${({ theme }) => theme.spacing(1)};
+    padding-left: ${({ theme }) => theme.spacing(2)};
+    padding-right: ${({ theme }) => theme.spacing(2)};
   }
 `;
 
