@@ -32,7 +32,7 @@ export default function GasPage() {
   };
 
   return (
-    <Layout>
+    <Layout page="gas">
       <UtilTablePageLayout
         utilTitle="Gas Home Page"
         urlPathName="gas"

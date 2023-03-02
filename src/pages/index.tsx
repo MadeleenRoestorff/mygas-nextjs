@@ -50,7 +50,7 @@ export default function Home() {
                   sx={{ cursor: "pointer", p: 4, textAlign: "center" }}
                 >
                   <Icon />
-                  <Typography variant="h4">{title}</Typography>
+                  <Typography variant="h3">{title}</Typography>
                 </Paper>
               </Grid>
             );

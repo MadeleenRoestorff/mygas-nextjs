@@ -74,9 +74,9 @@ export default function LoginPage() {
   };
 
   return (
-    <Layout>
+    <Layout page="login">
       <Stack component="form" noValidate={false}>
-        <Typography variant="h4">Login Page</Typography>
+        <Typography variant="h3">Login Page</Typography>
         <>
           {Object.entries(inputs).map(([label, val]) => {
             // https://html.spec.whatwg.org/multipage/form-control-infrastructure.html

@@ -58,21 +58,25 @@ const unresponseiveTheme = createTheme({
   typography: {
     fontFamily: poiretOne.style.fontFamily,
     h1: {
-      textAlign: "center"
+      textAlign: "center",
+      fontFamily: pompiere.style.fontFamily
     },
     h2: {
-      fontWeight: 400
+      fontWeight: 400,
+      fontFamily: pompiere.style.fontFamily
     },
     h3: {
-      fontWeight: 400
+      fontWeight: 400,
+      fontFamily: pompiere.style.fontFamily,
+      a: {
+        textDecoration: "none"
+      }
     },
     h4: {
       fontWeight: 400,
+      fontFamily: pompiere.style.fontFamily,
       a: {
         textDecoration: "none"
-      },
-      "a:hover": {
-        textDecoration: "underline"
       }
     },
     linkTitle: {
@@ -91,6 +95,7 @@ const unresponseiveTheme = createTheme({
         }
       }
     },
+
     MuiInputLabel: {
       styleOverrides: {
         root: ({ theme }) => ({
@@ -110,9 +115,35 @@ const unresponseiveTheme = createTheme({
           }
         })
       }
+    },
+
+    MuiLink: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          position: "relative",
+          textDecoration: "none",
+          "&::before": {
+            content: "''",
+            position: "absolute",
+            width: 0,
+            height: "2px",
+            bottom: 0,
+            left: 0,
+            backgroundColor: theme.palette.primary.main,
+            visibility: "hidden",
+            transition: "all 0.3s ease-in-out"
+          },
+          "&:hover::before": {
+            visibility: "visible",
+            width: "100%"
+          }
+        })
+      },
+      defaultProps: { underline: "none" }
     }
   }
 });
+
 // -webkit-tap-highlight-color
 const theme = responsiveFontSizes(unresponseiveTheme, { factor: 3 });
 export default theme;
