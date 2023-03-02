@@ -7,10 +7,10 @@ import Crocuta from "../../../icons/crocuta";
 import Grid from "@mui/material/Unstable_Grid2";
 
 interface AppPropsInterface {
-  transitionstyle?: number;
+  show?: number;
 }
 
-let transitionAmount = 0;
+let showHeader = 0;
 const navHeight = 64;
 
 export default function Header() {
@@ -51,22 +51,18 @@ export default function Header() {
 
   if (scrollDown) {
     if (lastScrollY - maxScrollUp < height) {
-      transitionAmount = lastScrollY - maxScrollUp;
+      showHeader = lastScrollY - maxScrollUp;
     } else {
-      transitionAmount = height;
+      showHeader = height;
     }
   } else if (maxScrollDown - lastScrollY < height) {
-    transitionAmount = height - maxScrollDown + lastScrollY;
+    showHeader = height - maxScrollDown + lastScrollY;
   } else {
-    transitionAmount = 0;
+    showHeader = 0;
   }
 
   return (
-    <AppBarStyling
-      elevation={0}
-      position="sticky"
-      transitionstyle={transitionAmount}
-    >
+    <AppBarStyling elevation={1} show={showHeader}>
       <Grid columns={12} container>
         <InnerGridStyling
           className="title"
@@ -109,8 +105,11 @@ export default function Header() {
 
 const AppBarStyling = styled(AppBar)<AppPropsInterface>`
   border-radius: 0;
-  transform: ${({ transitionstyle }) => `translateY(-${transitionstyle}px)`};
+  position: ${({ show }) => (show === 0 ? "sticky" : "relative")};
 `;
+
+// transform: ${({ transitionstyle }) =>
+// `translateY(-${transitionstyle}px)`};
 
 const InnerGridStyling = styled(Grid)`
   display: flex;

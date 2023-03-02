@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import ElectricityTable from "../components/electricity/elecTable";
 import tableReducer from "../components/general/tables/tableReducer";
@@ -18,6 +19,7 @@ const tempFilter: TableParametersInterface[] = [
 
 export default function ElectricityPage() {
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const [allElecData, setAllElecData] = useState<ElecDataInterface[]>([]);
   const tokenContext = useTokenContext();
   const [elecTableData, updateElecTableData] = useReducer<TableReducerType>(
@@ -31,6 +33,7 @@ export default function ElectricityPage() {
 
     // If allElecData has not yet been set make api request to get electricity data and setAllElecData
     if (allElecData.length === 0) {
+      setLoading(true);
       /**
        * The getResults() function is a void function that makes an apiRequest() to the backend, and then
        * resolves the promise
@@ -45,6 +48,7 @@ export default function ElectricityPage() {
         });
       };
       void getResults();
+      setLoading(false);
     } else {
       updateElecTableData({ displayTableData: allElecData });
     }
@@ -80,7 +84,11 @@ export default function ElectricityPage() {
             Latest
           </Button>
         </Stack>
-        <ElectricityTable elecData={elecTableData.displayTableData} />
+        {loading ? (
+          <CircularProgress />
+        ) : (
+          <ElectricityTable elecData={elecTableData.displayTableData} />
+        )}
         {error ? <Alert severity="error">{error}</Alert> : null}
       </Box>
     </Layout>

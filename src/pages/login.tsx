@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/system/Stack";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import Layout from "../components/general/Layout";
 
@@ -111,6 +112,8 @@ export default function LoginPage() {
         <Button onClick={handleLogin} sx={{ mt: 2 }} variant="outlined">
           {loading ? "loading..." : "Sign In"}
         </Button>
+
+        {loading ? <CircularProgress /> : null}
         {loginError ? (
           <Alert severity="error">{loginError.message}</Alert>
         ) : null}
