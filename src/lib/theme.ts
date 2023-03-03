@@ -1,10 +1,12 @@
+/* eslint-disable new-cap */
 import {
   Pompiere,
   Annie_Use_Your_Telescope,
   Babylonica,
   Poiret_One,
   Rubik_Glitch,
-  Sue_Ellen_Francisco
+  Sue_Ellen_Francisco,
+  Open_Sans
 } from "@next/font/google";
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 import { red } from "@mui/material/colors";
@@ -14,6 +16,7 @@ import { red } from "@mui/material/colors";
 // Annie Use Your Telescope
 // Babylonica
 // Rubik Glitch
+// Roboto_Mono
 
 export const pompiere = Pompiere({
   weight: "400",
@@ -39,13 +42,17 @@ export const sueEllenFrancisco = Sue_Ellen_Francisco({
   weight: "400",
   subsets: ["latin"]
 });
+export const openSans = Open_Sans({
+  weight: "400",
+  subsets: ["latin"]
+});
 
 // Create a theme instance.
 const unresponseiveTheme = createTheme({
   palette: {
     mode: "dark",
     primary: {
-      main: "#3f13b5"
+      main: "#865DFF"
     },
     secondary: {
       main: "#00ffff"
@@ -56,7 +63,7 @@ const unresponseiveTheme = createTheme({
     divider: "#777777"
   },
   typography: {
-    fontFamily: poiretOne.style.fontFamily,
+    fontFamily: openSans.style.fontFamily,
     h1: {
       textAlign: "center",
       fontFamily: pompiere.style.fontFamily
@@ -140,6 +147,14 @@ const unresponseiveTheme = createTheme({
         })
       },
       defaultProps: { underline: "none" }
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          fontFamily: pompiere.style.fontFamily,
+          letterSpacing: "1px"
+        }
+      }
     }
   }
 });

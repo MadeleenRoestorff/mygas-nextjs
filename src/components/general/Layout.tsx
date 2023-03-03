@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { styled } from "@mui/material/styles";
 import Container from "@mui/material/Container";
 import Header from "./header/Header";
+import { pompiere } from "../../lib/theme";
 
 export default function Layout({
   children,
@@ -43,6 +44,7 @@ const StyledFooter = styled("footer")`
   width: 100%;
   border-top: 1px solid ${({ theme }) => theme.palette.primary.main};
   text-align: center;
+  font-family: ${pompiere.style.fontFamily};
   @media (max-width: ${({ theme }) => theme.breakpoints.values.md}px) {
     padding-left: ${({ theme }) => theme.spacing(2)};
     padding-right: ${({ theme }) => theme.spacing(2)};
