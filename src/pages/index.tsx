@@ -40,7 +40,7 @@ export default function Home() {
 
   return (
     <Layout>
-      <Box sx={{ flexGrow: 1, my: 2 }}>
+      <Box sx={{ flexGrow: 1, my: 2, px: 2, overflow: "hidden" }}>
         <Grid container justifyContent="center" spacing={2}>
           {content.map(({ title, Icon, link }) => {
             return (
@@ -50,7 +50,7 @@ export default function Home() {
                   sx={{ cursor: "pointer", p: 4, textAlign: "center" }}
                 >
                   <Icon />
-                  <Typography variant="h4">{title}</Typography>
+                  <Typography variant="h3">{title}</Typography>
                 </Paper>
               </Grid>
             );

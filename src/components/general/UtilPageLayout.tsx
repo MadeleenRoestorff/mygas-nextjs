@@ -67,19 +67,25 @@ export default function UtilTablePageLayout({
     <Box
       sx={{
         flexGrow: 1,
-        my: 2,
+        mt: 2,
         display: "flex",
         flexDirection: "column",
-        alignItems: "center"
+        alignItems: "center",
+        overflow: "hidden"
       }}
     >
-      <Typography variant="h4">{utilTitle}</Typography>
+      <Typography variant="h3">{utilTitle}</Typography>
       <Stack
         direction="row"
         divider={<Divider orientation="vertical" flexItem />}
         spacing={2}
-        justifyContent="center"
-        sx={{ mt: 2 }}
+        justifyContent={{ sm: "center", xs: "flex-start" }}
+        sx={{
+          mt: 2,
+          overflowX: "auto",
+          width: "-webkit-fill-available",
+          px: 1
+        }}
       >
         <Button onClick={handleReset} variant="outlined">
           Reset

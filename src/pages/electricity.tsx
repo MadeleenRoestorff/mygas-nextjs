@@ -24,7 +24,7 @@ export default function ElectricityPage() {
   };
 
   return (
-    <Layout>
+    <Layout page="elec">
       <UtilTablePageLayout
         utilTitle="Electricity Home Page"
         urlPathName="electricity"
