@@ -40,7 +40,7 @@ export default function Home() {
 
   return (
     <Layout>
-      <Box sx={{ flexGrow: 1, my: 2, px: 2 }}>
+      <Box sx={{ flexGrow: 1, my: 2, px: 2, overflow: "hidden" }}>
         <Grid container justifyContent="center" spacing={2}>
           {content.map(({ title, Icon, link }) => {
             return (

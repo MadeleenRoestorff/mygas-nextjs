@@ -29,7 +29,6 @@ const LayoutStyling = styled("div")`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
 `;
 
 const ContainerStyling = styled(Container)`
