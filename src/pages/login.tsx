@@ -75,7 +75,7 @@ export default function LoginPage() {
 
   return (
     <Layout page="login">
-      <Stack component="form" noValidate={false}>
+      <Stack component="form" noValidate={false} sx={{ p: 3 }}>
         <Typography variant="h3">Login Page</Typography>
         <>
           {Object.entries(inputs).map(([label, val]) => {

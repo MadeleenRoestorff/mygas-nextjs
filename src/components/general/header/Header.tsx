@@ -64,14 +64,16 @@ const InnerGridStyling = styled(Grid)`
       text-shadow: 0px 4px 3px rgba(2, 2, 2, 0.6),
         0px 8px 13px rgba(0, 0, 0, 0.9), 0px 18px 23px rgba(0, 0, 0, 0.1);
     }
-
-    padding: 0 ${({ theme }) => theme.spacing(2)};
+    padding: ${({ theme }) => `${theme.spacing(1)} ${theme.spacing(2)}`};
   }
   svg {
     max-height: ${({ theme }) => theme.spacing(8)};
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.values.md}px) {
+    h3 {
+      padding: 0 ${({ theme }) => theme.spacing(2)};
+    }
     &.logo {
       justify-content: flex-end;
       padding-right: ${({ theme }) => theme.spacing(2)};
