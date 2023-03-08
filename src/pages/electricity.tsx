@@ -29,9 +29,8 @@ export default function ElectricityPage() {
         utilTitle="Electricity Home Page"
         urlPathName="electricity"
         updateTableData={updateElecTableData}
-        tableComponent={
-          <ElectricityTable elecData={elecTableData.displayTableData} />
-        }
+        tableDisplayData={elecTableData.displayTableData}
+        TableComponent={ElectricityTable}
       >
         <Button onClick={handleFilter} variant="outlined">
           Random Filter

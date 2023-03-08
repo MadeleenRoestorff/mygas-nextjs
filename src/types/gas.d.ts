@@ -4,4 +4,5 @@ interface GasDataInterface {
   units?: number;
   measuredAt?: Date;
   uuid?: string;
+  rate?: number;
 }

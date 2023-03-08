@@ -1,4 +1,11 @@
-import { useState, useEffect, ReactNode, Dispatch } from "react";
+import {
+  useState,
+  useEffect,
+  ReactNode,
+  Dispatch,
+  SetStateAction,
+  ComponentType
+} from "react";
 
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -11,18 +18,27 @@ import Button from "@mui/material/Button";
 import apiRequest from "../services/apiRequest";
 import { useTokenContext } from "../services/TokenContext";
 
+interface UtilTableInterface {
+  displayData?: GasDataInterface[] | ElecDataInterface[];
+  setAllData?: Dispatch<
+    SetStateAction<GasDataInterface[] | ElecDataInterface[]>
+  >;
+}
+
 export default function UtilTablePageLayout({
   utilTitle = "Gas",
   urlPathName = "gas",
-  tableComponent,
+  TableComponent,
   children,
-  updateTableData
+  updateTableData,
+  tableDisplayData
 }: {
   utilTitle: string;
   urlPathName: string;
-  tableComponent: ReactNode;
+  TableComponent: ComponentType<UtilTableInterface>;
   children: ReactNode;
   updateTableData: Dispatch<TableStateInteface>;
+  tableDisplayData: GasDataInterface[] | ElecDataInterface[];
 }) {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -92,7 +108,14 @@ export default function UtilTablePageLayout({
         </Button>
         {children}
       </Stack>
-      {loading ? <CircularProgress sx={{ mt: 4 }} /> : tableComponent}
+      {loading && !tableDisplayData ? (
+        <CircularProgress sx={{ mt: 4 }} />
+      ) : (
+        <TableComponent
+          setAllData={setAllData}
+          displayData={tableDisplayData}
+        />
+      )}
       {error ? <Alert severity="error">{error}</Alert> : null}
     </Box>
   );

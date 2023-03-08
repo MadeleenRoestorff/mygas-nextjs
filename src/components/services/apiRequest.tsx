@@ -8,16 +8,26 @@ import elecTypeResponse from "../electricity/elecTypeResponse";
 interface Payload {
   units?: number;
   topup?: number;
+  electricity?: number;
 }
 
 /**
- * It's an async function that makes an API request to the server, and then sets the data in the state
- * @param  - urlPathName - urlPathName - the pathname of the API endpoint you want to hit
- * @param  - tokenContext - tokenStateContext object.
- * @param  - setError - set error state if axious request fails.
- * @param  - method - post patch or get axios method.
- * @param  - payload - data to post or patch on the server.
+ * apiRequest is an async function that makes an API request to the server, and then sets the data in the state
+ * @param {string} {urlPathName} - the pathname of the API endpoint you want to hit
+ * @param {TokenContextInterface} {tokenContext} - tokenStateContext object.
+ * @param {Dispatch<SetStateAction<string>>} {setError} - set error state if axious request fails.
+ * @param {Dispatch<SetStateAction<string>>} {setData} - set data with axious data.
+ * @param {string} {method} - post patch or get axios method.
+ * @param {Payload} {payload} - data to post or patch on the server.
  */
+
+// A function that takes in an object with the following properties:
+// urlPathName: string;
+// tokenContext: TokenContextInterface;
+// setError:
+// setData?:
+// method?:
+// payload?: Partial<Payload>;
 const apiRequest = async ({
   urlPathName = "",
   tokenContext,
@@ -27,10 +37,9 @@ const apiRequest = async ({
   payload = {}
 }: {
   urlPathName: string;
-
   tokenContext: TokenContextInterface;
   setError: Dispatch<SetStateAction<Partial<string>>>;
-  setData: Dispatch<SetStateAction<GasDataInterface[] | ElecDataInterface[]>>;
+  setData?: Dispatch<SetStateAction<GasDataInterface[] | ElecDataInterface[]>>;
   method?: string;
   payload?: Partial<Payload>;
 }) => {
@@ -56,6 +65,7 @@ const apiRequest = async ({
 
   await requestFunction()
     .then((response) => {
+      //   console.log(response);
       // Creating a new array of GasDataInterface objects.
       // Checking if the response data is an array, and if it is, then it is looping
       // through the array and creating a new array of GasDataInterface objects.
@@ -65,7 +75,10 @@ const apiRequest = async ({
         urlPathName.includes("gas")
       ) {
         setData(gasTypeResponse(response));
-      } else if (urlPathName.includes("electricity")) {
+      } else if (
+        urlPathName.includes("electricity") &&
+        Array.isArray(response.data)
+      ) {
         setData(elecTypeResponse(response));
       } else {
         console.error("No Data to set");

@@ -37,7 +37,8 @@ export default function GasPage() {
         utilTitle="Gas Home Page"
         urlPathName="gas"
         updateTableData={updateTableGasData}
-        tableComponent={<GasTable gasData={tableGasData.displayTableData} />}
+        tableDisplayData={tableGasData.displayTableData}
+        TableComponent={GasTable}
       >
         <Button onClick={handleFilter} variant="outlined">
           Random Filter

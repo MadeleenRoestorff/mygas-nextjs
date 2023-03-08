@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import TableContainerBox from "../general/tables/TableContainerBox";
@@ -7,51 +8,60 @@ const headCells: readonly HeadCell[] = [
     id: "gasLogID",
     numeric: false,
     disablePadding: false,
-    label: "ID"
+    label: "ID",
+    width: 10
   },
   {
     id: "units",
     numeric: true,
     disablePadding: false,
-    label: "Units"
+    label: "Units",
+    width: 20
+  },
+  {
+    id: "rate",
+    numeric: true,
+    disablePadding: false,
+    label: "Units/week",
+    width: 20
   },
   {
     id: "topup",
     numeric: true,
     disablePadding: false,
-    label: "Topup"
+    label: "Topup",
+    width: 20
   },
 
   {
     id: "measuredAt",
     numeric: true,
     disablePadding: false,
-    label: "Date"
+    label: "Date",
+    width: 20
   }
 ];
 
 const emptyArray: GasDataInterface[] = [];
 export default function GasTable({
-  gasData = emptyArray
+  gasData = emptyArray,
+  setAllData
 }: {
   gasData: GasDataInterface[];
+  setAllData: Dispatch<SetStateAction<GasDataInterface[]>>;
 }) {
+  console.log(setAllData);
   return (
     <TableContainerBox headCells={headCells} tableLable="Gas Data">
-      {gasData?.map(({ gasLogID, topup, units, measuredAt }, index) => {
-        const labelId = `table-${index}`;
+      {gasData?.map(({ gasLogID, topup, units, measuredAt, rate }) => {
+        const labelId = `table-${gasLogID}`;
         return (
           <TableRow hover key={`tablerow-${gasLogID}`}>
-            <TableCell sx={{ width: "10%" }} id={labelId}>
-              {gasLogID}
-            </TableCell>
-            <TableCell align="right" sx={{ width: "30%" }}>
-              {units}
-            </TableCell>
-            <TableCell align="right" sx={{ width: "30%" }}>
-              {topup}
-            </TableCell>
-            <TableCell align="right" sx={{ width: "30%" }}>
+            <TableCell id={labelId}>{gasLogID}</TableCell>
+            <TableCell align="right">{units > 0 ? units : "-"}</TableCell>
+            <TableCell align="right">{rate === 0 ? "-" : rate}</TableCell>
+            <TableCell align="right">{topup}</TableCell>
+            <TableCell align="right">
               {`${measuredAt.toDateString()} ${measuredAt.toLocaleTimeString(
                 "en-UK"
               )}`}

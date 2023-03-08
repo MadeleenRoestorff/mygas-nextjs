@@ -1,3 +1,4 @@
+/* eslint-disable max-statements */
 import { AxiosResponse } from "axios";
 /**
  * createGasData is a function that takes in 6 parameters and returns an object with the same 6
@@ -19,14 +20,16 @@ const createGasData = (
   topup: number,
   units: number,
   measuredAt: Date,
-  uuid: string
+  uuid: string,
+  rate: number
 ): GasDataInterface => {
   return {
     gasLogID,
     topup,
     units,
     measuredAt,
-    uuid
+    uuid,
+    rate
   };
 };
 
@@ -37,6 +40,8 @@ const createGasData = (
  */
 const gasTypeResponse = (response: AxiosResponse): GasDataInterface[] => {
   const gasResponseArray: GasDataInterface[] = [];
+  let prevUnits = 0;
+  let prevDate = new Date("1992-11-05").getTime();
 
   if (response.data && Array.isArray(response.data)) {
     response.data.forEach((gasEntry: GasDataInterface) => {
@@ -64,8 +69,29 @@ const gasTypeResponse = (response: AxiosResponse): GasDataInterface[] => {
         }
       });
 
+      const measureTime = measuredAt.getTime();
+      // Adjustedments for initial previous values
+      prevDate = prevUnits === 0 ? measureTime : prevDate;
+      prevUnits = prevUnits === 0 ? units : prevUnits;
+
+      // Calculate raw rate in units per milliseconds
+      const deltaTimeMS = measureTime - prevDate;
+      const used = units > 0 ? units - topup - prevUnits : 0;
+      const rateRaw = used > 0 || deltaTimeMS > 0 ? used / deltaTimeMS : 0;
+
+      // Update previous values with current values
+      prevDate = units > 0 ? measureTime : prevDate;
+      prevUnits = units > 0 ? units : prevUnits;
+
       gasResponseArray.push(
-        createGasData(gasLogID, topup, units, measuredAt, uuid)
+        createGasData(
+          gasLogID,
+          topup,
+          units,
+          measuredAt,
+          uuid,
+          Number((rateRaw * -604800).toFixed(4))
+        )
       );
     });
   }

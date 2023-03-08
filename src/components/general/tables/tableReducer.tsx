@@ -1,3 +1,4 @@
+/* eslint-disable max-statements */
 /**
  * It takes in a state object and an action object and returns a new state object
  * @param state - TableStateInteface,
