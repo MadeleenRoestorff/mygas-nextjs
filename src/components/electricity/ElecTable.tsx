@@ -1,4 +1,4 @@
-import { useState, Dispatch, SetStateAction } from "react";
+import { useState } from "react";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import TableContainerBox from "../general/tables/TableContainerBox";
@@ -39,10 +39,10 @@ const headCells: readonly HeadCell[] = [
 const emptyArray: ElecDataInterface[] = [];
 export default function ElectricityTable({
   displayData = emptyArray,
-  setAllData
+  triggerDataRefresh
 }: {
   displayData?: ElecDataInterface[];
-  setAllData?: Dispatch<SetStateAction<ElecDataInterface[]>>;
+  triggerDataRefresh?: () => Promise<void>;
 }) {
   const [editID, setEditID] = useState(0);
   const handleEdit = (ElecLogID: number): void => {
@@ -68,7 +68,7 @@ export default function ElectricityTable({
               electricity={electricity}
               measuredAt={measuredAt}
               edit={setEditID}
-              setAllData={setAllData}
+              triggerDataRefresh={triggerDataRefresh}
             />
           );
         }

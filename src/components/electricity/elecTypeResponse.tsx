@@ -1,19 +1,4 @@
 import { AxiosResponse } from "axios";
-/**
- * createElecData is a function that takes in 6 parameters and returns an object with the same 6
- * properties
- * @param {number} ElecLogID   - The ID of the electricity log.
- * @param {number} electricity - The total electricity usage thusfar.
- * @param {string} uuid        - The unique identifier for the electricity data entry.
- * @param {Date} measuredAt    - Date of electricity measurement,
- * @param {number} used        - The electricty usage since previous reading,
- * @returns An object with the following properties:
- * ElecLogID,
- * electricity,
- * uuid,
- * measuredAt,
- * used
- */
 
 /**
  * If the type of the value is object and the value is not an array, then return true.
@@ -24,7 +9,18 @@ const isObject = (val: unknown): val is object => {
   return typeof val === "object" && !Array.isArray(val);
 };
 
-const electDataObject = (
+/**
+ * createElectData takes an object and a number and returns an object
+ * @param {object} elecEntry - object - This is the object that is passed in from the API.
+ * @param {number} prevElec - number  - This is the previous electricity reading.
+ * @returns An object with the following properties:
+ * - ElecLogID - number     - The ID of the electricity log.
+ * - electricity - number   - The total electricity usage thusfar.
+ * - uuid - string          - The unique identifier for the electricity data entry.
+ * - measuredAt - string    - Date of electricity measurement,
+ * - used - number          - The electricty usage since previous reading,
+ */
+const createElectData = (
   elecEntry: object,
   prevElec: number
 ): ElecDataInterface => {
@@ -63,21 +59,23 @@ const electDataObject = (
 };
 
 /**
- * It takes an AxiosResponse object and returns an array of ElecDataInterface objects.
+ * ElecDataExtract takes an AxiosResponse object and returns an array of ElecDataInterface objects
+ * with a new property (usage) added to each ElecDataInterface object.
  * @param {AxiosResponse} response - AxiosResponse - This is the response from the API call.
- * @returns An array of ElecDataInterface objects.
+ * @returns An array of ElecDataInterface objects that have been modified from the original data.
  */
-const elecDataType = (response: AxiosResponse): ElecDataInterface[] => {
+const elecDataExtract = (response: AxiosResponse): ElecDataInterface[] => {
   const elecResponseArray: ElecDataInterface[] = [];
   let prevElec = 0;
   if (response.data && Array.isArray(response.data)) {
     response.data.forEach((elecEntry: ElecDataInterface) => {
-      const newElectDataObject = electDataObject(elecEntry, prevElec);
+      const newElectDataObject = createElectData(elecEntry, prevElec);
       elecResponseArray.push(newElectDataObject);
+      // Update previous electricty reading
       prevElec = newElectDataObject.electricity;
     });
   }
   return elecResponseArray;
 };
 
-export default elecDataType;
+export default elecDataExtract;

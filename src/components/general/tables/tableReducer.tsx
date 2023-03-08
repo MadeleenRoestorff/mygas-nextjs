@@ -27,7 +27,7 @@ const tableReducer = (
     return newState;
   }
 
-  /* Filtering the table data. */
+  // Filtering the table data.
   if (tablefilterParams.length > 0 && state.displayTableData.length > 0) {
     const newState = { ...state };
     tablefilterParams.forEach((filterItem: TableParametersInterface) => {
@@ -64,7 +64,7 @@ const tableReducer = (
     return newState;
   }
 
-  /* Sorting the table data. */
+  // Sorting the table data.
   if (sorted && state.displayTableData.length > 0) {
     const newState = { ...state };
     const tableData: (GasDataInterface | ElecDataInterface)[] =

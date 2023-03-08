@@ -10,13 +10,13 @@ export default function EditElecRow({
   electricity,
   measuredAt,
   edit,
-  setAllData
+  triggerDataRefresh
 }: {
   ElecLogID?: number;
   electricity?: number;
   measuredAt?: Date;
   edit?: Dispatch<SetStateAction<Partial<number>>>;
-  setAllData?: Dispatch<SetStateAction<ElecDataInterface[]>>;
+  triggerDataRefresh?: () => Promise<void>;
 }) {
   const [elec, setElec] = useState(electricity);
   const [error, setError] = useState("");
@@ -37,8 +37,7 @@ export default function EditElecRow({
       });
     };
     void getResults().finally(() => {
-      const emptyArray: ElecDataInterface[] = [];
-      setAllData(emptyArray);
+      void triggerDataRefresh();
       edit(0);
     });
   };

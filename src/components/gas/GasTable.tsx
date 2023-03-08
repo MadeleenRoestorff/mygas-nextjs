@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import TableContainerBox from "../general/tables/TableContainerBox";
@@ -44,16 +43,16 @@ const headCells: readonly HeadCell[] = [
 
 const emptyArray: GasDataInterface[] = [];
 export default function GasTable({
-  gasData = emptyArray,
-  setAllData
+  displayData = emptyArray,
+  triggerDataRefresh
 }: {
-  gasData: GasDataInterface[];
-  setAllData: Dispatch<SetStateAction<GasDataInterface[]>>;
+  displayData: GasDataInterface[];
+  triggerDataRefresh: () => Promise<void>;
 }) {
-  console.log(setAllData);
+  console.log(triggerDataRefresh);
   return (
     <TableContainerBox headCells={headCells} tableLable="Gas Data">
-      {gasData?.map(({ gasLogID, topup, units, measuredAt, rate }) => {
+      {displayData?.map(({ gasLogID, topup, units, measuredAt, rate }) => {
         const labelId = `table-${gasLogID}`;
         return (
           <TableRow hover key={`tablerow-${gasLogID}`}>
