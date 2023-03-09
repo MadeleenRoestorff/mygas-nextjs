@@ -2,21 +2,34 @@ import axios from "axios";
 import { TokenContextInterface } from "./TokenContext";
 import { Dispatch, SetStateAction } from "react";
 import { StatusCodes } from "http-status-codes";
-import gasTypeResponse from "../gas/gasTypeResponse";
-import elecTypeResponse from "../electricity/elecTypeResponse";
+import gasDataExtract from "../gas/gasTypeResponse";
+import elecDataExtract from "../electricity/elecTypeResponse";
 
 interface Payload {
   units?: number;
   topup?: number;
+  electricity?: number;
+}
+
+interface ApiRequestProps {
+  urlPathName: string;
+  tokenContext: TokenContextInterface;
+  setError: Dispatch<SetStateAction<Partial<string>>>;
+  setData?: Dispatch<SetStateAction<GasDataInterface[] | ElecDataInterface[]>>;
+  method?: string;
+  payload?: Partial<Payload>;
 }
 
 /**
- * It's an async function that makes an API request to the server, and then sets the data in the state
- * @param  - urlPathName - urlPathName - the pathname of the API endpoint you want to hit
- * @param  - tokenContext - tokenStateContext object.
- * @param  - setError - set error state if axious request fails.
- * @param  - method - post patch or get axios method.
- * @param  - payload - data to post or patch on the server.
+ * apiRequest is an async function that makes an API request to the server, and then sets the data in the state
+ * It takes in an object of type ApiRequestProps, and returns a function that returns a promise
+ * @param {ApiRequestProps}  apiRequest
+ * @param {string} apiRequest.urlPathName - the pathname of the API endpoint you want to hit
+ * @param {TokenContextInterface} apiRequest.tokenContext - tokenStateContext object.
+ * @param {Dispatch<SetStateAction<string>>} apiRequest.setError - set error state if axious request fails.
+ * @param {Dispatch<SetStateAction<GasDataInterface[] | ElecDataInterface[]>>} apiRequest.setData - set data with axious data.
+ * @param {string} apiRequest.method - post patch or get axios method.
+ * @param {Payload} apiRequest.payload  - data to post or patch on the server.
  */
 const apiRequest = async ({
   urlPathName = "",
@@ -25,15 +38,7 @@ const apiRequest = async ({
   setData,
   method = "get",
   payload = {}
-}: {
-  urlPathName: string;
-
-  tokenContext: TokenContextInterface;
-  setError: Dispatch<SetStateAction<Partial<string>>>;
-  setData: Dispatch<SetStateAction<GasDataInterface[] | ElecDataInterface[]>>;
-  method?: string;
-  payload?: Partial<Payload>;
-}) => {
+}: ApiRequestProps) => {
   const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/${urlPathName}`;
   const { token, updateToken } = tokenContext;
   const headers = { Authorization: `Bearer ${token}` };
@@ -64,9 +69,12 @@ const apiRequest = async ({
         Array.isArray(response.data) &&
         urlPathName.includes("gas")
       ) {
-        setData(gasTypeResponse(response));
-      } else if (urlPathName.includes("electricity")) {
-        setData(elecTypeResponse(response));
+        setData(gasDataExtract(response));
+      } else if (
+        urlPathName.includes("electricity") &&
+        Array.isArray(response.data)
+      ) {
+        setData(elecDataExtract(response));
       } else {
         console.error("No Data to set");
       }

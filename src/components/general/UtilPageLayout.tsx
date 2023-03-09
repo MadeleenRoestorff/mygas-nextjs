@@ -8,26 +8,28 @@ import Divider from "@mui/material/Divider";
 import CircularProgress from "@mui/material/CircularProgress";
 import Button from "@mui/material/Button";
 
+import TableComponentSelector from "./tables/TableComponentSelector";
 import apiRequest from "../services/apiRequest";
 import { useTokenContext } from "../services/TokenContext";
 
 export default function UtilTablePageLayout({
   utilTitle = "Gas",
   urlPathName = "gas",
-  tableComponent,
   children,
-  updateTableData
+  updateTableData,
+  tableDisplayData
 }: {
   utilTitle: string;
-  urlPathName: string;
-  tableComponent: ReactNode;
+  urlPathName: "gas" | "electricity";
   children: ReactNode;
   updateTableData: Dispatch<TableStateInteface>;
+  tableDisplayData: GasDataInterface[] | ElecDataInterface[];
 }) {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [addNew, setAddNew] = useState(false);
   const tokenContext = useTokenContext();
-  const [allData, setAllData] = useState<
+  const [dataFromServer, setDataFromServer] = useState<
     GasDataInterface[] | ElecDataInterface[]
   >([]);
 
@@ -35,32 +37,43 @@ export default function UtilTablePageLayout({
     // If context token has not yet been set return from useEffect hook
     if (tokenContext.token === "") return;
 
-    // If allData has not yet been set make api request to get gas / electricity data and setAllData
-    if (allData.length === 0) {
+    // If dataFromServer has not yet been set make api request to get gas / electricity data and setAllData
+    if (dataFromServer.length === 0) {
       setLoading(true);
-      /**
-       * The getResults() function is a void function that makes an apiRequest() to the backend, and then
-       * resolves the promise
-       */
-      const getResults = async () => {
-        await apiRequest({
-          urlPathName,
-          method: "get",
-          tokenContext,
-          setError,
-          setData: setAllData
-        });
-      };
-      void getResults();
+      // triggerDataRefresh() is a void function that makes an apiRequest() to the backend,
+      // the returned Promise<void> is resolved below/here
+      void triggerDataRefresh();
     } else {
-      updateTableData({ displayTableData: allData });
+      updateTableData({ displayTableData: dataFromServer });
       setLoading(false);
     }
-  }, [tokenContext, allData, setAllData, updateTableData, urlPathName]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tokenContext, dataFromServer, updateTableData, urlPathName]);
+
+  /**
+   * TriggerDataRefresh makes a GET request to the server, and then sets the data returned from the server to the state
+   * variable `dataFromServer`
+   */
+  const triggerDataRefresh = async () => {
+    if (tokenContext.token && setDataFromServer && urlPathName) {
+      await apiRequest({
+        urlPathName,
+        method: "get",
+        tokenContext,
+        setError,
+        setData: setDataFromServer
+      });
+      setAddNew(false);
+    }
+  };
 
   // handleReset sets the displayTableData state to the allData state
   const handleReset = () => {
-    updateTableData({ displayTableData: allData });
+    updateTableData({ displayTableData: dataFromServer });
+  };
+
+  const handleAddNew = () => {
+    setAddNew(true);
   };
 
   return (
@@ -87,12 +100,24 @@ export default function UtilTablePageLayout({
           px: 1
         }}
       >
+        <Button onClick={handleAddNew} variant="outlined">
+          Add new reading
+        </Button>
         <Button onClick={handleReset} variant="outlined">
           Reset
         </Button>
         {children}
       </Stack>
-      {loading ? <CircularProgress sx={{ mt: 4 }} /> : tableComponent}
+      {loading && typeof tableDisplayData === "undefined" ? (
+        <CircularProgress sx={{ mt: 4 }} />
+      ) : (
+        <TableComponentSelector
+          urlPathName={urlPathName}
+          triggerDataRefresh={triggerDataRefresh}
+          tableDisplayData={tableDisplayData}
+          addNew={addNew}
+        />
+      )}
       {error ? <Alert severity="error">{error}</Alert> : null}
     </Box>
   );

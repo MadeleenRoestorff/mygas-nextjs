@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-depth */
 import { ReactNode } from "react";
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
@@ -26,15 +27,19 @@ export default function TableContainerBox({
           <Table aria-labelledby={tableLable}>
             <TableHead>
               <TableRow>
-                {headCells.map(({ id, numeric, disablePadding, label }) => (
-                  <TableCell
-                    key={id}
-                    align={numeric ? "right" : "left"}
-                    padding={disablePadding ? "none" : "normal"}
-                  >
-                    {label}
-                  </TableCell>
-                ))}
+                {headCells.map(
+                  ({ id, numeric, disablePadding, label, width }) => (
+                    <TableCell
+                      key={id}
+                      align={numeric ? "right" : "left"}
+                      padding={disablePadding ? "none" : "normal"}
+                      sx={{ width: `${width}%` }}
+                    >
+                      {label}
+                    </TableCell>
+                  )
+                )}
+                <TableCell>Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>{children}</TableBody>

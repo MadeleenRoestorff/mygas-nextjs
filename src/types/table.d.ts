@@ -8,6 +8,7 @@ interface TableStateInteface {
   displayTableData?: GasDataInterface[] | ElecDataInterface[];
   tablefilterParams?: TableParametersInterface[];
   sorted?: boolean;
+  addNew?: boolean;
 }
 
 interface HeadCell {
@@ -15,4 +16,5 @@ interface HeadCell {
   id: keyof GasDataInterface | keyof ElecDataInterface;
   label: string;
   numeric: boolean;
+  width: number;
 }

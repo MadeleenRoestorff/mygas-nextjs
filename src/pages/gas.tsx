@@ -2,7 +2,6 @@ import { useReducer, Reducer } from "react";
 import Button from "@mui/material/Button";
 
 import Layout from "../components/general/Layout";
-import GasTable from "../components/gas/GasTable";
 import UtilTablePageLayout from "../components/general/UtilPageLayout";
 import tableReducer from "../components/general/tables/tableReducer";
 
@@ -37,7 +36,7 @@ export default function GasPage() {
         utilTitle="Gas Home Page"
         urlPathName="gas"
         updateTableData={updateTableGasData}
-        tableComponent={<GasTable gasData={tableGasData.displayTableData} />}
+        tableDisplayData={tableGasData.displayTableData}
       >
         <Button onClick={handleFilter} variant="outlined">
           Random Filter

@@ -1,4 +1,3 @@
-/* eslint-disable new-cap */
 import {
   Pompiere,
   Annie_Use_Your_Telescope,

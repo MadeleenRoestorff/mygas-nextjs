@@ -133,7 +133,9 @@
                     "Babylonica",
                     "Poiret_One",
                     "Rubik_Glitch",
-                    "Sue_Ellen_Francisco"
+                    "Sue_Ellen_Francisco",
+                    "Open_Sans",
+                    "ElectricityTable"
                 ]
             }
         ],
@@ -188,8 +190,10 @@
                     1,
                     2,
                     3,
+                    4,
                     7,
-                    8
+                    8,
+                    -604800
                 ]
             }
         ],

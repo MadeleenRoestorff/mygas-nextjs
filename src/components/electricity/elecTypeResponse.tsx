@@ -1,75 +1,87 @@
 import { AxiosResponse } from "axios";
+
 /**
- * createElecData is a function that takes in 6 parameters and returns an object with the same 6
- * properties
- * @param {number} ElecLogID   - The ID of the electricity log.
- * @param {number} electricity - The electricity usage.
- * @param {string} uuid        - The unique identifier for the electricity data entry.
- * @param {Date} measuredAt    - Date of electricity measurement,
- * @returns An object with the following properties:
- * ElecLogID,
- * electricity,
- * uuid,
- * measuredAt,
+ * If the type of the value is object and the value is not an array, then return true.
+ * @param {unknown} val - unknown - This is the value that we want to check.
+ * @returns A function that takes a value and returns true if the value is an object and not an array.
  */
-const createElecData = (
-  ElecLogID: number,
-  electricity: number,
-  used: number,
-  uuid: string,
-  measuredAt: Date
+const isObject = (val: unknown): val is object => {
+  return typeof val === "object" && !Array.isArray(val);
+};
+
+/**
+ * createElectData takes an object and a number and returns an object
+ * @param {object} elecEntry - object - This is the object that is passed in from the API.
+ * @param {number} prevElec  - number - This is the previous electricity reading.
+ * @returns An object with the following properties:
+ * - ElecLogID - number     - The ID of the electricity log.
+ * - electricity - number   - The total electricity usage thusfar.
+ * - uuid - string          - The unique identifier for the electricity data entry.
+ * - measuredAt - string    - Date of electricity measurement,
+ * - used - number          - The electricty usage since previous reading,
+ */
+const createElectData = (
+  elecEntry: object,
+  prevElec: number
 ): ElecDataInterface => {
+  let ElecLogID = 0;
+  let electricity = 0;
+  let uuid = "";
+  let measuredAt = new Date();
+
+  if (isObject(elecEntry)) {
+    Object.entries(elecEntry).forEach(([label, value]) => {
+      if (label === "ElecLogID" && typeof value === "number") {
+        ElecLogID = value;
+      }
+      if (label === "electricity" && typeof value === "number") {
+        electricity = value;
+      }
+      if (label === "uuid" && typeof value === "string") {
+        uuid = value;
+      }
+      if (label === "measuredAt" && typeof value === "string") {
+        measuredAt = new Date(value);
+      }
+    });
+  }
+
+  // Electricity Usage Calculations
+  const used = electricity - (prevElec === 0 ? electricity : prevElec);
+
   return {
     ElecLogID,
     electricity,
-    used,
     uuid,
-    measuredAt
+    measuredAt,
+    used
   };
 };
 
 /**
- * It takes an AxiosResponse object and returns an array of ElecDataInterface objects
+ * ElecDataExtract takes an AxiosResponse object and returns an array of ElecDataInterface objects
+ * with a new property (usage) added to each ElecDataInterface object.
  * @param {AxiosResponse} response - AxiosResponse - This is the response from the API call.
- * @returns An array of ElecDataInterface objects.
+ * @returns An array of ElecDataInterface objects that have been modified from the original data.
  */
-const elecDataType = (response: AxiosResponse): ElecDataInterface[] => {
+const elecDataExtract = (response: AxiosResponse): ElecDataInterface[] => {
+  // Initialise
   const elecResponseArray: ElecDataInterface[] = [];
-  let prevReading = 0;
+  let prevElec = 0;
 
+  // Check if there is response data and response data is an array
   if (response.data && Array.isArray(response.data)) {
+    // Loop through all the response data
     response.data.forEach((elecEntry: ElecDataInterface) => {
-      let ElecLogID = 0;
-      let electricity = 0;
-      let uuid = "";
-      let measuredAt = new Date();
+      // Create a new Electricty data object and push it to elecResponseArray
+      const newElectDataObject = createElectData(elecEntry, prevElec);
+      elecResponseArray.push(newElectDataObject);
 
-      Object.entries(elecEntry).forEach(([label, value]) => {
-        if (label === "ElecLogID" && typeof value === "number") {
-          ElecLogID = value;
-        }
-        if (label === "electricity" && typeof value === "number") {
-          electricity = value;
-        }
-        if (label === "uuid" && typeof value === "string") {
-          uuid = value;
-        }
-        if (label === "measuredAt" && typeof value === "string") {
-          measuredAt = new Date(value);
-        }
-      });
-
-      // Electricity Usage Calculations
-      const used =
-        electricity - (prevReading === 0 ? electricity : prevReading);
-      prevReading = electricity;
-
-      elecResponseArray.push(
-        createElecData(ElecLogID, electricity, used, uuid, measuredAt)
-      );
+      // Update previous electricty reading
+      prevElec = newElectDataObject.electricity;
     });
   }
   return elecResponseArray;
 };
 
-export default elecDataType;
+export default elecDataExtract;

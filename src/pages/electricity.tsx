@@ -2,7 +2,6 @@ import { useReducer, Reducer } from "react";
 import Layout from "../components/general/Layout";
 import Button from "@mui/material/Button";
 
-import ElectricityTable from "../components/electricity/ElecTable";
 import UtilTablePageLayout from "../components/general/UtilPageLayout";
 import tableReducer from "../components/general/tables/tableReducer";
 
@@ -29,9 +28,7 @@ export default function ElectricityPage() {
         utilTitle="Electricity Home Page"
         urlPathName="electricity"
         updateTableData={updateElecTableData}
-        tableComponent={
-          <ElectricityTable elecData={elecTableData.displayTableData} />
-        }
+        tableDisplayData={elecTableData.displayTableData}
       >
         <Button onClick={handleFilter} variant="outlined">
           Random Filter
