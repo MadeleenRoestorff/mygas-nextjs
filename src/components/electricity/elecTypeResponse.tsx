@@ -12,7 +12,7 @@ const isObject = (val: unknown): val is object => {
 /**
  * createElectData takes an object and a number and returns an object
  * @param {object} elecEntry - object - This is the object that is passed in from the API.
- * @param {number} prevElec - number  - This is the previous electricity reading.
+ * @param {number} prevElec  - number - This is the previous electricity reading.
  * @returns An object with the following properties:
  * - ElecLogID - number     - The ID of the electricity log.
  * - electricity - number   - The total electricity usage thusfar.
@@ -65,12 +65,18 @@ const createElectData = (
  * @returns An array of ElecDataInterface objects that have been modified from the original data.
  */
 const elecDataExtract = (response: AxiosResponse): ElecDataInterface[] => {
+  // Initialise
   const elecResponseArray: ElecDataInterface[] = [];
   let prevElec = 0;
+
+  // Check if there is response data and response data is an array
   if (response.data && Array.isArray(response.data)) {
+    // Loop through all the response data
     response.data.forEach((elecEntry: ElecDataInterface) => {
+      // Create a new Electricty data object and push it to elecResponseArray
       const newElectDataObject = createElectData(elecEntry, prevElec);
       elecResponseArray.push(newElectDataObject);
+
       // Update previous electricty reading
       prevElec = newElectDataObject.electricity;
     });

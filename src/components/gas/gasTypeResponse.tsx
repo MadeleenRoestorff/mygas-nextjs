@@ -12,9 +12,9 @@ const isObject = (val: unknown): val is object => {
 
 /**
  * createGasData takes a gas entry object, the previous units and date, and returns a gas data object
- * @param {object} gasEntry - object - This is the object that is returned from the API.
+ * @param {object} gasEntry  - object - This is the object that is returned from the API.
  * @param {number} prevUnits - The previous units value.
- * @param {number} prevDate - The date of the previous gas entry.
+ * @param {number} prevDate  - The date of the previous gas entry in SECONDS.
  * @returns An object with the following properties:
  * - gasLogID   - The ID of the gas log.
  * - topup      - The topup amount of gas the user added.
@@ -82,13 +82,19 @@ const createGasData = (
  * @returns An array of GasDataInterface objects
  */
 const gasDataExtract = (response: AxiosResponse): GasDataInterface[] => {
+  // Initialise
   const gasResponseArray: GasDataInterface[] = [];
   let prevUnits = 0;
   let prevDate = new Date("1992-11-05").getTime();
+
+  // Check if there is response data and response data is an array
   if (response.data && Array.isArray(response.data)) {
+    // Loop through all the response data
     response.data.forEach((gasEntry: GasDataInterface) => {
+      // Create a new Gas data object and push it to gasResponseArray
       const newGasDataObject = createGasData(gasEntry, prevUnits, prevDate);
       gasResponseArray.push(newGasDataObject);
+
       // Update previous values with current values
       prevUnits =
         newGasDataObject.units > 0 ? newGasDataObject.units : prevUnits;

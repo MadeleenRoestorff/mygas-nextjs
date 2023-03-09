@@ -20,13 +20,14 @@ export default function UtilTablePageLayout({
   tableDisplayData
 }: {
   utilTitle: string;
-  urlPathName: string;
+  urlPathName: "gas" | "electricity";
   children: ReactNode;
   updateTableData: Dispatch<TableStateInteface>;
   tableDisplayData: GasDataInterface[] | ElecDataInterface[];
 }) {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [addNew, setAddNew] = useState(false);
   const tokenContext = useTokenContext();
   const [dataFromServer, setDataFromServer] = useState<
     GasDataInterface[] | ElecDataInterface[]
@@ -62,12 +63,17 @@ export default function UtilTablePageLayout({
         setError,
         setData: setDataFromServer
       });
+      setAddNew(false);
     }
   };
 
   // handleReset sets the displayTableData state to the allData state
   const handleReset = () => {
     updateTableData({ displayTableData: dataFromServer });
+  };
+
+  const handleAddNew = () => {
+    setAddNew(true);
   };
 
   return (
@@ -94,6 +100,9 @@ export default function UtilTablePageLayout({
           px: 1
         }}
       >
+        <Button onClick={handleAddNew} variant="outlined">
+          Add new reading
+        </Button>
         <Button onClick={handleReset} variant="outlined">
           Reset
         </Button>
@@ -106,6 +115,7 @@ export default function UtilTablePageLayout({
           urlPathName={urlPathName}
           triggerDataRefresh={triggerDataRefresh}
           tableDisplayData={tableDisplayData}
+          addNew={addNew}
         />
       )}
       {error ? <Alert severity="error">{error}</Alert> : null}

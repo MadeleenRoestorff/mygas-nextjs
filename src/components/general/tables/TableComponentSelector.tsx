@@ -2,9 +2,10 @@ import ElectricityTable from "../../electricity/ElecTable";
 import GasTable from "../../gas/GasTable";
 
 interface TableComponentSelectorProps {
-  urlPathName: string;
+  urlPathName: "gas" | "electricity";
   triggerDataRefresh: () => Promise<void>;
   tableDisplayData: GasDataInterface[] | ElecDataInterface[];
+  addNew: boolean;
 }
 /**
  * TableComponentSelector takes in a urlPathName, a triggerDataRefresh function, and a tableDisplayData array,
@@ -19,15 +20,17 @@ interface TableComponentSelectorProps {
  * @returns A table component.
  */
 export default function TableComponentSelector({
-  urlPathName = "gas",
+  urlPathName,
   triggerDataRefresh,
-  tableDisplayData
+  tableDisplayData,
+  addNew
 }: TableComponentSelectorProps) {
   if (urlPathName === "electricity") {
     return (
       <ElectricityTable
         triggerDataRefresh={triggerDataRefresh}
         displayData={tableDisplayData}
+        addNew={addNew}
       />
     );
   }
@@ -35,6 +38,7 @@ export default function TableComponentSelector({
     <GasTable
       triggerDataRefresh={triggerDataRefresh}
       displayData={tableDisplayData}
+      addNew={addNew}
     />
   );
 }

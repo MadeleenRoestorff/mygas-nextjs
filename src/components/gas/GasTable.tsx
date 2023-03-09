@@ -44,12 +44,14 @@ const headCells: readonly HeadCell[] = [
 const emptyArray: GasDataInterface[] = [];
 export default function GasTable({
   displayData = emptyArray,
-  triggerDataRefresh
+  triggerDataRefresh,
+  addNew
 }: {
   displayData: GasDataInterface[];
   triggerDataRefresh: () => Promise<void>;
+  addNew: boolean;
 }) {
-  console.log(triggerDataRefresh);
+  console.log(triggerDataRefresh, addNew);
   return (
     <TableContainerBox headCells={headCells} tableLable="Gas Data">
       {displayData?.map(({ gasLogID, topup, units, measuredAt, rate }) => {

@@ -5,10 +5,12 @@ import TextField from "@mui/material/TextField";
 import apiRequest from "../../services/apiRequest";
 import { useTokenContext } from "../../services/TokenContext";
 
+const initialDate = new Date("1992-04-17");
+
 export default function EditElecRow({
   ElecLogID,
-  electricity,
-  measuredAt,
+  electricity = 0,
+  measuredAt = initialDate,
   edit,
   triggerDataRefresh
 }: {
@@ -23,23 +25,27 @@ export default function EditElecRow({
   const tokenContext = useTokenContext();
 
   const handleSave = () => {
-    const payload = { electricity: elec };
-    const method = ElecLogID ? "patch" : "post";
-    const urlPathName = `electricity${ElecLogID ? `/${ElecLogID}` : ""}`;
-
-    const getResults = async () => {
-      await apiRequest({
-        urlPathName,
-        method,
-        tokenContext,
-        setError,
-        payload
+    if (elec > 0) {
+      setError("");
+      const payload = { electricity: elec };
+      const method = ElecLogID ? "patch" : "post";
+      const urlPathName = `electricity${ElecLogID ? `/${ElecLogID}` : ""}`;
+      const getResults = async () => {
+        await apiRequest({
+          urlPathName,
+          method,
+          tokenContext,
+          setError,
+          payload
+        });
+      };
+      void getResults().finally(() => {
+        void triggerDataRefresh();
+        edit(0);
       });
-    };
-    void getResults().finally(() => {
-      void triggerDataRefresh();
-      edit(0);
-    });
+    } else {
+      setError("Cannot save");
+    }
   };
 
   return (

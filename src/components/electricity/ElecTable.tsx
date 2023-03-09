@@ -2,7 +2,6 @@ import { useState } from "react";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import TableContainerBox from "../general/tables/TableContainerBox";
-import TextField from "@mui/material/TextField";
 import EditElecRow from "../general/tables/EditElecRow";
 
 const headCells: readonly HeadCell[] = [
@@ -39,10 +38,12 @@ const headCells: readonly HeadCell[] = [
 const emptyArray: ElecDataInterface[] = [];
 export default function ElectricityTable({
   displayData = emptyArray,
-  triggerDataRefresh
+  triggerDataRefresh,
+  addNew
 }: {
   displayData?: ElecDataInterface[];
   triggerDataRefresh?: () => Promise<void>;
+  addNew: boolean;
 }) {
   const [editID, setEditID] = useState(0);
   const handleEdit = (ElecLogID: number): void => {
@@ -51,14 +52,9 @@ export default function ElectricityTable({
 
   return (
     <TableContainerBox headCells={headCells} tableLable="Electricity Data">
-      <TableRow hover key={"tablerow-edit"}>
-        <TableCell />
-        <TableCell align="right">
-          <TextField id="outlined-basic" label="Total" variant="outlined" />
-        </TableCell>
-        <TableCell align="right" />
-        <TableCell align="right">yogi</TableCell>
-      </TableRow>
+      {addNew ? (
+        <EditElecRow edit={setEditID} triggerDataRefresh={triggerDataRefresh} />
+      ) : null}
       {displayData?.map(({ ElecLogID, electricity, used, measuredAt }) => {
         if (editID !== 0 && editID === ElecLogID) {
           return (
