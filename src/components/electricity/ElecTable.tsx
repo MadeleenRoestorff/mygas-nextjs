@@ -2,34 +2,31 @@ import { useState } from "react";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import TableContainerBox from "../general/tables/TableContainerBox";
-import EditElecRow from "../general/tables/EditElecRow";
+import EditElecRow from "./EditElecRow";
+import TableRowActions from "../general/TableRowActions";
 
 const headCells: readonly HeadCell[] = [
   {
     id: "ElecLogID",
     numeric: false,
-    disablePadding: false,
     label: "ID",
     width: 4
   },
   {
     id: "electricity",
     numeric: true,
-    disablePadding: false,
     label: "Total",
     width: 32
   },
   {
     id: "used",
     numeric: true,
-    disablePadding: false,
     label: "Usage",
     width: 32
   },
   {
     id: "measuredAt",
     numeric: true,
-    disablePadding: false,
     label: "Date",
     width: 32
   }
@@ -74,12 +71,14 @@ export default function ElectricityTable({
             <TableCell align="right">{electricity}</TableCell>
             <TableCell align="right">{used}</TableCell>
             <TableCell align="right">
-              {`${measuredAt.toDateString()} ${measuredAt.toLocaleTimeString(
-                "en-UK"
-              )}`}
+              {measuredAt.toLocaleDateString("en-GB", {
+                year: "numeric",
+                month: "long",
+                day: "numeric"
+              })}
             </TableCell>
-            <TableCell onClick={() => handleEdit(ElecLogID)} align="right">
-              edit
+            <TableCell align="right">
+              <TableRowActions handleClick={() => handleEdit(ElecLogID)} />
             </TableCell>
           </TableRow>
         );

@@ -12,7 +12,6 @@ interface TableStateInteface {
 }
 
 interface HeadCell {
-  disablePadding: boolean;
   id: keyof GasDataInterface | keyof ElecDataInterface;
   label: string;
   numeric: boolean;

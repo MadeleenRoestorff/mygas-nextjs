@@ -2,8 +2,10 @@ import { useState, Dispatch, SetStateAction, ChangeEvent } from "react";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import TextField from "@mui/material/TextField";
-import apiRequest from "../../services/apiRequest";
-import { useTokenContext } from "../../services/TokenContext";
+import apiRequest from "../services/apiRequest";
+import { useTokenContext } from "../services/TokenContext";
+import TableRowActions from "../general/TableRowActions";
+import Grow from "@mui/material/Grow";
 
 const initialDate = new Date("1992-04-17");
 
@@ -48,27 +50,37 @@ export default function EditElecRow({
     }
   };
 
+  const handleCancel = () => edit(0);
+
   return (
     <TableRow hover key={`tablerow-${ElecLogID}`}>
       <TableCell id={`edit-cell-${ElecLogID}`}>{ElecLogID}</TableCell>
       <TableCell align="right">
-        <TextField
-          error={error.length > 0 ? true : false}
-          id="outlined-basic"
-          label="Total"
-          variant="outlined"
-          type="number"
-          inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-          value={elec}
-          onChange={(event: ChangeEvent<HTMLInputElement>) => {
-            setElec(Number(event.target.value));
-          }}
-        />
+        <Grow in>
+          <TextField
+            error={error.length > 0 ? true : false}
+            id="outlined-basic"
+            label="Total"
+            variant="outlined"
+            type="number"
+            inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+            value={elec}
+            onChange={(event: ChangeEvent<HTMLInputElement>) => {
+              setElec(Number(event.target.value));
+            }}
+          />
+        </Grow>
       </TableCell>
       <TableCell align="right" />
-      <TableCell align="right">{measuredAt.toDateString()}</TableCell>
-      <TableCell align="right" onClick={handleSave}>
-        save
+      <TableCell align="right">
+        {measuredAt.toLocaleDateString("en-GB", {
+          year: "numeric",
+          month: "long",
+          day: "numeric"
+        })}
+      </TableCell>
+      <TableCell align="right">
+        <TableRowActions handleClick={handleSave} handleCancel={handleCancel} />
       </TableCell>
     </TableRow>
   );

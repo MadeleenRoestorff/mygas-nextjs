@@ -27,19 +27,19 @@ export default function TableContainerBox({
           <Table aria-labelledby={tableLable}>
             <TableHead>
               <TableRow>
-                {headCells.map(
-                  ({ id, numeric, disablePadding, label, width }) => (
-                    <TableCell
-                      key={id}
-                      align={numeric ? "right" : "left"}
-                      padding={disablePadding ? "none" : "normal"}
-                      sx={{ width: `${width}%` }}
-                    >
-                      {label}
-                    </TableCell>
-                  )
-                )}
-                <TableCell>Actions</TableCell>
+                {headCells.map(({ id, numeric, label, width }) => (
+                  <TableCellStyling
+                    key={id}
+                    align={numeric ? "right" : "left"}
+                    padding="normal"
+                    columnwidth={width}
+                  >
+                    {label}
+                  </TableCellStyling>
+                ))}
+                <ActionTableCellStyling align="right" padding="normal">
+                  Actions
+                </ActionTableCellStyling>
               </TableRow>
             </TableHead>
             <TableBody>{children}</TableBody>
@@ -54,5 +54,36 @@ const BoxStyling = styled(Box)`
   @media (max-width: ${({ theme }) => theme.breakpoints.values.md}px) {
     width: 100%;
     margin: 0;
+  }
+`;
+
+interface ExtraTableCellProps {
+  columnwidth?: number;
+}
+const TableCellStyling = styled(TableCell)<ExtraTableCellProps>`
+  width: ${({ theme, columnwidth }) => {
+    const colomnWidthAdjust = Number(theme.spacing(4).replace("px", "")) + 80;
+    return `calc(${columnwidth}% - ${
+      (columnwidth * colomnWidthAdjust) / 100
+    }px)`;
+  }};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.values.md}px) {
+    min-width: ${({ columnwidth }) => {
+      return `${columnwidth * 4.6}px`;
+    }};
+  }
+`;
+const ActionTableCellStyling = styled(TableCell)`
+  width: ${({ theme }) => {
+    const colomnWidthAdjust = Number(theme.spacing(4).replace("px", "")) + 80;
+    return `${colomnWidthAdjust}px`;
+  }};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.values.md}px) {
+    min-width: ${({ theme }) => {
+      const colomnWidthAdjust = Number(theme.spacing(4).replace("px", "")) + 80;
+      return `${colomnWidthAdjust}px`;
+    }};
   }
 `;

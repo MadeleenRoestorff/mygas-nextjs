@@ -8,9 +8,11 @@ import Divider from "@mui/material/Divider";
 import CircularProgress from "@mui/material/CircularProgress";
 import Button from "@mui/material/Button";
 
-import TableComponentSelector from "./tables/TableComponentSelector";
 import apiRequest from "../services/apiRequest";
 import { useTokenContext } from "../services/TokenContext";
+
+import ElectricityTable from "../electricity/ElecTable";
+import GasTable from "../gas/GasTable";
 
 export default function UtilTablePageLayout({
   utilTitle = "Gas",
@@ -76,6 +78,8 @@ export default function UtilTablePageLayout({
     setAddNew(true);
   };
 
+  const TableComponent = urlPathName === "gas" ? GasTable : ElectricityTable;
+
   return (
     <Box
       sx={{
@@ -111,10 +115,9 @@ export default function UtilTablePageLayout({
       {loading && typeof tableDisplayData === "undefined" ? (
         <CircularProgress sx={{ mt: 4 }} />
       ) : (
-        <TableComponentSelector
-          urlPathName={urlPathName}
+        <TableComponent
           triggerDataRefresh={triggerDataRefresh}
-          tableDisplayData={tableDisplayData}
+          displayData={tableDisplayData}
           addNew={addNew}
         />
       )}
