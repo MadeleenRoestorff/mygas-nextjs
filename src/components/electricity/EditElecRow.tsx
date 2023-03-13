@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, KeyboardEvent } from "react";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import TextField from "@mui/material/TextField";
@@ -15,6 +15,9 @@ import { styled } from "@mui/material/styles";
 
 // const initialDate = new Date("1992-04-17");
 const initialDate = new Date();
+const keydown = (event: KeyboardEvent<HTMLDivElement>) => {
+  ["e", "E", "+", "-"].includes(event?.key) && event.preventDefault();
+};
 
 export default function EditElecRow({
   ElecLogID,
@@ -57,6 +60,7 @@ export default function EditElecRow({
     }
   };
 
+  console.log("elec", elec);
   return (
     <Grow in>
       <TableRowStyling key={`tablerow-${ElecLogID}`}>
@@ -68,6 +72,7 @@ export default function EditElecRow({
             label="Total"
             variant="outlined"
             type="text"
+            onKeyDown={(event) => keydown(event)}
             inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
             value={elec}
             onChange={(event: ChangeEvent<HTMLInputElement>) => {
