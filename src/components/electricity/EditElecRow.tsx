@@ -18,13 +18,13 @@ const initialDate = new Date();
 
 export default function EditElecRow({
   ElecLogID,
-  electricity = null,
+  electricity = 0,
   measuredAt = initialDate,
   triggerDataRefresh,
   handleCancel
 }: {
   ElecLogID?: number;
-  electricity?: number | null;
+  electricity?: number;
   measuredAt?: Date;
   triggerDataRefresh?: () => Promise<void>;
   handleCancel: () => void;
@@ -68,7 +68,7 @@ export default function EditElecRow({
             label="Total"
             variant="outlined"
             type="number"
-            // inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+            inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
             value={elec}
             onChange={(event: ChangeEvent<HTMLInputElement>) => {
               setElec(Number(event.target.value));
