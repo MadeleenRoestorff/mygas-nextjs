@@ -15,9 +15,6 @@ import { styled } from "@mui/material/styles";
 
 // const initialDate = new Date("1992-04-17");
 const initialDate = new Date();
-const keydown = (event: KeyboardEvent<HTMLDivElement>) => {
-  ["e", "E", "+", "-"].includes(event?.key) && event.preventDefault();
-};
 
 export default function EditElecRow({
   ElecLogID,
@@ -36,6 +33,19 @@ export default function EditElecRow({
   const [date, setDate] = useState<Moment>(moment(measuredAt));
   const [error, setError] = useState("");
   const tokenContext = useTokenContext();
+
+  const [test, setTest] = useState("");
+
+  const keydown = (event: KeyboardEvent<HTMLDivElement>) => {
+    setTest(event?.key);
+    ["e", "E", "+", "-"].includes(event?.key) && event.preventDefault();
+    const regex = /[A-Z]|[a-z]/g;
+    const found = event?.key.match(regex);
+    if (found && found.length === 1) {
+      console.log(found);
+      event.preventDefault();
+    }
+  };
 
   const handleSave = () => {
     if (elec > 0) {
@@ -60,11 +70,14 @@ export default function EditElecRow({
     }
   };
 
-  console.log("elec", elec);
+  //   console.log("elec", elec);
   return (
     <Grow in>
       <TableRowStyling key={`tablerow-${ElecLogID}`}>
-        <TableCell id={`edit-cell-${ElecLogID}`}>{ElecLogID}</TableCell>
+        <TableCell id={`edit-cell-${ElecLogID}`}>
+          {ElecLogID}
+          <span>{test}</span>
+        </TableCell>
         <TableCellStyling>
           <TextField
             error={error.length > 0 ? true : false}
@@ -73,7 +86,8 @@ export default function EditElecRow({
             variant="outlined"
             type="text"
             onKeyDown={(event) => keydown(event)}
-            inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+            // inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+            inputProps={{ inputMode: "numeric" }}
             value={elec}
             onChange={(event: ChangeEvent<HTMLInputElement>) => {
               setElec(Number(event.target.value));
