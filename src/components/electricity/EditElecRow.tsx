@@ -67,7 +67,7 @@ export default function EditElecRow({
             id="outlined-basic"
             label="Total"
             variant="outlined"
-            type="number"
+            type="text"
             inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
             value={elec}
             onChange={(event: ChangeEvent<HTMLInputElement>) => {
