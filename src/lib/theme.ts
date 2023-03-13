@@ -9,6 +9,7 @@ import {
 } from "@next/font/google";
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 import { red } from "@mui/material/colors";
+import type {} from "@mui/x-date-pickers/themeAugmentation";
 
 // Poiret One
 // Pompiere

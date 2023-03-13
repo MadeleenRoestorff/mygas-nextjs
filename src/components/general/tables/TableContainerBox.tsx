@@ -61,13 +61,6 @@ interface ExtraTableCellProps {
   columnwidth?: number;
 }
 const TableCellStyling = styled(TableCell)<ExtraTableCellProps>`
-  width: ${({ theme, columnwidth }) => {
-    const colomnWidthAdjust = Number(theme.spacing(4).replace("px", "")) + 80;
-    return `calc(${columnwidth}% - ${
-      (columnwidth * colomnWidthAdjust) / 100
-    }px)`;
-  }};
-
   @media (max-width: ${({ theme }) => theme.breakpoints.values.md}px) {
     min-width: ${({ columnwidth }) => {
       return `${columnwidth * 4.6}px`;

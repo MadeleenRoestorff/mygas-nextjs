@@ -40,13 +40,19 @@ const emptyArray: GasDataInterface[] = [];
 export default function GasTable({
   displayData = emptyArray,
   triggerDataRefresh,
-  addNew
+  addNew,
+  handleEdit,
+  handleCancel,
+  editID
 }: {
   displayData: GasDataInterface[];
   triggerDataRefresh: () => Promise<void>;
   addNew: boolean;
+  handleEdit: (_logID: number) => void;
+  handleCancel: () => void;
+  editID: number;
 }) {
-  console.log(triggerDataRefresh, addNew);
+  console.log(triggerDataRefresh, addNew, handleEdit, handleCancel, editID);
   return (
     <TableContainerBox headCells={headCells} tableLable="Gas Data">
       {displayData?.map(({ gasLogID, topup, units, measuredAt, rate }) => {

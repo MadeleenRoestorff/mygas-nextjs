@@ -27,9 +27,13 @@ export default function UtilTablePageLayout({
   updateTableData: Dispatch<TableStateInteface>;
   tableDisplayData: GasDataInterface[] | ElecDataInterface[];
 }) {
+  // Editing and adding Actions States
+  const [addNew, setAddNew] = useState(false);
+  const [editID, setEditID] = useState(0);
+
+  // Api request states
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [addNew, setAddNew] = useState(false);
   const tokenContext = useTokenContext();
   const [dataFromServer, setDataFromServer] = useState<
     GasDataInterface[] | ElecDataInterface[]
@@ -66,16 +70,24 @@ export default function UtilTablePageLayout({
         setData: setDataFromServer
       });
       setAddNew(false);
+      setEditID(0);
     }
   };
 
-  // handleReset sets the displayTableData state to the allData state
+  // HandleReset sets the displayTableData state to the allData state
   const handleReset = () => {
     updateTableData({ displayTableData: dataFromServer });
   };
 
+  // Handling all Actions
   const handleAddNew = () => {
     setAddNew(true);
+    setEditID(0);
+  };
+  const handleEdit = (logID: number) => setEditID(logID);
+  const handleCancel = () => {
+    setAddNew(false);
+    setEditID(0);
   };
 
   const TableComponent = urlPathName === "gas" ? GasTable : ElectricityTable;
@@ -119,6 +131,9 @@ export default function UtilTablePageLayout({
           triggerDataRefresh={triggerDataRefresh}
           displayData={tableDisplayData}
           addNew={addNew}
+          handleEdit={handleEdit}
+          handleCancel={handleCancel}
+          editID={editID}
         />
       )}
       {error ? <Alert severity="error">{error}</Alert> : null}
