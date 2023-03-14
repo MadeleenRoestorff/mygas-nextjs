@@ -60,25 +60,30 @@ export default function EditElecRow({
     }
   };
 
-  console.log(elec);
-
   return (
     <Grow in>
       <TableRowStyling key={`tablerow-${ElecLogID}`}>
-        <TableCell id={`edit-cell-${ElecLogID}`}>{ElecLogID}</TableCell>
+        <TableCell id={`edit-cell-${ElecLogID}`}>
+          {ElecLogID}
+          {elec}
+        </TableCell>
         <TableCellStyling>
           <TextField
             error={error.length > 0 ? true : false}
-            id="outlined-basic"
+            id="electricity-input"
             label="Total"
             variant="outlined"
-            type="text"
-            inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+            type="number"
+            inputMode="numeric"
             value={elec}
-            onChange={(event: ChangeEvent<HTMLInputElement>) => {
+            onChange={(
+              event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+            ) => {
+              console.log(typeof event.target);
               setElec(event.target.value);
             }}
           />
+
           <LocalizationProvider dateAdapter={AdapterMoment}>
             <DatePicker
               label="Date"
