@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, KeyboardEvent } from "react";
+import { useState, ChangeEvent } from "react";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import TextField from "@mui/material/TextField";
@@ -34,8 +34,6 @@ export default function EditElecRow({
   const [error, setError] = useState("");
   const tokenContext = useTokenContext();
 
-  const [test, setTest] = useState("");
-
   const handleSave = () => {
     if (Number(elec) > 0) {
       setError("");
@@ -62,8 +60,6 @@ export default function EditElecRow({
     }
   };
 
-  console.log(test);
-
   return (
     <Grow in>
       <TableRowStyling key={`tablerow-${ElecLogID}`}>
@@ -86,9 +82,6 @@ export default function EditElecRow({
               const newEvent = { ...event };
               const newtarget = { ...newEvent.target };
               setElec(newtarget.value);
-            }}
-            onKeyDown={(event: KeyboardEvent<HTMLDivElement>) => {
-              setTest(event.key);
             }}
           />
 
