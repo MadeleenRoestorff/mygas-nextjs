@@ -67,7 +67,10 @@ export default function EditElecRow({
   return (
     <Grow in>
       <TableRowStyling key={`tablerow-${ElecLogID}`}>
-        <TableCell id={`edit-cell-${ElecLogID}`}>{ElecLogID}</TableCell>
+        <TableCell id={`edit-cell-${ElecLogID}`}>
+          {ElecLogID}
+          <span>{elec}</span>
+        </TableCell>
         <TableCellStyling>
           <TextField
             error={error.length > 0 ? true : false}
