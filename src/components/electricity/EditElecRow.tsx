@@ -36,9 +36,9 @@ export default function EditElecRow({
 
   const keydown = (event: KeyboardEvent<HTMLDivElement>) => {
     // ["e", "E", "+", "-"].includes(event?.key) && event.preventDefault();
-    const regexNumber = /\D/g;
-    // const regex = /[A-Z]|[a-z]|[+]|[-]/g;
-    const found = event.key.match(regexNumber);
+    // const regexNumber = /\D/g;
+    const regex = /[A-Z]|[a-z]|[+]|[-]/g;
+    const found = event.key.match(regex);
     if (found && found.length === 1) {
       event.preventDefault();
     }
@@ -77,9 +77,9 @@ export default function EditElecRow({
             id="outlined-basic"
             label="Total"
             variant="outlined"
-            type="text"
+            type="number"
             onKeyDown={(event) => keydown(event)}
-            inputProps={{ inputMode: "numeric" }}
+            inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
             value={elec}
             onChange={(event: ChangeEvent<HTMLInputElement>) => {
               setElec(Number(event.target.value));
