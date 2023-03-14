@@ -62,13 +62,12 @@ export default function EditElecRow({
     }
   };
 
+  console.log(test);
+
   return (
     <Grow in>
       <TableRowStyling key={`tablerow-${ElecLogID}`}>
-        <TableCell id={`edit-cell-${ElecLogID}`}>
-          {ElecLogID}
-          {test}
-        </TableCell>
+        <TableCell id={`edit-cell-${ElecLogID}`}>{ElecLogID}</TableCell>
         <TableCellStyling>
           <TextField
             error={error.length > 0 ? true : false}
