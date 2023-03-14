@@ -29,7 +29,7 @@ export default function EditElecRow({
   triggerDataRefresh?: () => Promise<void>;
   handleCancel: () => void;
 }) {
-  const [elec, setElec] = useState(electricity);
+  const [elec, setElec] = useState(electricity.toString());
   const [date, setDate] = useState<Moment>(moment(measuredAt));
   const [error, setError] = useState("");
   const tokenContext = useTokenContext();
@@ -46,9 +46,12 @@ export default function EditElecRow({
   //   };
 
   const handleSave = () => {
-    if (elec > 0) {
+    if (Number(elec) > 0) {
       setError("");
-      const payload = { electricity: elec, measuredAt: date.toISOString() };
+      const payload = {
+        electricity: Number(elec),
+        measuredAt: date.toISOString()
+      };
       const method = ElecLogID ? "patch" : "post";
       const urlPathName = `electricity${ElecLogID ? `/${ElecLogID}` : ""}`;
       const getResults = async () => {
@@ -87,9 +90,7 @@ export default function EditElecRow({
             value={elec}
             onChange={(event: ChangeEvent<HTMLInputElement>) => {
               setTest(event.target.value);
-              setElec(
-                Number(event.target.value) >= 0 ? Number(event.target.value) : 0
-              );
+              setElec(event.target.value);
             }}
           />
           <LocalizationProvider dateAdapter={AdapterMoment}>
