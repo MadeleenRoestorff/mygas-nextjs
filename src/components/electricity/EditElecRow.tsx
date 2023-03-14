@@ -34,6 +34,8 @@ export default function EditElecRow({
   const [error, setError] = useState("");
   const tokenContext = useTokenContext();
 
+  const [test, setTest] = useState("");
+
   const handleSave = () => {
     if (Number(elec) > 0) {
       setError("");
@@ -63,7 +65,10 @@ export default function EditElecRow({
   return (
     <Grow in>
       <TableRowStyling key={`tablerow-${ElecLogID}`}>
-        <TableCell id={`edit-cell-${ElecLogID}`}>{ElecLogID}</TableCell>
+        <TableCell id={`edit-cell-${ElecLogID}`}>
+          {ElecLogID}
+          {test}
+        </TableCell>
         <TableCellStyling>
           <TextField
             error={error.length > 0 ? true : false}
@@ -71,12 +76,18 @@ export default function EditElecRow({
             label="Total"
             variant="outlined"
             type="number"
-            inputMode="numeric"
+            inputProps={{ inputMode: "numeric", min: 0 }}
             value={elec}
             onChange={(
               event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
             ) => {
-              setElec(event.target.value);
+              setTest(event.target.attributes[4].nodeValue);
+              console.log(event);
+              if (event.target.value) {
+                setElec(event.target.value);
+              } else {
+                setElec("0");
+              }
             }}
           />
 
