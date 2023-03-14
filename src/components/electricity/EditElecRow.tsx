@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, KeyboardEvent } from "react";
+import { useState, ChangeEvent } from "react";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import TextField from "@mui/material/TextField";
@@ -34,18 +34,18 @@ export default function EditElecRow({
   const [error, setError] = useState("");
   const tokenContext = useTokenContext();
 
-  const [test, setTest] = useState("");
+  //   const [test, setTest] = useState("");
 
-  const keydown = (event: KeyboardEvent<HTMLDivElement>) => {
-    setTest(event?.key);
-    ["e", "E", "+", "-"].includes(event?.key) && event.preventDefault();
-    // const regex = /[A-Z]|[a-z]/g;
-    // const found = event?.key.match(regex);
-    // if (found && found.length === 1) {
-    //   console.log(found);
-    //   event.preventDefault();
-    // }
-  };
+  //   const keydown = (event: KeyboardEvent<HTMLDivElement>) => {
+  // setTest(event?.key);
+  // ["e", "E", "+", "-"].includes(event?.key) && event.preventDefault();
+  // const regex = /[A-Z]|[a-z]/g;
+  // const found = event?.key.match(regex);
+  // if (found && found.length === 1) {
+  //   console.log(found);
+  //   event.preventDefault();
+  // }
+  //   };
 
   const handleSave = () => {
     if (elec > 0) {
@@ -74,10 +74,7 @@ export default function EditElecRow({
   return (
     <Grow in>
       <TableRowStyling key={`tablerow-${ElecLogID}`}>
-        <TableCell id={`edit-cell-${ElecLogID}`}>
-          {ElecLogID}
-          <span>{test}</span>
-        </TableCell>
+        <TableCell id={`edit-cell-${ElecLogID}`}>{ElecLogID}</TableCell>
         <TableCellStyling>
           <TextField
             error={error.length > 0 ? true : false}
@@ -85,8 +82,7 @@ export default function EditElecRow({
             label="Total"
             variant="outlined"
             type="number"
-            onKeyDown={(event) => keydown(event)}
-            // inputProps={{ inputMode: "numeric", pattern: "//d*" }}
+            // onKeyDown={(event) => keydown(event)}
             inputProps={{ inputMode: "numeric" }}
             value={elec}
             onChange={(event: ChangeEvent<HTMLInputElement>) => {
