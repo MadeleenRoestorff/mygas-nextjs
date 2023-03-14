@@ -82,7 +82,6 @@ export default function EditElecRow({
             inputProps={{ inputMode: "numeric" }}
             value={elec}
             onChange={(event: ChangeEvent<HTMLInputElement>) => {
-              console.log("event", event);
               setElec(Number(event.target.value));
             }}
           />
