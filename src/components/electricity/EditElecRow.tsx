@@ -81,8 +81,8 @@ export default function EditElecRow({
             onChange={(
               event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
             ) => {
-              setTest(event.target.attributes[4].nodeValue);
-              console.log(event);
+              setTest(event.target.attributes[4].nodeName);
+              //   console.log(event);
               if (event.target.value) {
                 setElec(event.target.value);
               } else {
