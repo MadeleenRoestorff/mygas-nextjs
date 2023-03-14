@@ -34,8 +34,6 @@ export default function EditElecRow({
   const [error, setError] = useState("");
   const tokenContext = useTokenContext();
 
-  const [test, setTest] = useState("");
-
   //   const keydown = (event: KeyboardEvent<HTMLDivElement>) => {
   //     // ["e", "E", "+", "-"].includes(event?.key) && event.preventDefault();
   //     const regex = /[A-Z]|[a-z]|[+]|[-]/g;
@@ -74,22 +72,18 @@ export default function EditElecRow({
   return (
     <Grow in>
       <TableRowStyling key={`tablerow-${ElecLogID}`}>
-        <TableCell id={`edit-cell-${ElecLogID}`}>
-          {ElecLogID}
-          {test}
-        </TableCell>
+        <TableCell id={`edit-cell-${ElecLogID}`}>{ElecLogID}</TableCell>
         <TableCellStyling>
           <TextField
             error={error.length > 0 ? true : false}
             id="outlined-basic"
             label="Total"
             variant="outlined"
-            type="number"
+            type="text"
             // onKeyDown={(event) => keydown(event)}
-            // inputProps={{ inputMode: "numeric" }}
+            inputProps={{ inputMode: "numeric" }}
             value={elec}
             onChange={(event: ChangeEvent<HTMLInputElement>) => {
-              setTest(event.target.value);
               setElec(event.target.value);
             }}
           />
