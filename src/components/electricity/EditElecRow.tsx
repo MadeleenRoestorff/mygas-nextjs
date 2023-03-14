@@ -76,9 +76,9 @@ export default function EditElecRow({
             id="outlined-basic"
             label="Total"
             variant="outlined"
-            type="text"
+            type="number"
             // onKeyDown={(event) => keydown(event)}
-            inputProps={{ inputMode: "numeric" }}
+            // inputProps={{ inputMode: "numeric" }}
             value={elec}
             onChange={(event: ChangeEvent<HTMLInputElement>) => {
               setElec(
