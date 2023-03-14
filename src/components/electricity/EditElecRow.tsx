@@ -34,15 +34,6 @@ export default function EditElecRow({
   const [error, setError] = useState("");
   const tokenContext = useTokenContext();
 
-  //   const keydown = (event: KeyboardEvent<HTMLDivElement>) => {
-  //     // ["e", "E", "+", "-"].includes(event?.key) && event.preventDefault();
-  //     const regex = /[A-Z]|[a-z]|[+]|[-]/g;
-  //     const found = event.key.match(regex);
-  //     if (found && found.length === 1) {
-  //       event.preventDefault();
-  //     }
-  //   };
-
   const handleSave = () => {
     if (Number(elec) > 0) {
       setError("");
@@ -80,7 +71,6 @@ export default function EditElecRow({
             label="Total"
             variant="outlined"
             type="text"
-            // onKeyDown={(event) => keydown(event)}
             inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
             value={elec}
             onChange={(event: ChangeEvent<HTMLInputElement>) => {
