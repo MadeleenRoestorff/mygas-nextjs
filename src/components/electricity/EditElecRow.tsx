@@ -81,7 +81,7 @@ export default function EditElecRow({
             variant="outlined"
             type="text"
             // onKeyDown={(event) => keydown(event)}
-            inputProps={{ inputMode: "numeric" }}
+            inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
             value={elec}
             onChange={(event: ChangeEvent<HTMLInputElement>) => {
               setElec(event.target.value);
