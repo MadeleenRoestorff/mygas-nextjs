@@ -18,7 +18,7 @@ const initialDate = new Date();
 
 export default function EditElecRow({
   ElecLogID,
-  electricity,
+  electricity = 0,
   measuredAt = initialDate,
   triggerDataRefresh,
   handleCancel
@@ -29,8 +29,7 @@ export default function EditElecRow({
   triggerDataRefresh?: () => Promise<void>;
   handleCancel: () => void;
 }) {
-  const elecInitial = electricity ? electricity.toString() : "0";
-  const [elec, setElec] = useState(elecInitial);
+  const [elec, setElec] = useState(electricity.toString());
   const [date, setDate] = useState<Moment>(moment(measuredAt));
   const [error, setError] = useState("");
   const tokenContext = useTokenContext();
@@ -61,7 +60,7 @@ export default function EditElecRow({
     }
   };
 
-  //   console.log(elec);
+  console.log(elec);
 
   return (
     <Grow in>
@@ -77,7 +76,7 @@ export default function EditElecRow({
             inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
             value={elec}
             onChange={(event: ChangeEvent<HTMLInputElement>) => {
-              setElec(event.target.value ? event.target.value : "0");
+              setElec(event.target.value);
             }}
           />
           <LocalizationProvider dateAdapter={AdapterMoment}>
