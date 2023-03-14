@@ -10,6 +10,7 @@ import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import moment, { Moment } from "moment";
+import Box from "@mui/material/Box";
 
 import { styled } from "@mui/material/styles";
 
@@ -68,22 +69,25 @@ export default function EditElecRow({
           <span>{elec}</span>
         </TableCell>
         <TableCellStyling>
-          <TextField
-            error={error.length > 0 ? true : false}
-            id="electricity-input"
-            label="Total"
-            variant="outlined"
-            type="number"
-            inputProps={{ inputMode: "numeric", min: 0 }}
-            value={elec}
-            onChange={(
-              event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-            ) => {
-              const newEvent = { ...event };
-              const newtarget = { ...newEvent.target };
-              setElec(newtarget.value);
-            }}
-          />
+          <Box component="form">
+            <TextField
+              required
+              error={error.length > 0 ? true : false}
+              id="electricity-input"
+              label="Total"
+              variant="outlined"
+              type="number"
+              inputProps={{ inputMode: "numeric", min: 0 }}
+              value={elec}
+              onChange={(
+                event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+              ) => {
+                const newEvent = { ...event };
+                const newtarget = { ...newEvent.target };
+                setElec(newtarget.value);
+              }}
+            />
+          </Box>
 
           <LocalizationProvider dateAdapter={AdapterMoment}>
             <DatePicker
