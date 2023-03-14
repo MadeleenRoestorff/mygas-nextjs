@@ -63,10 +63,7 @@ export default function EditElecRow({
   return (
     <Grow in>
       <TableRowStyling key={`tablerow-${ElecLogID}`}>
-        <TableCell id={`edit-cell-${ElecLogID}`}>
-          {ElecLogID}
-          {elec}
-        </TableCell>
+        <TableCell id={`edit-cell-${ElecLogID}`}>{ElecLogID}</TableCell>
         <TableCellStyling>
           <TextField
             error={error.length > 0 ? true : false}
@@ -79,7 +76,6 @@ export default function EditElecRow({
             onChange={(
               event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
             ) => {
-              console.log(typeof event.target);
               setElec(event.target.value);
             }}
           />
