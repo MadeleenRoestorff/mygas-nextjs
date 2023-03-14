@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, KeyboardEvent } from "react";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import TextField from "@mui/material/TextField";
@@ -34,18 +34,14 @@ export default function EditElecRow({
   const [error, setError] = useState("");
   const tokenContext = useTokenContext();
 
-  //   const [test, setTest] = useState("");
-
-  //   const keydown = (event: KeyboardEvent<HTMLDivElement>) => {
-  // setTest(event?.key);
-  // ["e", "E", "+", "-"].includes(event?.key) && event.preventDefault();
-  // const regex = /[A-Z]|[a-z]/g;
-  // const found = event?.key.match(regex);
-  // if (found && found.length === 1) {
-  //   console.log(found);
-  //   event.preventDefault();
-  // }
-  //   };
+  const keydown = (event: KeyboardEvent<HTMLDivElement>) => {
+    ["e", "E", "+", "-"].includes(event?.key) && event.preventDefault();
+    // const regex = /[A-Z]|[a-z]|[+]|[-]/g;
+    // const found = event.key.match(regex);
+    // if (found && found.length === 1) {
+    //   event.preventDefault();
+    // }
+  };
 
   const handleSave = () => {
     if (elec > 0) {
@@ -70,7 +66,6 @@ export default function EditElecRow({
     }
   };
 
-  //   console.log("elec", elec);
   return (
     <Grow in>
       <TableRowStyling key={`tablerow-${ElecLogID}`}>
@@ -82,10 +77,11 @@ export default function EditElecRow({
             label="Total"
             variant="outlined"
             type="number"
-            // onKeyDown={(event) => keydown(event)}
+            onKeyDown={(event) => keydown(event)}
             inputProps={{ inputMode: "numeric" }}
             value={elec}
             onChange={(event: ChangeEvent<HTMLInputElement>) => {
+              console.log("event", event);
               setElec(Number(event.target.value));
             }}
           />
