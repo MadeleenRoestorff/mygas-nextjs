@@ -64,10 +64,7 @@ export default function EditElecRow({
   return (
     <Grow in>
       <TableRowStyling key={`tablerow-${ElecLogID}`}>
-        <TableCell id={`edit-cell-${ElecLogID}`}>
-          {ElecLogID}
-          <span>{elec}</span>
-        </TableCell>
+        <TableCell id={`edit-cell-${ElecLogID}`}>{ElecLogID}</TableCell>
         <TableCellStyling>
           <Box component="form">
             <TextField
