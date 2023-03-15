@@ -42,7 +42,6 @@ export default function EditElecRow({
         electricity: Number(elec),
         measuredAt: date.toISOString()
       };
-      console.log(!ElecLogID);
       const method = ElecLogID ? "patch" : "post";
       const urlPathName = `electricity${ElecLogID ? `/${ElecLogID}` : ""}`;
       const getResults = async () => {
@@ -100,7 +99,7 @@ export default function EditElecRow({
 
 const TableRowStyling = styled(TableRow)`
   height: calc(${({ theme }) => theme.spacing(11)} + 1px);
-  position: relative;
+  /* position: relative; */
   @media (max-width: ${({ theme }) => theme.breakpoints.values.md}px) {
     height: calc(${({ theme }) => theme.spacing(11)} + 1px);
     /* position: initial; */
@@ -108,10 +107,10 @@ const TableRowStyling = styled(TableRow)`
 `;
 const TableCellStyling = styled(TableCell)`
   display: flex;
-  position: absolute;
+  /* position: absolute; */
   padding-left: 0;
   padding-right: 16px;
-  right: 0;
+  /* right: 0; */
   width: ${({ theme }) => {
     const colomnWidthAdjust = Number(theme.spacing(4).replace("px", "")) + 77;
     return `calc(100% - ${colomnWidthAdjust}px)`;
@@ -120,8 +119,9 @@ const TableCellStyling = styled(TableCell)`
     margin-left: auto;
   }
   @media (max-width: ${({ theme }) => theme.breakpoints.values.md}px) {
-    width: unset;
-    right: unset;
+    /* width: unset; */
+    /* right: unset; */
+    width: max-content;
     & div:nth-of-type(2) {
       margin-left: ${({ theme }) => theme.spacing(0.5)};
       margin-right: ${({ theme }) => theme.spacing(0.5)};
