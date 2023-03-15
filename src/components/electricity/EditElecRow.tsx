@@ -78,6 +78,7 @@ export default function EditElecRow({
             variant="outlined"
             value={elec}
             onChange={(event) => setElec(event.target.value)}
+            inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
           />
           <LocalizationProvider dateAdapter={AdapterMoment}>
             <DatePicker
