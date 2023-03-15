@@ -8,7 +8,7 @@ import { styled } from "@mui/material/styles";
 
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
 import moment, { Moment } from "moment";
 
 import apiRequest from "../services/apiRequest";
@@ -82,8 +82,8 @@ export default function EditElecRow({
             inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
           />
           <LocalizationProvider dateAdapter={AdapterMoment}>
-            <DatePicker
-              className="DatePickerDate"
+            <MobileDateTimePicker
+              className="MobileDateTimePickerDate"
               label="Date"
               value={date}
               onChange={(newValue) => {
@@ -117,7 +117,7 @@ const TableCellStyling = styled(TableCell)`
     return `calc(100% - ${colomnWidthAdjust}px)`;
   }};
   display: flex;
-  & .DatePickerDate {
+  & .MobileDateTimePickerDate {
     margin-left: auto;
   }
   @media (max-width: ${({ theme }) => theme.breakpoints.values.md}px) {
@@ -125,7 +125,7 @@ const TableCellStyling = styled(TableCell)`
     & .TextFieldElecLogID {
       width: 105px;
     }
-    & .DatePickerDate {
+    & .MobileDateTimePickerDate {
       width: 130px;
       margin-left: ${({ theme }) => theme.spacing(0.5)};
       margin-right: ${({ theme }) => theme.spacing(0.5)};
