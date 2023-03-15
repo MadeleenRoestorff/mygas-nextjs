@@ -124,8 +124,9 @@ export default function UtilTablePageLayout({
         </Button>
         {children}
       </Stack>
+
       {loading && typeof tableDisplayData === "undefined" ? (
-        <CircularProgress sx={{ mt: 4 }} />
+        <CircularProgress sx={{ mt: 4, mb: 4 }} />
       ) : (
         <TableComponent
           triggerDataRefresh={triggerDataRefresh}

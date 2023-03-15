@@ -29,7 +29,7 @@ export default function LoginPage() {
    */
   const handleLogin = () => {
     const newInputs = { ...inputs };
-
+    setLoading(true);
     // Checking if the inputs (username & password) are empty and if they are,
     // it sets the corresponding input error to true.
     Object.entries(newInputs).forEach(([label, val]) => {
@@ -42,7 +42,6 @@ export default function LoginPage() {
     // Check if input errors is false and then send a post axios request
     // to the server with the username and password.
     if (!newInputs.password.error && !newInputs.username.error) {
-      setLoading(true);
       setLoginError(null);
       const userData = {
         username: inputs.username.value,
@@ -110,7 +109,6 @@ export default function LoginPage() {
         <Button onClick={handleLogin} sx={{ mt: 2 }} variant="outlined">
           {loading ? "loading..." : "Sign In"}
         </Button>
-
         {loading ? (
           <CircularProgress
             sx={{ mt: 4, mb: 2, mx: "auto", display: "block" }}

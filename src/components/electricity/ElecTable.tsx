@@ -15,19 +15,19 @@ const headCells: readonly HeadCell[] = [
     id: "electricity",
     numeric: true,
     label: "Total",
-    width: 32
+    width: 30
   },
   {
     id: "used",
     numeric: true,
     label: "Usage",
-    width: 32
+    width: 30
   },
   {
     id: "measuredAt",
     numeric: true,
     label: "Date",
-    width: 32
+    width: 34
   }
 ];
 
