@@ -70,18 +70,15 @@ export default function EditElecRow({
             <TextField
               required
               error={error.length > 0 ? true : false}
+              name="electricity-input"
               id="electricity-input"
               label="Total"
               variant="outlined"
-              type="number"
-              inputProps={{ inputMode: "numeric", min: 0 }}
               value={elec}
               onChange={(
                 event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
               ) => {
-                const newEvent = { ...event };
-                const newtarget = { ...newEvent.target };
-                setElec(newtarget.value);
+                setElec(event.target.value);
               }}
             />
           </Box>
