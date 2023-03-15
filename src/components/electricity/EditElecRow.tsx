@@ -131,10 +131,7 @@ const TableCellStyling = styled(TableCell)`
     }
   }
 `;
-
+// Invisible span to fix mobile issues with inputs that are absolute
 const InvisibleSpan = styled("span")`
-  visibility: hidden;
-  height: 0;
-  width: 0;
-  display: block;
+  display: none;
 `;

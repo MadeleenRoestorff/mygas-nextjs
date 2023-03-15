@@ -27,7 +27,7 @@ const headCells: readonly HeadCell[] = [
     id: "measuredAt",
     numeric: true,
     label: "Date",
-    width: 34
+    width: 36
   }
 ];
 
