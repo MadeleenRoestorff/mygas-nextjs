@@ -33,6 +33,7 @@ export default function TableContainerBox({
                     align={numeric ? "right" : "left"}
                     padding="normal"
                     columnwidth={width}
+                    className={id === "measuredAt" ? "date" : ""}
                   >
                     {label}
                   </TableCellStyling>
@@ -61,6 +62,10 @@ interface ExtraTableCellProps {
   columnwidth?: number;
 }
 const TableCellStyling = styled(TableCell)<ExtraTableCellProps>`
+  &.date {
+    width: 34%;
+  }
+
   @media (max-width: ${({ theme }) => theme.breakpoints.values.md}px) {
     min-width: ${({ columnwidth }) => {
       return `${columnwidth * 4.6}px`;
