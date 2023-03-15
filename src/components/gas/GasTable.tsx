@@ -6,28 +6,24 @@ const headCells: readonly HeadCell[] = [
   {
     id: "gasLogID",
     numeric: false,
-    disablePadding: false,
     label: "ID",
     width: 10
   },
   {
     id: "units",
     numeric: true,
-    disablePadding: false,
     label: "Units",
     width: 20
   },
   {
     id: "rate",
     numeric: true,
-    disablePadding: false,
     label: "Units/week",
     width: 20
   },
   {
     id: "topup",
     numeric: true,
-    disablePadding: false,
     label: "Topup",
     width: 20
   },
@@ -35,7 +31,6 @@ const headCells: readonly HeadCell[] = [
   {
     id: "measuredAt",
     numeric: true,
-    disablePadding: false,
     label: "Date",
     width: 20
   }
@@ -45,13 +40,19 @@ const emptyArray: GasDataInterface[] = [];
 export default function GasTable({
   displayData = emptyArray,
   triggerDataRefresh,
-  addNew
+  addNew,
+  handleEdit,
+  handleCancel,
+  editID
 }: {
   displayData: GasDataInterface[];
   triggerDataRefresh: () => Promise<void>;
   addNew: boolean;
+  handleEdit: (_logID: number) => void;
+  handleCancel: () => void;
+  editID: number;
 }) {
-  console.log(triggerDataRefresh, addNew);
+  console.log(triggerDataRefresh, addNew, handleEdit, handleCancel, editID);
   return (
     <TableContainerBox headCells={headCells} tableLable="Gas Data">
       {displayData?.map(({ gasLogID, topup, units, measuredAt, rate }) => {

@@ -1,37 +1,33 @@
-import { useState } from "react";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import TableContainerBox from "../general/tables/TableContainerBox";
-import EditElecRow from "../general/tables/EditElecRow";
+import EditElecRow from "./EditElecRow";
+import TableRowActions from "../general/TableRowActions";
 
 const headCells: readonly HeadCell[] = [
   {
     id: "ElecLogID",
     numeric: false,
-    disablePadding: false,
     label: "ID",
     width: 4
   },
   {
     id: "electricity",
     numeric: true,
-    disablePadding: false,
     label: "Total",
-    width: 32
+    width: 24
   },
   {
     id: "used",
     numeric: true,
-    disablePadding: false,
     label: "Usage",
-    width: 32
+    width: 24
   },
   {
     id: "measuredAt",
     numeric: true,
-    disablePadding: false,
     label: "Date",
-    width: 32
+    width: 44
   }
 ];
 
@@ -39,21 +35,25 @@ const emptyArray: ElecDataInterface[] = [];
 export default function ElectricityTable({
   displayData = emptyArray,
   triggerDataRefresh,
-  addNew
+  addNew,
+  handleEdit,
+  handleCancel,
+  editID
 }: {
-  displayData?: ElecDataInterface[];
-  triggerDataRefresh?: () => Promise<void>;
+  displayData: ElecDataInterface[];
+  triggerDataRefresh: () => Promise<void>;
   addNew: boolean;
+  handleEdit: (_logID: number) => void;
+  handleCancel: () => void;
+  editID: number;
 }) {
-  const [editID, setEditID] = useState(0);
-  const handleEdit = (ElecLogID: number): void => {
-    setEditID(ElecLogID);
-  };
-
   return (
     <TableContainerBox headCells={headCells} tableLable="Electricity Data">
       {addNew ? (
-        <EditElecRow edit={setEditID} triggerDataRefresh={triggerDataRefresh} />
+        <EditElecRow
+          handleCancel={handleCancel}
+          triggerDataRefresh={triggerDataRefresh}
+        />
       ) : null}
       {displayData?.map(({ ElecLogID, electricity, used, measuredAt }) => {
         if (editID !== 0 && editID === ElecLogID) {
@@ -63,7 +63,7 @@ export default function ElectricityTable({
               ElecLogID={ElecLogID}
               electricity={electricity}
               measuredAt={measuredAt}
-              edit={setEditID}
+              handleCancel={handleCancel}
               triggerDataRefresh={triggerDataRefresh}
             />
           );
@@ -74,12 +74,14 @@ export default function ElectricityTable({
             <TableCell align="right">{electricity}</TableCell>
             <TableCell align="right">{used}</TableCell>
             <TableCell align="right">
-              {`${measuredAt.toDateString()} ${measuredAt.toLocaleTimeString(
-                "en-UK"
-              )}`}
+              {measuredAt.toLocaleDateString("en-GB", {
+                year: "numeric",
+                month: "long",
+                day: "numeric"
+              })}
             </TableCell>
-            <TableCell onClick={() => handleEdit(ElecLogID)} align="right">
-              edit
+            <TableCell align="right">
+              <TableRowActions handleClick={() => handleEdit(ElecLogID)} />
             </TableCell>
           </TableRow>
         );

@@ -90,7 +90,7 @@ const gasDataExtract = (response: AxiosResponse): GasDataInterface[] => {
   // Check if there is response data and response data is an array
   if (response.data && Array.isArray(response.data)) {
     // Loop through all the response data
-    response.data.forEach((gasEntry: GasDataInterface) => {
+    response.data.reverse().forEach((gasEntry: GasDataInterface) => {
       // Create a new Gas data object and push it to gasResponseArray
       const newGasDataObject = createGasData(gasEntry, prevUnits, prevDate);
       gasResponseArray.push(newGasDataObject);
@@ -104,7 +104,7 @@ const gasDataExtract = (response: AxiosResponse): GasDataInterface[] => {
           : prevDate;
     });
   }
-  return gasResponseArray;
+  return gasResponseArray.reverse();
 };
 
 export default gasDataExtract;

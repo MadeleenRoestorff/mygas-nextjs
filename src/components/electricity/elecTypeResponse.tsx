@@ -72,7 +72,7 @@ const elecDataExtract = (response: AxiosResponse): ElecDataInterface[] => {
   // Check if there is response data and response data is an array
   if (response.data && Array.isArray(response.data)) {
     // Loop through all the response data
-    response.data.forEach((elecEntry: ElecDataInterface) => {
+    response.data.reverse().forEach((elecEntry: ElecDataInterface) => {
       // Create a new Electricty data object and push it to elecResponseArray
       const newElectDataObject = createElectData(elecEntry, prevElec);
       elecResponseArray.push(newElectDataObject);
@@ -81,7 +81,7 @@ const elecDataExtract = (response: AxiosResponse): ElecDataInterface[] => {
       prevElec = newElectDataObject.electricity;
     });
   }
-  return elecResponseArray;
+  return elecResponseArray.reverse();
 };
 
 export default elecDataExtract;
