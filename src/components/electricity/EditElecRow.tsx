@@ -17,7 +17,7 @@ import { styled } from "@mui/material/styles";
 const initialDate = new Date();
 
 export default function EditElecRow({
-  ElecLogID,
+  ElecLogID = 0,
   electricity = 0,
   measuredAt = initialDate,
   triggerDataRefresh,
@@ -66,6 +66,7 @@ export default function EditElecRow({
         <TableCell id={`edit-cell-${ElecLogID}`}>{ElecLogID}</TableCell>
         <TableCellStyling>
           <TextField
+            key={`electricity-input-${ElecLogID}`}
             error={error.length > 0 ? true : false}
             name="electricity-input"
             id="electricity-input"
