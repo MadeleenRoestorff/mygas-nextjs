@@ -10,7 +10,6 @@ import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import moment, { Moment } from "moment";
-// import Box from "@mui/material/Box";
 
 import { styled } from "@mui/material/styles";
 
@@ -64,10 +63,13 @@ export default function EditElecRow({
   return (
     <Grow in>
       <TableRowStyling key={`tablerow-${ElecLogID}`}>
-        <TableCell id={`edit-cell-${ElecLogID}`}>{ElecLogID}</TableCell>
-        {/* <Box component="form" noValidate={false}> */}
-        <TableCellStyling>
+        <TableCell id={`edit-cell-${ElecLogID}`}>
+          {ElecLogID}
+          <InvisibleSpan>{elec}</InvisibleSpan>
+        </TableCell>
+        <TableCellStyling id={`input-${ElecLogID}`}>
           <TextField
+            className="TextFieldElecLogID"
             key={`electricity-input-${ElecLogID}`}
             error={error.length > 0 ? true : false}
             name={`electricity-input-${ElecLogID}`}
@@ -79,6 +81,7 @@ export default function EditElecRow({
           />
           <LocalizationProvider dateAdapter={AdapterMoment}>
             <DatePicker
+              className="DatePickerDate"
               label="Date"
               value={date}
               onChange={(newValue) => {
@@ -91,7 +94,6 @@ export default function EditElecRow({
             handleCancel={handleCancel}
           />
         </TableCellStyling>
-        {/* </Box> */}
       </TableRowStyling>
     </Grow>
   );
@@ -99,32 +101,39 @@ export default function EditElecRow({
 
 const TableRowStyling = styled(TableRow)`
   height: calc(${({ theme }) => theme.spacing(11)} + 1px);
-  /* position: relative; */
+  position: relative;
   @media (max-width: ${({ theme }) => theme.breakpoints.values.md}px) {
-    height: calc(${({ theme }) => theme.spacing(11)} + 1px);
-    /* position: initial; */
+    position: initial;
   }
 `;
 const TableCellStyling = styled(TableCell)`
-  display: flex;
-  /* position: absolute; */
+  position: absolute;
   padding-left: 0;
-  padding-right: 16px;
-  /* right: 0; */
+  padding-right: ${({ theme }) => theme.spacing(2)};
   width: ${({ theme }) => {
     const colomnWidthAdjust = Number(theme.spacing(4).replace("px", "")) + 77;
     return `calc(100% - ${colomnWidthAdjust}px)`;
   }};
-  & div:nth-of-type(2) {
+  display: flex;
+  & .DatePickerDate {
     margin-left: auto;
   }
   @media (max-width: ${({ theme }) => theme.breakpoints.values.md}px) {
-    /* width: unset; */
-    /* right: unset; */
-    width: max-content;
-    & div:nth-of-type(2) {
+    width: unset;
+    & .TextFieldElecLogID {
+      width: 105px;
+    }
+    & .DatePickerDate {
+      width: 130px;
       margin-left: ${({ theme }) => theme.spacing(0.5)};
       margin-right: ${({ theme }) => theme.spacing(0.5)};
     }
   }
+`;
+
+const InvisibleSpan = styled("span")`
+  visibility: hidden;
+  height: 0;
+  width: 0;
+  display: block;
 `;
