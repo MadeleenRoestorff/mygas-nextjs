@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from "react";
+import { useState } from "react";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import TextField from "@mui/material/TextField";
@@ -10,7 +10,6 @@ import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import moment, { Moment } from "moment";
-import Box from "@mui/material/Box";
 
 import { styled } from "@mui/material/styles";
 
@@ -66,23 +65,15 @@ export default function EditElecRow({
       <TableRowStyling key={`tablerow-${ElecLogID}`}>
         <TableCell id={`edit-cell-${ElecLogID}`}>{ElecLogID}</TableCell>
         <TableCellStyling>
-          <Box component="form">
-            <TextField
-              required
-              error={error.length > 0 ? true : false}
-              name="electricity-input"
-              id="electricity-input"
-              label="Total"
-              variant="outlined"
-              value={elec}
-              onChange={(
-                event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-              ) => {
-                setElec(event.target.value);
-              }}
-            />
-          </Box>
-
+          <TextField
+            error={error.length > 0 ? true : false}
+            name="electricity-input"
+            id="electricity-input"
+            label="Total"
+            variant="outlined"
+            value={elec}
+            onChange={(event) => setElec(event.target.value)}
+          />
           <LocalizationProvider dateAdapter={AdapterMoment}>
             <DatePicker
               label="Date"
