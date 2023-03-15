@@ -69,8 +69,8 @@ export default function EditElecRow({
           <TextField
             key={`electricity-input-${ElecLogID}`}
             error={error.length > 0 ? true : false}
-            name="electricity-input"
-            id="electricity-input"
+            name={`electricity-input-${ElecLogID}`}
+            id={`electricity-input-${ElecLogID}`}
             label="Total"
             variant="outlined"
             value={elec}
@@ -97,15 +97,15 @@ export default function EditElecRow({
 
 const TableRowStyling = styled(TableRow)`
   height: calc(${({ theme }) => theme.spacing(11)} + 1px);
-  position: relative;
+  /* position: relative; */
   @media (max-width: ${({ theme }) => theme.breakpoints.values.md}px) {
     height: calc(${({ theme }) => theme.spacing(11)} + 1px);
-    position: initial;
+    /* position: initial; */
   }
 `;
 const TableCellStyling = styled(TableCell)`
   display: flex;
-  position: absolute;
+  /* position: absolute; */
   padding-left: 0;
   padding-right: 16px;
   right: 0;
