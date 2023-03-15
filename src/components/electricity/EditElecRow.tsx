@@ -134,5 +134,8 @@ const TableCellStyling = styled(TableCell)`
 `;
 // Invisible span to fix mobile issues with inputs that are absolute
 const InvisibleSpan = styled("span")`
-  display: none;
+  visibility: hidden;
+  display: block;
+  height: 0;
+  width: 0;
 `;
