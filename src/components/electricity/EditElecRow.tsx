@@ -10,6 +10,7 @@ import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import moment, { Moment } from "moment";
+// import Box from "@mui/material/Box";
 
 import { styled } from "@mui/material/styles";
 
@@ -65,6 +66,7 @@ export default function EditElecRow({
     <Grow in>
       <TableRowStyling key={`tablerow-${ElecLogID}`}>
         <TableCell id={`edit-cell-${ElecLogID}`}>{ElecLogID}</TableCell>
+        {/* <Box component="form" noValidate={false}> */}
         <TableCellStyling>
           <TextField
             key={`electricity-input-${ElecLogID}`}
@@ -90,6 +92,7 @@ export default function EditElecRow({
             handleCancel={handleCancel}
           />
         </TableCellStyling>
+        {/* </Box> */}
       </TableRowStyling>
     </Grow>
   );
@@ -108,7 +111,7 @@ const TableCellStyling = styled(TableCell)`
   /* position: absolute; */
   padding-left: 0;
   padding-right: 16px;
-  right: 0;
+  /* right: 0; */
   width: ${({ theme }) => {
     const colomnWidthAdjust = Number(theme.spacing(4).replace("px", "")) + 77;
     return `calc(100% - ${colomnWidthAdjust}px)`;
@@ -117,8 +120,9 @@ const TableCellStyling = styled(TableCell)`
     margin-left: auto;
   }
   @media (max-width: ${({ theme }) => theme.breakpoints.values.md}px) {
-    width: unset;
-    right: unset;
+    /* width: unset; */
+    /* right: unset; */
+    width: max-content;
     & div:nth-of-type(2) {
       margin-left: ${({ theme }) => theme.spacing(0.5)};
       margin-right: ${({ theme }) => theme.spacing(0.5)};
