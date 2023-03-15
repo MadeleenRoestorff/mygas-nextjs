@@ -41,6 +41,7 @@ export default function EditElecRow({
         electricity: Number(elec),
         measuredAt: date.toISOString()
       };
+      console.log(!ElecLogID);
       const method = ElecLogID ? "patch" : "post";
       const urlPathName = `electricity${ElecLogID ? `/${ElecLogID}` : ""}`;
       const getResults = async () => {
