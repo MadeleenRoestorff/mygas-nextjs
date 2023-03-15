@@ -53,6 +53,7 @@ export default function LoginPage() {
         .then((response) => {
           if (typeof response.data === "string") {
             updateToken({ saveNewToken: response.data });
+            setLoading(false);
             void router.push(
               typeof router.query.redirect === "string"
                 ? router.query.redirect
@@ -67,8 +68,6 @@ export default function LoginPage() {
           console.error("errorAxios", errorAxios);
           updateToken({ destroyToken: true });
         });
-
-      setLoading(false);
     }
   };
 

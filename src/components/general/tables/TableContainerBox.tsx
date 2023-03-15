@@ -75,7 +75,7 @@ const ActionTableCellStyling = styled(TableCell)`
 
   @media (max-width: ${({ theme }) => theme.breakpoints.values.md}px) {
     min-width: ${({ theme }) => {
-      const colomnWidthAdjust = Number(theme.spacing(4).replace("px", "")) + 80;
+      const colomnWidthAdjust = Number(theme.spacing(4).replace("px", "")) + 55;
       return `${colomnWidthAdjust}px`;
     }};
   }
