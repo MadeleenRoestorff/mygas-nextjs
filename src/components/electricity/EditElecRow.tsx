@@ -13,7 +13,7 @@ import moment, { Moment } from "moment";
 
 import apiRequest from "../services/apiRequest";
 import { useTokenContext } from "../services/TokenContext";
-import TableRowActions from "../general/TableRowActions";
+import TableRowActions from "../general/tables/TableRowActions";
 
 const initialDate = new Date();
 
@@ -117,6 +117,7 @@ const TableCellStyling = styled(TableCell)`
     return `calc(100% - ${colomnWidthAdjust}px)`;
   }};
   display: flex;
+  justify-content: space-between;
   & .MobileDateTimePickerDate {
     margin-left: auto;
   }
