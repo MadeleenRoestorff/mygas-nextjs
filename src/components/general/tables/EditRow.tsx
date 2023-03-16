@@ -68,7 +68,7 @@ export default function EditRow({
             utilValid += utilValue;
           }
 
-          if (isNaN(utilValue) && utilValue === 0) {
+          if (isNaN(utilValue) || utilValue === 0) {
             utilValid = isNaN(utilValue) ? 0 : utilValid;
             const newutilsInput = { ...utilsInput };
             newutilsInput[utilLabel].errs = true;
