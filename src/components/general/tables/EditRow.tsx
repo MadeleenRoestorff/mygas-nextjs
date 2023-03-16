@@ -105,7 +105,14 @@ export default function EditRow({
         heightAdjust={9 * utilTypeArray.length}
         key={`tablerow-${logID}`}
       >
-        <TableCell id={`edit-cell-${logID}`}>{logID}</TableCell>
+        <TableCell id={`edit-cell-${logID}`}>
+          {logID}
+          <InvisibleSpan>
+            {utilsInput.electricity.value}
+            {utilsInput.units.value}
+            {utilsInput.topup.value}
+          </InvisibleSpan>
+        </TableCell>
         <TableCellStyling>
           <StackStyling spacing={2} direction={{ xs: "column", md: "row" }}>
             {utilTypeArray.map((util: keyof UtilsInputInterface) => {
@@ -181,9 +188,9 @@ const StackStyling = styled(Stack)`
   }
 `;
 // Invisible span to fix mobile issues with inputs that are absolute
-// const InvisibleSpan = styled("span")`
-//   visibility: hidden;
-//   display: block;
-//   height: 0;
-//   width: 0;
-// `;
+const InvisibleSpan = styled("span")`
+  visibility: hidden;
+  display: block;
+  height: 0;
+  width: 0;
+`;
