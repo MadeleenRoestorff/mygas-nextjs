@@ -4,6 +4,9 @@ import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import TextField from "@mui/material/TextField";
 import Grow from "@mui/material/Grow";
+import Stack from "@mui/material/Stack";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 import { styled } from "@mui/material/styles";
 
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
@@ -14,7 +17,6 @@ import moment, { Moment } from "moment";
 import apiRequest from "../../services/apiRequest";
 import { useTokenContext } from "../../services/TokenContext";
 import TableRowActions from "./TableRowActions";
-import Stack from "@mui/material/Stack";
 
 const initialDate = new Date();
 
@@ -51,8 +53,6 @@ export default function EditRow({
   const utilTypeArray = urlPath.includes("gas")
     ? ["units", "topup"]
     : ["electricity"];
-
-  console.log(error);
 
   const handleSave = () => {
     let utilValid = 0;
@@ -112,6 +112,16 @@ export default function EditRow({
             {utilsInput.units.value}
             {utilsInput.topup.value}
           </InvisibleSpan>
+          <Snackbar
+            open={error.length > 0 ? true : false}
+            autoHideDuration={6000}
+            onClose={() => setError("")}
+            message="Error"
+          >
+            <Alert severity="error" sx={{ width: "100%" }}>
+              Error
+            </Alert>
+          </Snackbar>
         </TableCell>
         <TableCellStyling>
           <StackStyling spacing={2} direction={{ xs: "column", md: "row" }}>
