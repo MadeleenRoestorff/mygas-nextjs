@@ -77,6 +77,7 @@ const apiRequest = async ({
       ) {
         setData(elecDataExtract(response));
       } else {
+        setError("Success, Utilities was updated");
         console.error("No Data to set");
       }
 

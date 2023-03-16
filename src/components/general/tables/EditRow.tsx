@@ -102,7 +102,7 @@ export default function EditRow({
   return (
     <Grow in>
       <TableRowStyling
-        heightAdjust={9 * utilTypeArray.length}
+        heightadjust={9 * utilTypeArray.length}
         key={`tablerow-${logID}`}
       >
         <TableCell id={`edit-cell-${logID}`}>
@@ -114,12 +114,16 @@ export default function EditRow({
           </InvisibleSpan>
           <Snackbar
             open={error.length > 0 ? true : false}
-            autoHideDuration={6000}
+            // autoHideDuration={6000}
             onClose={() => setError("")}
-            message="Error"
           >
-            <Alert severity="error" sx={{ width: "100%" }}>
-              Error
+            <Alert
+              elevation={6}
+              variant="filled"
+              severity={error.includes("Success") ? "success" : "error"}
+              sx={{ width: "100%" }}
+            >
+              {error}
             </Alert>
           </Snackbar>
         </TableCell>
@@ -167,7 +171,7 @@ export default function EditRow({
   );
 }
 interface TableCellStylingProps {
-  heightAdjust?: number;
+  heightadjust?: number;
 }
 const TableRowStyling = styled(TableRow)<TableCellStylingProps>`
   height: calc(${({ theme }) => theme.spacing(11)} + 1px);
@@ -175,7 +179,7 @@ const TableRowStyling = styled(TableRow)<TableCellStylingProps>`
   @media (max-width: ${({ theme }) => theme.breakpoints.values.md}px) {
     position: initial;
     height: calc(
-      ${({ theme, heightAdjust }) => theme.spacing(11 + heightAdjust)} + 1px
+      ${({ theme, heightadjust }) => theme.spacing(11 + heightadjust)} + 1px
     );
   }
 `;
