@@ -9,6 +9,7 @@ interface Payload {
   units?: number;
   topup?: number;
   electricity?: number;
+  measuredAt?: string;
 }
 
 interface ApiRequestProps {

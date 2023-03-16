@@ -33,7 +33,7 @@ export default function TableContainerBox({
                     align={numeric ? "right" : "left"}
                     padding="normal"
                     columnwidth={width}
-                    className={id === "measuredAt" ? "date" : ""}
+                    className={`${id}`}
                   >
                     {label}
                   </TableCellStyling>
@@ -62,11 +62,19 @@ interface ExtraTableCellProps {
   columnwidth?: number;
 }
 const TableCellStyling = styled(TableCell)<ExtraTableCellProps>`
-  &.date {
+  &.measuredAt {
     width: 34%;
+  }
+  &.gasLogID,
+  &.ElecLogID {
+    width: 82px;
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.values.md}px) {
+    &.gasLogID,
+    &.ElecLogID {
+      width: 57px;
+    }
     min-width: ${({ columnwidth }) => {
       return `${columnwidth * 4.6}px`;
     }};
@@ -77,11 +85,4 @@ const ActionTableCellStyling = styled(TableCell)`
     const colomnWidthAdjust = Number(theme.spacing(4).replace("px", "")) + 80;
     return `${colomnWidthAdjust}px`;
   }};
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.values.md}px) {
-    min-width: ${({ theme }) => {
-      const colomnWidthAdjust = Number(theme.spacing(4).replace("px", "")) + 55;
-      return `${colomnWidthAdjust}px`;
-    }};
-  }
 `;

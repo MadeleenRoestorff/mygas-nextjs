@@ -1,13 +1,16 @@
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
+
+import EditRow from "../general/tables/EditRow";
 import TableContainerBox from "../general/tables/TableContainerBox";
+import TableRowActions from "../general/tables/TableRowActions";
 
 const headCells: readonly HeadCell[] = [
   {
     id: "gasLogID",
     numeric: false,
     label: "ID",
-    width: 10
+    width: 12
   },
   {
     id: "units",
@@ -52,14 +55,33 @@ export default function GasTable({
   handleCancel: () => void;
   editID: number;
 }) {
-  console.log(triggerDataRefresh, addNew, handleEdit, handleCancel, editID);
   return (
     <TableContainerBox headCells={headCells} tableLable="Gas Data">
+      {addNew ? (
+        <EditRow
+          handleCancel={handleCancel}
+          triggerDataRefresh={triggerDataRefresh}
+          urlPath="gas"
+        />
+      ) : null}
       {displayData?.map(({ gasLogID, topup, units, measuredAt, rate }) => {
-        const labelId = `table-${gasLogID}`;
+        if (editID !== 0 && editID === gasLogID) {
+          return (
+            <EditRow
+              key={`tablerow-${gasLogID}`}
+              logID={gasLogID}
+              urlPath="gas"
+              units={units}
+              topup={topup}
+              measuredAt={measuredAt}
+              handleCancel={handleCancel}
+              triggerDataRefresh={triggerDataRefresh}
+            />
+          );
+        }
         return (
           <TableRow hover key={`tablerow-${gasLogID}`}>
-            <TableCell id={labelId}>{gasLogID}</TableCell>
+            <TableCell id={`gas-cell-${gasLogID}`}>{gasLogID}</TableCell>
             <TableCell align="right">{units > 0 ? units : "-"}</TableCell>
             <TableCell align="right">{rate === 0 ? "-" : rate}</TableCell>
             <TableCell align="right">{topup}</TableCell>
@@ -67,6 +89,9 @@ export default function GasTable({
               {`${measuredAt.toDateString()} ${measuredAt.toLocaleTimeString(
                 "en-UK"
               )}`}
+            </TableCell>
+            <TableCell align="right">
+              <TableRowActions handleClick={() => handleEdit(gasLogID)} />
             </TableCell>
           </TableRow>
         );

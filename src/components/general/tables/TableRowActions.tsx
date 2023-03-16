@@ -1,8 +1,8 @@
 import Stack from "@mui/material/Stack";
 import IconButton from "@mui/material/IconButton";
-import EditIcon from "../../icons/EditIcon";
-import CancelIcon from "../../icons/CancelIcon";
-import SaveIcon from "../../icons/SaveIcon";
+import EditIcon from "../../../icons/EditIcon";
+import CancelIcon from "../../../icons/CancelIcon";
+import SaveIcon from "../../../icons/SaveIcon";
 
 export default function TableRowActions({
   handleClick,
@@ -16,7 +16,7 @@ export default function TableRowActions({
       direction="row"
       justifyContent="flex-end"
       alignItems="center"
-      sx={{ marginLeft: "auto" }}
+      //   sx={{ marginLeft: "auto" }}
     >
       <IconButton
         aria-label={typeof handleCancel === "undefined" ? "edit" : "save"}

@@ -1,15 +1,15 @@
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import TableContainerBox from "../general/tables/TableContainerBox";
-import EditElecRow from "./EditElecRow";
-import TableRowActions from "../general/TableRowActions";
+import EditRow from "../general/tables/EditRow";
+import TableRowActions from "../general/tables/TableRowActions";
 
 const headCells: readonly HeadCell[] = [
   {
     id: "ElecLogID",
     numeric: false,
     label: "ID",
-    width: 4
+    width: 12
   },
   {
     id: "electricity",
@@ -50,17 +50,19 @@ export default function ElectricityTable({
   return (
     <TableContainerBox headCells={headCells} tableLable="Electricity Data">
       {addNew ? (
-        <EditElecRow
+        <EditRow
           handleCancel={handleCancel}
           triggerDataRefresh={triggerDataRefresh}
+          urlPath="electricity"
         />
       ) : null}
       {displayData?.map(({ ElecLogID, electricity, used, measuredAt }) => {
         if (editID !== 0 && editID === ElecLogID) {
           return (
-            <EditElecRow
+            <EditRow
               key={`tablerow-${ElecLogID}`}
-              ElecLogID={ElecLogID}
+              logID={ElecLogID}
+              urlPath="electricity"
               electricity={electricity}
               measuredAt={measuredAt}
               handleCancel={handleCancel}

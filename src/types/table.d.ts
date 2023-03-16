@@ -17,3 +17,14 @@ interface HeadCell {
   numeric: boolean;
   width: number;
 }
+
+interface UtilsInterface {
+  value: string;
+  errs: boolean;
+}
+
+interface UtilsInputInterface {
+  electricity?: UtilsInterface;
+  units?: UtilsInterface;
+  topup?: UtilsInterface;
+}
