@@ -61,8 +61,10 @@ const createGasData = (
   // Calculate raw rate in units per milliseconds
   const deltaTimeMS = measureTime - prevDateTemp;
   const used = units > 0 ? units - topup - prevUnitsTemp : 0;
+
+  console.log(gasLogID, used);
   const rateRaw = used > 0 || deltaTimeMS > 0 ? used / deltaTimeMS : 0;
-  const rate = Number((rateRaw * -604800).toFixed(4));
+  const rate = Number((rateRaw * -604800 * 1000).toFixed(4));
 
   return {
     gasLogID,
