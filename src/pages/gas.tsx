@@ -5,20 +5,12 @@ import Layout from "../components/general/Layout";
 import UtilTablePageLayout from "../components/general/UtilPageLayout";
 import tableReducer from "../components/general/tables/tableReducer";
 
-const tempFilter: TableParametersInterface[] = [
-  { filterColumnKey: "gasLogID", filterMaxValue: 10, filterMinValue: 2 },
-  { filterColumnKey: "units", filterMaxValue: 88, filterMinValue: 20 }
-];
-
 export default function GasPage() {
   const [tableGasData, updateTableGasData] = useReducer<TableReducerType>(
     tableReducer,
     {}
   );
 
-  const handleFilter = () => {
-    updateTableGasData({ tablefilterParams: tempFilter });
-  };
   const handleFilterTopup = () => {
     updateTableGasData({
       tablefilterParams: [
@@ -38,9 +30,6 @@ export default function GasPage() {
         updateTableData={updateTableGasData}
         tableDisplayData={tableGasData.displayTableData}
       >
-        <Button onClick={handleFilter} variant="outlined">
-          Random Filter
-        </Button>
         <Button onClick={handleFilterTopup} variant="outlined">
           Topup Filter
         </Button>

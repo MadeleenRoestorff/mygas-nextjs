@@ -62,6 +62,7 @@ export default function UtilTablePageLayout({
    */
   const triggerDataRefresh = async () => {
     if (tokenContext.token && setDataFromServer && urlPathName) {
+      // make api request
       await apiRequest({
         urlPathName,
         method: "get",
@@ -69,6 +70,7 @@ export default function UtilTablePageLayout({
         setError,
         setData: setDataFromServer
       });
+      // also cancel edit and addnew actions
       setAddNew(false);
       setEditID(0);
     }
@@ -116,15 +118,14 @@ export default function UtilTablePageLayout({
           px: 1
         }}
       >
-        <Button onClick={handleAddNew} variant="outlined">
-          Add new reading
-        </Button>
         <Button onClick={handleReset} variant="outlined">
           Reset
         </Button>
         {children}
+        <Button onClick={handleAddNew} variant="outlined">
+          Add new reading
+        </Button>
       </Stack>
-
       {loading && typeof tableDisplayData === "undefined" ? (
         <CircularProgress sx={{ mt: 4, mb: 4 }} />
       ) : (

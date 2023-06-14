@@ -1,4 +1,3 @@
-/* eslint-disable max-statements */
 import { AxiosResponse } from "axios";
 
 /**
@@ -61,8 +60,6 @@ const createGasData = (
   // Calculate raw rate in units per milliseconds
   const deltaTimeMS = measureTime - prevDateTemp;
   const used = units > 0 ? units - topup - prevUnitsTemp : 0;
-
-  console.log(gasLogID, used);
   const rateRaw = used > 0 || deltaTimeMS > 0 ? used / deltaTimeMS : 0;
   const rate = Number((rateRaw * -604800 * 1000).toFixed(4));
 
@@ -92,6 +89,8 @@ const gasDataExtract = (response: AxiosResponse): GasDataInterface[] => {
   // Check if there is response data and response data is an array
   if (response.data && Array.isArray(response.data)) {
     // Loop through all the response data
+    // reverse data thereby date is ascending
+    // rates are calculated from previous/successive values
     response.data.reverse().forEach((gasEntry: GasDataInterface) => {
       // Create a new Gas data object and push it to gasResponseArray
       const newGasDataObject = createGasData(gasEntry, prevUnits, prevDate);
