@@ -3,6 +3,7 @@ import { useState } from "react";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import TextField from "@mui/material/TextField";
+import FormControl from "@mui/material/FormControl";
 import Grow from "@mui/material/Grow";
 import Stack from "@mui/material/Stack";
 import Snackbar from "@mui/material/Snackbar";
@@ -131,22 +132,23 @@ export default function EditRow({
           <StackStyling spacing={2} direction={{ xs: "column", md: "row" }}>
             {utilTypeArray.map((util: keyof UtilsInputInterface) => {
               return (
-                <TextField
-                  className={`TextFieldlogID-${util}`}
-                  key={`${util}-input-${logID}`}
-                  error={utilsInput[util].errs}
-                  id={`${util}-input-${logID}`}
-                  label={`${util}`}
-                  variant="outlined"
-                  value={utilsInput[util].value}
-                  onChange={(event) => {
-                    const newUtils = { ...utilsInput };
-                    newUtils[util].value = event.target.value;
-                    newUtils[util].errs = false;
-                    setUtilsInput(newUtils);
-                  }}
-                  inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-                />
+                <FormControl key={`${util}-input-fc-${logID}`}>
+                  <TextField
+                    className={`TextFieldlogID-${util}`}
+                    error={utilsInput[util].errs}
+                    id={`${util}-input-${logID}`}
+                    label={`${util}`}
+                    variant="outlined"
+                    value={utilsInput[util].value}
+                    onChange={(event) => {
+                      const newUtils = { ...utilsInput };
+                      newUtils[util].value = event.target.value;
+                      newUtils[util].errs = false;
+                      setUtilsInput(newUtils);
+                    }}
+                    inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+                  />
+                </FormControl>
               );
             })}
 

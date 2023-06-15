@@ -54,7 +54,6 @@ const apiRequest = async ({
    */
   const requestFunction = () => {
     if (method === "get") {
-      console.log("DEBUG get");
       return axios.get(url, config);
     } else if (method === "post") {
       return axios.post(url, payload, config);

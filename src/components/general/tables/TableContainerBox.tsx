@@ -11,6 +11,9 @@ import Paper from "@mui/material/Paper";
 
 import { styled } from "@mui/material/styles";
 
+// TableContainerBox's main functions are
+// Styling the table
+// Layout of the table
 export default function TableContainerBox({
   children,
   headCells,
