@@ -10,16 +10,16 @@ const tempFilter: TableParametersInterface[] = [
 ];
 
 export default function ElectricityPage() {
-  const [elecTableData, updateElecTableData] = useReducer<TableReducerType>(
+  const [elecTableState, updateElecTableState] = useReducer<TableReducerType>(
     tableReducer,
     {}
   );
 
   const handleFilter = () => {
-    updateElecTableData({ tablefilterParams: tempFilter });
+    updateElecTableState({ tablefilterParams: tempFilter });
   };
   const handleSorter = () => {
-    updateElecTableData({ sorted: true });
+    updateElecTableState({ sorted: true });
   };
 
   return (
@@ -27,8 +27,8 @@ export default function ElectricityPage() {
       <UtilTablePageLayout
         utilTitle="Electricity Home Page"
         urlPathName="electricity"
-        updateTableData={updateElecTableData}
-        tableDisplayData={elecTableData.displayTableData}
+        updateTableState={updateElecTableState}
+        tableDisplayData={elecTableState.displayTableData}
       >
         <Button onClick={handleFilter} variant="outlined">
           Random Filter

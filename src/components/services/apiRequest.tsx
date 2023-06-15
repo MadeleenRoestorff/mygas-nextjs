@@ -43,6 +43,9 @@ const apiRequest = async ({
   const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/${urlPathName}`;
   const { token, updateToken } = tokenContext;
   const headers = { Authorization: `Bearer ${token}` };
+  // 20 seconde timeout = redirect to login page
+  const timeout = 20000;
+  const config = { headers, timeout };
 
   /**
    * If the method is "get", "post" or patch" then return an axios get, post or patch request,
@@ -51,11 +54,12 @@ const apiRequest = async ({
    */
   const requestFunction = () => {
     if (method === "get") {
-      return axios.get(url, { headers });
+      console.log("DEBUG get");
+      return axios.get(url, config);
     } else if (method === "post") {
-      return axios.post(url, payload, { headers });
+      return axios.post(url, payload, config);
     } else if (method === "patch") {
-      return axios.patch(url, payload, { headers });
+      return axios.patch(url, payload, config);
     }
     throw Error("No method specified");
   };

@@ -18,13 +18,13 @@ export default function UtilTablePageLayout({
   utilTitle = "Gas",
   urlPathName = "gas",
   children,
-  updateTableData,
+  updateTableState,
   tableDisplayData
 }: {
   utilTitle: string;
   urlPathName: "gas" | "electricity";
   children: ReactNode;
-  updateTableData: Dispatch<TableStateInteface>;
+  updateTableState: Dispatch<TableStateInteface>;
   tableDisplayData: GasDataInterface[] | ElecDataInterface[];
 }) {
   // Editing and adding Actions States
@@ -39,6 +39,11 @@ export default function UtilTablePageLayout({
     GasDataInterface[] | ElecDataInterface[]
   >([]);
 
+  // This useEffect is responsible for:
+  // Checking authentication by checking the token
+  // Check if data from the server has been set
+  // and if not triggering a data refresh.
+  // Setting the Loading state depending on the serverdata
   useEffect(() => {
     // If context token has not yet been set return from useEffect hook
     if (tokenContext.token === "") return;
@@ -50,11 +55,11 @@ export default function UtilTablePageLayout({
       // the returned Promise<void> is resolved below/here
       void triggerDataRefresh();
     } else {
-      updateTableData({ displayTableData: dataFromServer });
+      updateTableState({ displayTableData: dataFromServer });
       setLoading(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tokenContext, dataFromServer, updateTableData, urlPathName]);
+  }, [tokenContext, dataFromServer, updateTableState, urlPathName]);
 
   /**
    * TriggerDataRefresh makes a GET request to the server, and then sets the data returned from the server to the state
@@ -78,7 +83,7 @@ export default function UtilTablePageLayout({
 
   // HandleReset sets the displayTableData state to the allData state
   const handleReset = () => {
-    updateTableData({ displayTableData: dataFromServer });
+    updateTableState({ displayTableData: dataFromServer });
   };
 
   // Handling all Actions

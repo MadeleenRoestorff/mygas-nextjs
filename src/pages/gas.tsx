@@ -6,20 +6,20 @@ import UtilTablePageLayout from "../components/general/UtilPageLayout";
 import tableReducer from "../components/general/tables/tableReducer";
 
 export default function GasPage() {
-  const [tableGasData, updateTableGasData] = useReducer<TableReducerType>(
+  const [gasTableState, updateGasTableState] = useReducer<TableReducerType>(
     tableReducer,
     {}
   );
 
   const handleFilterTopup = () => {
-    updateTableGasData({
+    updateGasTableState({
       tablefilterParams: [
         { filterColumnKey: "topup", filterMaxValue: "", filterMinValue: 1 }
       ]
     });
   };
   const handleSorter = () => {
-    updateTableGasData({ sorted: true });
+    updateGasTableState({ sorted: true });
   };
 
   return (
@@ -27,8 +27,8 @@ export default function GasPage() {
       <UtilTablePageLayout
         utilTitle="Gas Home Page"
         urlPathName="gas"
-        updateTableData={updateTableGasData}
-        tableDisplayData={tableGasData.displayTableData}
+        updateTableState={updateGasTableState}
+        tableDisplayData={gasTableState.displayTableData}
       >
         <Button onClick={handleFilterTopup} variant="outlined">
           Topup Filter

@@ -29,7 +29,6 @@ export default function LoginPage() {
    */
   const handleLogin = () => {
     const newInputs = { ...inputs };
-    setLoading(true);
     // Checking if the inputs (username & password) are empty and if they are,
     // it sets the corresponding input error to true.
     Object.entries(newInputs).forEach(([label, val]) => {
@@ -42,14 +41,16 @@ export default function LoginPage() {
     // Check if input errors is false and then send a post axios request
     // to the server with the username and password.
     if (!newInputs.password.error && !newInputs.username.error) {
+      setLoading(true);
       setLoginError(null);
       const userData = {
         username: inputs.username.value,
         password: inputs.password.value
       };
       const loginUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/login`;
+      // set timeout for 10 secondes
       axios
-        .post(loginUrl, userData)
+        .post(loginUrl, userData, { timeout: 10000 })
         .then((response) => {
           if (typeof response.data === "string") {
             updateToken({ saveNewToken: response.data });
@@ -67,6 +68,7 @@ export default function LoginPage() {
           setLoginError(errorAxios);
           console.error("errorAxios", errorAxios);
           updateToken({ destroyToken: true });
+          setLoading(false);
         });
     }
   };

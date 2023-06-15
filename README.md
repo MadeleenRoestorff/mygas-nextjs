@@ -62,9 +62,3 @@ Run npm test to ensure that your changes pass all tests.
 
 - [OpenAI](https://openai.com/) for providing the ChatGPT model used to generate this README.
 - [Mintlify](https://marketplace.visualstudio.com/items?itemname=mintlify.document) for helping me write code comments.
-
-## TODO
-
-- Signup page
-- Frontend testing
-- Redirect or reload if request (warmup server) takes to long
