@@ -233,8 +233,16 @@ export default function EditRow({
                 );
               }
             )}
-            <div>{utilsInputx.units.focus}</div>
-            <div>{utilsInputx.topup.focus}</div>
+            <div>
+              {utilsInputx.units.focus
+                ? "units focus true"
+                : "units focus false"}
+            </div>
+            <div>
+              {utilsInputx.topup.focus
+                ? "topup focus true"
+                : "topup focus false"}
+            </div>
 
             <LocalizationProvider dateAdapter={AdapterMoment}>
               <MobileDateTimePicker
