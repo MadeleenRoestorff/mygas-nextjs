@@ -57,17 +57,21 @@ export default function EditRow({
   const tokenContext = useTokenContext();
 
   const inputRef = useRef<HTMLDivElement[]>([]);
+  console.log("DEBUG utilsInputx", utilsInputx);
+  console.log("DEBUG currentInput", currentInput);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent | TouchEvent) => {
       if (
         inputRef?.current &&
         currentInput.index > 0 &&
+        inputRef?.current[currentInput.index - 1] &&
         !inputRef?.current[currentInput.index - 1]?.contains(
           // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
           event.target as Node
         )
       ) {
+        console.log("DEBUG currentInput handleClickOutside", currentInput);
         const newUtils = { ...utilsInputx };
         newUtils[currentInput.label].focus = false;
         setUtilsInputx(newUtils);
@@ -82,9 +86,7 @@ export default function EditRow({
       document.removeEventListener("touchstart", handleClickOutside);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentInput]);
-
-  console.log("Debug", utilsInputx);
+  }, [currentInput, inputRef]);
 
   // const errs = false;
   // const [utilsInput, setUtilsInput] = useState<UtilsInputInterface>({
@@ -217,20 +219,21 @@ export default function EditRow({
                     }}
                     onClick={() => {
                       setCurrentInput({ index: index + 1, label });
-                      // const newUtils = { ...utilsInputx };
-                      // newUtils[label].focus = true;
-
-                      // Object.keys(newUtils).forEach((utilLabelKeys: keyofUtilsInputInterface) => {
-
-                      // })
-                      // setUtilsInputx(newUtils);
+                      const newUtils = { ...utilsInputx };
+                      Object.keys(newUtils).forEach(
+                        (utilLabelKeys: keyof UtilsInputInterface) => {
+                          newUtils[utilLabelKeys].focus =
+                            utilLabelKeys === label ? true : false;
+                        }
+                      );
+                      setUtilsInputx(newUtils);
                     }}
                     inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                   />
                 );
               }
             )}
-            <div>hello</div>
+
             <LocalizationProvider dateAdapter={AdapterMoment}>
               <MobileDateTimePicker
                 className="MobileDateTimePickerDate"
