@@ -56,7 +56,7 @@ export default function EditRow({
   const inputRef = useRef<HTMLDivElement[]>([]);
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
       if (
         inputRef?.current &&
         currentInputIndex > -1 &&
@@ -72,16 +72,21 @@ export default function EditRow({
           }
         );
         setUtilsInputx(newUtils);
+        setCurrentInputIndex(-1);
       }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentInputIndex]);
+
+  console.log("Debug", utilsInputx);
 
   // const errs = false;
   // const [utilsInput, setUtilsInput] = useState<UtilsInputInterface>({
@@ -216,12 +221,12 @@ export default function EditRow({
                     }}
                     onClick={() => {
                       const newUtils = { ...utilsInputx };
-                      // Object.keys(newUtils).forEach(
-                      //   (labelClicked: keyof UtilsInputInterface) => {
-                      //     newUtils[labelClicked].focus =
-                      //       labelClicked === label ? true : false;
-                      //   }
-                      // );
+                      Object.keys(newUtils).forEach(
+                        (labelClicked: keyof UtilsInputInterface) => {
+                          newUtils[labelClicked].focus =
+                            labelClicked === label ? true : false;
+                        }
+                      );
                       newUtils[label].focus = true;
                       setUtilsInputx(newUtils);
                       setCurrentInputIndex(index);
