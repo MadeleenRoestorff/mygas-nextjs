@@ -200,9 +200,7 @@ export default function EditRow({
               ) => {
                 return (
                   <TextField
-                    ref={(ref) => {
-                      return (inputRef.current[label] = ref);
-                    }}
+                    ref={(ref) => (inputRef.current[index] = ref)}
                     key={label}
                     error={state.errs}
                     id={label}
