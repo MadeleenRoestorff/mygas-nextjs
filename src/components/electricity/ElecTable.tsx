@@ -50,8 +50,9 @@ export default function ElectricityTable({
   editID: number;
 }) {
   const errs = false;
+  const focus = false;
   const [utilsInputx, setUtilsInputx] = useState<UtilsInputInterface>({
-    electricity: { value: "0", errs }
+    electricity: { value: "0", errs, focus }
   });
 
   useEffect(() => {
@@ -68,7 +69,7 @@ export default function ElectricityTable({
       setUtilsInputx(newUtilsInput);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editID, displayData]);
+  }, [editID, displayData, utilsInputx.electricity.focus]);
 
   return (
     <TableContainerBox headCells={headCells} tableLable="Electricity Data">

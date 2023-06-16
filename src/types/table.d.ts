@@ -21,6 +21,7 @@ interface HeadCell {
 interface UtilsInterface {
   value: string;
   errs: boolean;
+  focus: boolean;
 }
 
 interface UtilsInputInterface {

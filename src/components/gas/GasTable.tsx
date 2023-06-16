@@ -58,9 +58,10 @@ export default function GasTable({
   editID: number;
 }) {
   const errs = false;
+  const focus = false;
   const [utilsInputx, setUtilsInputx] = useState<UtilsInputInterface>({
-    units: { value: "0", errs },
-    topup: { value: "0", errs }
+    units: { value: "0", errs, focus },
+    topup: { value: "0", errs, focus }
   });
 
   useEffect(() => {

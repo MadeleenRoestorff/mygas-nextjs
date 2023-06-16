@@ -167,16 +167,32 @@ export default function EditRow({
                     key={`${label}-input-${logID}`}
                     error={state.errs}
                     id={`${label}-input-${logID}`}
+                    name={`${label}-input-${logID}`}
                     label={`${label}`}
+                    type="text"
                     variant="outlined"
                     value={state.value}
+                    focused={state.focus}
                     onChange={(event) => {
                       const newUtils = { ...utilsInputx };
                       newUtils[label].value = event.target.value;
                       newUtils[label].errs = false;
                       setUtilsInputx(newUtils);
                     }}
-                    // inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+                    onClick={() => {
+                      const newUtils = { ...utilsInputx };
+                      Object.entries(newUtils).forEach(
+                        ([labelClicked, _statec]: [
+                          keyof UtilsInputInterface,
+                          UtilsInterface
+                          // eslint-disable-next-line array-bracket-newline
+                        ]) => {
+                          newUtils[labelClicked].focus =
+                            labelClicked === label ? true : false;
+                        }
+                      );
+                    }}
+                    inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                   />
                 );
               }

@@ -48,9 +48,9 @@ export default function LoginPage() {
         password: inputs.password.value
       };
       const loginUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/login`;
-      // set timeout for 10 secondes
+      // set timeout for 30 secondes
       axios
-        .post(loginUrl, userData, { timeout: 10000 })
+        .post(loginUrl, userData, { timeout: 30000 })
         .then((response) => {
           if (typeof response.data === "string") {
             updateToken({ saveNewToken: response.data });
