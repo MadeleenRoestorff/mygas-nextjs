@@ -50,7 +50,10 @@ export default function EditRow({
 }) {
   const [date, setDate] = useState<Moment>(moment(measuredAt));
   const [error, setError] = useState("");
-  const [currentInputIndex, setCurrentInputIndex] = useState<number>(-1);
+  const [currentInput, setCurrentInput] = useState<CurrentInputInterface>({
+    index: 0,
+    label: "electricity"
+  });
   const tokenContext = useTokenContext();
 
   const inputRef = useRef<HTMLDivElement[]>([]);
@@ -59,18 +62,14 @@ export default function EditRow({
     const handleClickOutside = (event: MouseEvent | TouchEvent) => {
       if (
         inputRef?.current &&
-        currentInputIndex > -1 &&
-        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-        !inputRef?.current[currentInputIndex]?.contains(event.target as Node)
+        currentInput.index > 0 &&
+        !inputRef?.current[currentInput.index - 1]?.contains(
+          // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+          event.target as Node
+        )
       ) {
         const newUtils = { ...utilsInputx };
-        Object.keys(newUtils).forEach(
-          (key: keyof UtilsInputInterface, index) => {
-            if (currentInputIndex === index) {
-              newUtils[key].focus = false;
-            }
-          }
-        );
+        newUtils[currentInput.label].focus = false;
         setUtilsInputx(newUtils);
       }
     };
@@ -83,7 +82,7 @@ export default function EditRow({
       document.removeEventListener("touchstart", handleClickOutside);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentInputIndex]);
+  }, [currentInput]);
 
   console.log("Debug", utilsInputx);
 
@@ -221,8 +220,9 @@ export default function EditRow({
                     onClick={() => {
                       const newUtils = { ...utilsInputx };
                       newUtils[label].focus = true;
+
                       setUtilsInputx(newUtils);
-                      setCurrentInputIndex(index);
+                      setCurrentInput({ index: index + 1, label });
                     }}
                     inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                   />
