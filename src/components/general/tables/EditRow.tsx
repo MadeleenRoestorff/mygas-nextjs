@@ -166,10 +166,11 @@ export default function EditRow({
                 console.log(`DEBUG ${utilInputx.value}`);
                 return (
                   <TextField
-                    key={`${utilLabelx}-input-${logID}`}
-                    className={`TextFieldlogID-${utilLabelx}`}
+                    name={`${utilLabelx}-input-${logID}-name`}
+                    key={`${utilLabelx}-input-${logID}-key`}
+                    className={`input-${utilLabelx}-${logID}`}
                     error={utilInputx.errs}
-                    id={`${utilLabelx}-input-${logID}`}
+                    id={`${utilLabelx}-input-${logID}-id`}
                     label={`${utilLabelx}`}
                     variant="outlined"
                     value={utilInputx.value}
