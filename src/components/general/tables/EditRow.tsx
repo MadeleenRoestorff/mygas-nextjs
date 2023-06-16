@@ -216,17 +216,21 @@ export default function EditRow({
                       setUtilsInputx(newUtils);
                     }}
                     onClick={() => {
-                      const newUtils = { ...utilsInputx };
-                      newUtils[label].focus = true;
-
-                      setUtilsInputx(newUtils);
                       setCurrentInput({ index: index + 1, label });
+                      // const newUtils = { ...utilsInputx };
+                      // newUtils[label].focus = true;
+
+                      // Object.keys(newUtils).forEach((utilLabelKeys: keyofUtilsInputInterface) => {
+
+                      // })
+                      // setUtilsInputx(newUtils);
                     }}
                     inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                   />
                 );
               }
             )}
+            <div>hello</div>
             <LocalizationProvider dateAdapter={AdapterMoment}>
               <MobileDateTimePicker
                 className="MobileDateTimePickerDate"
