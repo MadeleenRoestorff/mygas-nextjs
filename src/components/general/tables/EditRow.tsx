@@ -196,6 +196,9 @@ export default function EditRow({
                 />
               );
             })} */}
+            <div>
+              <pre>{JSON.stringify(utilsInputx, null, 2)}</pre>
+            </div>
 
             {Object.entries(utilsInputx).map(
               (
