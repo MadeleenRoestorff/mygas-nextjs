@@ -52,8 +52,6 @@ export default function EditRow({
   const [error, setError] = useState("");
   const tokenContext = useTokenContext();
 
-  console.log(utilsInputx);
-
   // const errs = false;
   // const [utilsInput, setUtilsInput] = useState<UtilsInputInterface>({
   //   electricity: { value: electricity.toString(), errs },
@@ -191,6 +189,7 @@ export default function EditRow({
                             labelClicked === label ? true : false;
                         }
                       );
+                      setUtilsInputx(newUtils);
                     }}
                     inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                   />
