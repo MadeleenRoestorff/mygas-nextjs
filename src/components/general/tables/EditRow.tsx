@@ -3,10 +3,10 @@ import { useState, Dispatch, SetStateAction } from "react";
 
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
-import TextField from "@mui/material/TextField";
-// import FormControl from "@mui/material/FormControl";
-// import InputLabel from "@mui/material/InputLabel";
-// import OutlinedInput from "@mui/material/OutlinedInput";
+// import TextField from "@mui/material/TextField";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import OutlinedInput from "@mui/material/OutlinedInput";
 import Grow from "@mui/material/Grow";
 // import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
@@ -50,6 +50,7 @@ export default function EditRow({
 }) {
   const [date, setDate] = useState<Moment>(moment(measuredAt));
   const [error, setError] = useState("");
+  const [randomtext, setRandomtext] = useState("");
   const tokenContext = useTokenContext();
 
   // const errs = false;
@@ -158,15 +159,16 @@ export default function EditRow({
                 />
               );
             })} */}
-            {Object.entries(utilsInputx).map(
+            {/* {Object.entries(utilsInputx).map(
               ([label, state]: [keyof UtilsInputInterface, UtilsInterface]) => {
+                console.log("render");
                 return (
                   <TextField
-                    key={`${label}-input-${logID}`}
+                    key={label}
                     error={state.errs}
-                    id={`${label}-input-${logID}`}
-                    name={`${label}-input-${logID}`}
-                    label={`${label}`}
+                    id={label}
+                    name={label}
+                    label={label}
                     type="text"
                     variant="outlined"
                     value={state.value}
@@ -179,14 +181,14 @@ export default function EditRow({
                     }}
                     onClick={() => {
                       const newUtils = { ...utilsInputx };
-                      Object.entries(newUtils).forEach(
-                        ([labelClicked, _statec]: [
-                          keyof UtilsInputInterface,
-                          UtilsInterface
-                          // eslint-disable-next-line array-bracket-newline
-                        ]) => {
-                          newUtils[labelClicked].focus =
-                            labelClicked === label ? true : false;
+                      Object.keys(newUtils).forEach(
+                        (labelClicked: keyof UtilsInputInterface) => {
+                          if (labelClicked === label) {
+                            newUtils[labelClicked].focus = true;
+                          } else {
+                            console.log("hello");
+                            newUtils[labelClicked].focus = false;
+                          }
                         }
                       );
                       setUtilsInputx(newUtils);
@@ -195,8 +197,48 @@ export default function EditRow({
                   />
                 );
               }
+            )} */}
+            {Object.entries(utilsInputx).map(
+              ([label, state]: [keyof UtilsInputInterface, UtilsInterface]) => {
+                return (
+                  <FormControl key={label} focused={state.focus}>
+                    <InputLabel focused={state.focus} htmlFor={label}>
+                      {label}
+                    </InputLabel>
+                    <OutlinedInput
+                      error={state.errs}
+                      id={label}
+                      name={label}
+                      label={label}
+                      type="text"
+                      value={state.value}
+                      onChange={(event) => {
+                        const newUtils = { ...utilsInputx };
+                        newUtils[label].value = event.target.value;
+                        newUtils[label].errs = false;
+                        setUtilsInputx(newUtils);
+                      }}
+                      onClick={() => {
+                        const newUtils = { ...utilsInputx };
+                        Object.keys(newUtils).forEach(
+                          (labelClicked: keyof UtilsInputInterface) => {
+                            if (labelClicked === label) {
+                              newUtils[labelClicked].focus = true;
+                            } else {
+                              newUtils[labelClicked].focus = false;
+                            }
+                          }
+                        );
+                        setUtilsInputx(newUtils);
+                      }}
+                      onAbort={() => setRandomtext(label)}
+                      inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+                    />
+                  </FormControl>
+                );
+              }
             )}
-
+            <div>{randomtext}</div>
             <LocalizationProvider dateAdapter={AdapterMoment}>
               <MobileDateTimePicker
                 className="MobileDateTimePickerDate"
