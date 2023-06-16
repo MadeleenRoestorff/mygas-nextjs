@@ -1,10 +1,12 @@
+/* eslint-disable react/jsx-max-depth */
 import { useState, Dispatch, SetStateAction } from "react";
 
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import TextField from "@mui/material/TextField";
 import Grow from "@mui/material/Grow";
-import Stack from "@mui/material/Stack";
+// import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import { styled } from "@mui/material/styles";
@@ -132,7 +134,8 @@ export default function EditRow({
           </Snackbar>
         </TableCell>
         <TableCellStyling>
-          <StackStyling spacing={2} direction={{ xs: "column", md: "row" }}>
+          <StackStyling component="form">
+            {/* <StackStyling component="form" noValidate autoComplete="off"> */}
             {/* {utilTypeArray.map((util: keyof UtilsInputInterface) => {
               return (
                 <TextField
@@ -193,6 +196,7 @@ export default function EditRow({
               />
             </LocalizationProvider>
           </StackStyling>
+
           <TableRowActions
             handleClick={handleSave}
             handleCancel={handleCancel}
@@ -225,12 +229,23 @@ const TableCellStyling = styled(TableCell)`
   }
 `;
 
-const StackStyling = styled(Stack)`
+const StackStyling = styled(Box)`
+  display: flex;
+  flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
   width: 100%;
+  & > :not(:first-of-type) {
+    margin: 0;
+    margin-left: 10px;
+  }
   @media (max-width: ${({ theme }) => theme.breakpoints.values.md}px) {
     width: 68%;
+    flex-direction: column;
+    & > :not(:first-of-type) {
+      margin: 0;
+      margin-top: 16px;
+    }
   }
 `;
 // Invisible span to fix mobile issues with inputs that are absolute
