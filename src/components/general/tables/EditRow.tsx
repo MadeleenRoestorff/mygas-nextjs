@@ -167,8 +167,8 @@ export default function EditRow({
                 return (
                   <TextField
                     name={`${utilLabelx}-input-${logID}-name`}
-                    key={`${utilLabelx}-input-${logID}-key`}
-                    className={`input-${utilLabelx}-${logID}`}
+                    key={`${utilLabelx}-input-${logID}-key-${utilInputx.value}`}
+                    className={`input-${utilLabelx}-${logID}-${utilInputx.value}`}
                     error={utilInputx.errs}
                     id={`${utilLabelx}-input-${logID}-id`}
                     label={`${utilLabelx}`}
