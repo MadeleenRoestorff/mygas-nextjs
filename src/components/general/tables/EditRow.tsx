@@ -218,7 +218,6 @@ export default function EditRow({
                       setUtilsInputx(newUtils);
                     }}
                     onClick={() => {
-                      setCurrentInput({ index: index + 1, label });
                       const newUtils = { ...utilsInputx };
                       Object.keys(newUtils).forEach(
                         (utilLabelKeys: keyof UtilsInputInterface) => {
@@ -227,12 +226,15 @@ export default function EditRow({
                         }
                       );
                       setUtilsInputx(newUtils);
+                      setCurrentInput({ index: index + 1, label });
                     }}
                     inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                   />
                 );
               }
             )}
+            <div>{utilsInputx.units.focus}</div>
+            <div>{utilsInputx.topup.focus}</div>
 
             <LocalizationProvider dateAdapter={AdapterMoment}>
               <MobileDateTimePicker
