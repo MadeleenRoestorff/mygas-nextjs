@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-max-depth */
-import { useState, Dispatch, SetStateAction, useRef, useEffect } from "react";
+import { useState, Dispatch, SetStateAction, useRef } from "react";
 
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
@@ -22,7 +22,7 @@ import { styled } from "@mui/material/styles";
 import apiRequest from "../../services/apiRequest";
 import { useTokenContext } from "../../services/TokenContext";
 import TableRowActions from "./TableRowActions";
-import InputAdornment from "@mui/material/InputAdornment";
+// import InputAdornment from "@mui/material/InputAdornment";
 
 const initialDate = new Date();
 
@@ -51,44 +51,44 @@ export default function EditRow({
 }) {
   // const [date, setDate] = useState<Moment>(moment(measuredAt));
   const [error, setError] = useState("");
-  const [currentInput, setCurrentInput] = useState<CurrentInputInterface>({
-    index: 0,
-    label: "electricity"
-  });
+  // const [currentInput, setCurrentInput] = useState<CurrentInputInterface>({
+  //   index: 0,
+  //   label: "electricity"
+  // });
   const tokenContext = useTokenContext();
 
   const inputRef = useRef<HTMLDivElement[]>([]);
   console.log("DEBUG utilsInputx", utilsInputx);
-  console.log("DEBUG currentInput", currentInput);
+  // console.log("DEBUG currentInput", currentInput);
   console.log("DEBUG measuredAt", measuredAt);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
-      if (
-        inputRef?.current &&
-        currentInput.index > 0 &&
-        inputRef?.current[currentInput.index - 1] &&
-        !inputRef?.current[currentInput.index - 1]?.contains(
-          // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-          event.target as Node
-        )
-      ) {
-        console.log("DEBUG currentInput handleClickOutside", currentInput);
-        const newUtils = { ...utilsInputx };
-        newUtils[currentInput.label].focus = false;
-        setUtilsInputx(newUtils);
-      }
-    };
+  // useEffect(() => {
+  //   const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+  //     if (
+  //       inputRef?.current &&
+  //       currentInput.index > 0 &&
+  //       inputRef?.current[currentInput.index - 1] &&
+  //       !inputRef?.current[currentInput.index - 1]?.contains(
+  //         // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+  //         event.target as Node
+  //       )
+  //     ) {
+  //       console.log("DEBUG currentInput handleClickOutside", currentInput);
+  //       const newUtils = { ...utilsInputx };
+  //       newUtils[currentInput.label].focus = false;
+  //       setUtilsInputx(newUtils);
+  //     }
+  //   };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("touchstart", handleClickOutside);
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   document.addEventListener("touchstart", handleClickOutside);
 
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("touchstart", handleClickOutside);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentInput, inputRef]);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //     document.removeEventListener("touchstart", handleClickOutside);
+  //   };
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [currentInput, inputRef]);
 
   // const errs = false;
   // const [utilsInput, setUtilsInput] = useState<UtilsInputInterface>({
@@ -211,33 +211,33 @@ export default function EditRow({
                     name={label}
                     label={label}
                     type="text"
-                    value={state.value}
-                    focused={state.focus}
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          {JSON.stringify(state)}
-                        </InputAdornment>
-                      )
-                    }}
+                    value={JSON.stringify(state)}
+                    // focused={state.focus}
+                    // InputProps={{
+                    //   endAdornment: (
+                    //     <InputAdornment position="end">
+                    //       {JSON.stringify(state)}
+                    //     </InputAdornment>
+                    //   )
+                    // }}
                     onChange={(event) => {
                       const newUtils = { ...utilsInputx };
                       newUtils[label].value = event.target.value;
                       newUtils[label].errs = false;
                       setUtilsInputx(newUtils);
                     }}
-                    onClick={() => {
-                      const newUtils = { ...utilsInputx };
-                      Object.keys(newUtils).forEach(
-                        (utilLabelKeys: keyof UtilsInputInterface) => {
-                          newUtils[utilLabelKeys].focus =
-                            utilLabelKeys === label ? true : false;
-                        }
-                      );
-                      setUtilsInputx(newUtils);
-                      setCurrentInput({ index: index + 1, label });
-                    }}
-                    inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+                    // onClick={() => {
+                    //   const newUtils = { ...utilsInputx };
+                    //   Object.keys(newUtils).forEach(
+                    //     (utilLabelKeys: keyof UtilsInputInterface) => {
+                    //       newUtils[utilLabelKeys].focus =
+                    //         utilLabelKeys === label ? true : false;
+                    //     }
+                    //   );
+                    //   setUtilsInputx(newUtils);
+                    //   setCurrentInput({ index: index + 1, label });
+                    // }}
+                    // inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                   />
                 );
               }
