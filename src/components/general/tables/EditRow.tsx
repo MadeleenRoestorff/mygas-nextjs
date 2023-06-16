@@ -220,12 +220,6 @@ export default function EditRow({
                     }}
                     onClick={() => {
                       const newUtils = { ...utilsInputx };
-                      Object.keys(newUtils).forEach(
-                        (labelClicked: keyof UtilsInputInterface) => {
-                          newUtils[labelClicked].focus =
-                            labelClicked === label ? true : false;
-                        }
-                      );
                       newUtils[label].focus = true;
                       setUtilsInputx(newUtils);
                       setCurrentInputIndex(index);
