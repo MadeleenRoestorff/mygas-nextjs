@@ -3,7 +3,6 @@ import { useState } from "react";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import TextField from "@mui/material/TextField";
-import FormControl from "@mui/material/FormControl";
 import Grow from "@mui/material/Grow";
 import Stack from "@mui/material/Stack";
 import Snackbar from "@mui/material/Snackbar";
@@ -45,10 +44,11 @@ export default function EditRow({
   const tokenContext = useTokenContext();
 
   const errs = false;
+  const focus = false;
   const [utilsInput, setUtilsInput] = useState<UtilsInputInterface>({
-    electricity: { value: electricity.toString(), errs },
-    units: { value: units.toString(), errs },
-    topup: { value: topup.toString(), errs }
+    electricity: { value: electricity.toString(), errs, focus },
+    units: { value: units.toString(), errs, focus },
+    topup: { value: topup.toString(), errs, focus }
   });
 
   const utilTypeArray = urlPath.includes("gas")
@@ -132,23 +132,33 @@ export default function EditRow({
           <StackStyling spacing={2} direction={{ xs: "column", md: "row" }}>
             {utilTypeArray.map((util: keyof UtilsInputInterface) => {
               return (
-                <FormControl key={`${util}-input-fc-${logID}`}>
-                  <TextField
-                    className={`TextFieldlogID-${util}`}
-                    error={utilsInput[util].errs}
-                    id={`${util}-input-${logID}`}
-                    label={`${util}`}
-                    variant="outlined"
-                    value={utilsInput[util].value}
-                    onChange={(event) => {
-                      const newUtils = { ...utilsInput };
-                      newUtils[util].value = event.target.value;
-                      newUtils[util].errs = false;
-                      setUtilsInput(newUtils);
-                    }}
-                    inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-                  />
-                </FormControl>
+                <TextField
+                  key={`${util}-input-fc-${logID}`}
+                  className={`TextFieldlogID-${util}`}
+                  error={utilsInput[util].errs}
+                  id={`${util}-input-${logID}`}
+                  label={`${util}`}
+                  variant="outlined"
+                  value={utilsInput[util].value}
+                  focused={utilsInput[util].focus}
+                  onClick={() => {
+                    const newUtils1 = { ...utilsInput };
+                    utilTypeArray.forEach(
+                      (utilKey: keyof UtilsInputInterface) => {
+                        newUtils1[utilKey].focus =
+                          utilKey === util ? true : false;
+                      }
+                    );
+                    setUtilsInput(newUtils1);
+                  }}
+                  onChange={(event) => {
+                    const newUtils = { ...utilsInput };
+                    newUtils[util].value = event.target.value;
+                    newUtils[util].errs = false;
+                    setUtilsInput(newUtils);
+                  }}
+                  inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+                />
               );
             })}
 
