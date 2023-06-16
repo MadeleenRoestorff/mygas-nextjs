@@ -22,6 +22,7 @@ import { styled } from "@mui/material/styles";
 import apiRequest from "../../services/apiRequest";
 import { useTokenContext } from "../../services/TokenContext";
 import TableRowActions from "./TableRowActions";
+import InputAdornment from "@mui/material/InputAdornment";
 
 const initialDate = new Date();
 
@@ -212,6 +213,13 @@ export default function EditRow({
                     type="text"
                     value={state.value}
                     focused={state.focus}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">{`focus: ${
+                          state?.focus ? "t" : "f"
+                        }`}</InputAdornment>
+                      )
+                    }}
                     onChange={(event) => {
                       const newUtils = { ...utilsInputx };
                       newUtils[label].value = event.target.value;
@@ -234,19 +242,6 @@ export default function EditRow({
                 );
               }
             )}
-            <div>
-              {utilsInputx?.units?.focus
-                ? "units focus true"
-                : "units focus false"}
-            </div>
-            <div>
-              {utilsInputx?.topup?.focus
-                ? "topup focus true"
-                : "topup focus false"}
-            </div>
-            <div>
-              <pre>{JSON.stringify(utilsInputx, null, 2)}</pre>
-            </div>
 
             {/* <LocalizationProvider dateAdapter={AdapterMoment}>
               <MobileDateTimePicker
