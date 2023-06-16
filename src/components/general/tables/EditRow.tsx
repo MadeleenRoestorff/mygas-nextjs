@@ -203,53 +203,57 @@ export default function EditRow({
                 index
               ) => {
                 return (
-                  <TextField
-                    ref={(ref) => (inputRef.current[index] = ref)}
-                    key={label}
-                    error={state.errs}
-                    id={label}
-                    name={label}
-                    label={label}
-                    type="text"
-                    value={state?.focus ? "t" : "f"}
-                    // value={state.value}
-                    // focused={state.focus}
-                    // InputProps={{
-                    //   endAdornment: (
-                    //     <InputAdornment position="end">
-                    //       {JSON.stringify(state)}
-                    //     </InputAdornment>
-                    //   )
-                    // }}
-                    onChange={(event) => {
-                      const newUtils = { ...utilsInputx };
-                      newUtils[label].value = event.target.value;
-                      newUtils[label].errs = false;
-                      setUtilsInputx(newUtils);
-                    }}
-                    onFocus={() => {
-                      const newUtils = { ...utilsInputx };
-                      newUtils[label].focus = true;
-                      setUtilsInputx(newUtils);
-                    }}
-                    onBlur={() => {
-                      const newUtils = { ...utilsInputx };
-                      newUtils[label].focus = false;
-                      setUtilsInputx(newUtils);
-                    }}
-                    // onClick={() => {
-                    //   const newUtils = { ...utilsInputx };
-                    //   Object.keys(newUtils).forEach(
-                    //     (utilLabelKeys: keyof UtilsInputInterface) => {
-                    //       newUtils[utilLabelKeys].focus =
-                    //         utilLabelKeys === label ? true : false;
-                    //     }
-                    //   );
-                    //   setUtilsInputx(newUtils);
-                    //   setCurrentInput({ index: index + 1, label });
-                    // }}
-                    // inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-                  />
+                  <>
+                    <div>{JSON.stringify(utilsInputx)}</div>
+                    <TextField
+                      ref={(ref) => (inputRef.current[index] = ref)}
+                      key={label}
+                      error={state.errs}
+                      id={label}
+                      name={label}
+                      label={label}
+                      type="text"
+                      value={state?.focus ? "t" : "f"}
+                      // value={state.value}
+                      // focused={state.focus}
+                      // InputProps={{
+                      //   endAdornment: (
+                      //     <InputAdornment position="end">
+                      //       {JSON.stringify(state)}
+                      //     </InputAdornment>
+                      //   )
+                      // }}
+                      onChange={(event) => {
+                        const newUtils = { ...utilsInputx };
+                        newUtils[label].value = event.target.value;
+                        newUtils[label].errs = false;
+                        setUtilsInputx(newUtils);
+                      }}
+                      onFocus={() => {
+                        const newUtils = { ...utilsInputx };
+                        newUtils[label].focus = true;
+                        setUtilsInputx(newUtils);
+                      }}
+                      onBlur={() => {
+                        const newUtils = { ...utilsInputx };
+                        newUtils[label].focus = false;
+                        setUtilsInputx(newUtils);
+                      }}
+                      // onClick={() => {
+                      //   const newUtils = { ...utilsInputx };
+                      //   Object.keys(newUtils).forEach(
+                      //     (utilLabelKeys: keyof UtilsInputInterface) => {
+                      //       newUtils[utilLabelKeys].focus =
+                      //         utilLabelKeys === label ? true : false;
+                      //     }
+                      //   );
+                      //   setUtilsInputx(newUtils);
+                      //   setCurrentInput({ index: index + 1, label });
+                      // }}
+                      // inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+                    />
+                    <div>{JSON.stringify(utilsInputx)}</div>
+                  </>
                 );
               }
             )}
