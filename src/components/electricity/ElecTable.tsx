@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import TableContainerBox from "../general/tables/TableContainerBox";
@@ -47,6 +49,27 @@ export default function ElectricityTable({
   handleCancel: () => void;
   editID: number;
 }) {
+  const errs = false;
+  const [utilsInputx, setUtilsInputx] = useState<UtilsInputInterface>({
+    electricity: { value: "0", errs }
+  });
+
+  useEffect(() => {
+    if (editID !== 0) {
+      let electricity = 0;
+      displayData.forEach((displayDataObject: ElecDataInterface) => {
+        if (displayDataObject.ElecLogID === editID) {
+          electricity = displayDataObject.electricity;
+        }
+      });
+
+      const newUtilsInput = { ...utilsInputx };
+      newUtilsInput.electricity.value = electricity.toString();
+      setUtilsInputx(newUtilsInput);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editID, displayData]);
+
   return (
     <TableContainerBox headCells={headCells} tableLable="Electricity Data">
       {addNew ? (
@@ -63,7 +86,9 @@ export default function ElectricityTable({
               key={`tablerow-${ElecLogID}`}
               logID={ElecLogID}
               urlPath="electricity"
-              electricity={electricity}
+              // electricity={electricity}
+              utilsInputx={utilsInputx}
+              setUtilsInputx={setUtilsInputx}
               measuredAt={measuredAt}
               handleCancel={handleCancel}
               triggerDataRefresh={triggerDataRefresh}

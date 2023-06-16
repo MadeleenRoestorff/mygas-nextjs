@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 
@@ -55,6 +57,30 @@ export default function GasTable({
   handleCancel: () => void;
   editID: number;
 }) {
+  const errs = false;
+  const [utilsInputx, setUtilsInputx] = useState<UtilsInputInterface>({
+    units: { value: "0", errs },
+    topup: { value: "0", errs }
+  });
+
+  useEffect(() => {
+    if (editID !== 0) {
+      let units = 0;
+      let topup = 0;
+      displayData.forEach((displayDataObject: GasDataInterface) => {
+        if (displayDataObject.gasLogID === editID) {
+          units = displayDataObject.units;
+          topup = displayDataObject.topup;
+        }
+      });
+
+      const newUtilsInput = { ...utilsInputx };
+      newUtilsInput.units.value = units.toString();
+      newUtilsInput.topup.value = topup.toString();
+      setUtilsInputx(newUtilsInput);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editID, displayData]);
   return (
     <TableContainerBox headCells={headCells} tableLable="Gas Data">
       {addNew ? (
@@ -71,8 +97,10 @@ export default function GasTable({
               key={`tablerow-${gasLogID}`}
               logID={gasLogID}
               urlPath="gas"
-              units={units}
-              topup={topup}
+              // units={units}
+              // topup={topup}
+              utilsInputx={utilsInputx}
+              setUtilsInputx={setUtilsInputx}
               measuredAt={measuredAt}
               handleCancel={handleCancel}
               triggerDataRefresh={triggerDataRefresh}
