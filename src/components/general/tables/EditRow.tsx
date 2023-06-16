@@ -22,6 +22,7 @@ import { styled } from "@mui/material/styles";
 import apiRequest from "../../services/apiRequest";
 import { useTokenContext } from "../../services/TokenContext";
 import TableRowActions from "./TableRowActions";
+import { json } from "stream/consumers";
 
 const initialDate = new Date();
 
@@ -212,6 +213,14 @@ export default function EditRow({
                     type="text"
                     value={state.value}
                     focused={state.focus}
+                    onBlur={() => {
+                      if (!state.value) {
+                        const newUtils = { ...utilsInputx };
+                        newUtils[label].value = 0;
+                        newUtils[label].errs = false;
+                        setUtilsInputx(newUtils);
+                      }
+                    }}
                     onChange={(event) => {
                       const newUtils = { ...utilsInputx };
                       newUtils[label].value = event.target.value;
@@ -235,14 +244,17 @@ export default function EditRow({
               }
             )}
             <div>
-              {utilsInputx.units.focus
+              {utilsInputx?.units?.focus
                 ? "units focus true"
                 : "units focus false"}
             </div>
             <div>
-              {utilsInputx.topup.focus
+              {utilsInputx?.topup?.focus
                 ? "topup focus true"
                 : "topup focus false"}
+            </div>
+            <div>
+              <pre>{JSON.stringify(utilsInputx, null, 2)}</pre>
             </div>
 
             {/* <LocalizationProvider dateAdapter={AdapterMoment}>
