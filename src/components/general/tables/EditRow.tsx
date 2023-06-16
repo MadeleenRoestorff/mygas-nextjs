@@ -3,10 +3,10 @@ import { useState, Dispatch, SetStateAction } from "react";
 
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
-// import TextField from "@mui/material/TextField";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import OutlinedInput from "@mui/material/OutlinedInput";
+import TextField from "@mui/material/TextField";
+// import FormControl from "@mui/material/FormControl";
+// import InputLabel from "@mui/material/InputLabel";
+// import OutlinedInput from "@mui/material/OutlinedInput";
 import Grow from "@mui/material/Grow";
 // import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
@@ -51,6 +51,8 @@ export default function EditRow({
   const [date, setDate] = useState<Moment>(moment(measuredAt));
   const [error, setError] = useState("");
   const tokenContext = useTokenContext();
+
+  console.log(utilsInputx);
 
   // const errs = false;
   // const [utilsInput, setUtilsInput] = useState<UtilsInputInterface>({
@@ -138,7 +140,6 @@ export default function EditRow({
         </TableCell>
         <TableCellStyling>
           <StackStyling>
-            {/* <StackStyling component="form" noValidate autoComplete="off"> */}
             {/* {utilTypeArray.map((util: keyof UtilsInputInterface) => {
               return (
                 <TextField
@@ -159,35 +160,24 @@ export default function EditRow({
                 />
               );
             })} */}
-
             {Object.entries(utilsInputx).map(
-              ([utilLabelx, utilInputx]: [
-                keyof UtilsInputInterface,
-                UtilsInterface
-                // eslint-disable-next-line array-bracket-newline
-              ]) => {
+              ([label, state]: [keyof UtilsInputInterface, UtilsInterface]) => {
                 return (
-                  <FormControl key={`${utilLabelx}-input-${logID}-key`}>
-                    <InputLabel htmlFor={`${utilLabelx}-input-${logID}-id`}>
-                      {utilLabelx}
-                    </InputLabel>
-                    <OutlinedInput
-                      name={`${utilLabelx}-input-${logID}-name`}
-                      className={`input-${utilLabelx}-${logID}-${utilInputx.value}`}
-                      error={utilInputx.errs}
-                      id={`${utilLabelx}-input-${logID}-id`}
-                      label={`${utilLabelx}`}
-                      //   variant="outlined"
-                      value={utilInputx.value}
-                      inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-                      onChange={(event) => {
-                        const newUtils = { ...utilsInputx };
-                        newUtils[utilLabelx].value = event.target.value;
-                        newUtils[utilLabelx].errs = false;
-                        setUtilsInputx(newUtils);
-                      }}
-                    />
-                  </FormControl>
+                  <TextField
+                    key={`${label}-input-${logID}`}
+                    error={state.errs}
+                    id={`${label}-input-${logID}`}
+                    label={`${label}`}
+                    variant="outlined"
+                    value={state.value}
+                    onChange={(event) => {
+                      const newUtils = { ...utilsInputx };
+                      newUtils[label].value = event.target.value;
+                      newUtils[label].errs = false;
+                      setUtilsInputx(newUtils);
+                    }}
+                    // inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+                  />
                 );
               }
             )}
