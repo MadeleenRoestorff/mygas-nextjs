@@ -72,7 +72,6 @@ export default function EditRow({
           }
         );
         setUtilsInputx(newUtils);
-        setCurrentInputIndex(-1);
       }
     };
 
