@@ -211,7 +211,7 @@ export default function EditRow({
                     name={label}
                     label={label}
                     type="text"
-                    value={`focus:${state?.focus ? "t" : "f"}`}
+                    value={JSON.stringify(state)}
                     // value={state.value}
                     // focused={state.focus}
                     // InputProps={{
