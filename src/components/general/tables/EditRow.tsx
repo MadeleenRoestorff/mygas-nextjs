@@ -50,26 +50,27 @@ export default function EditRow({
 }) {
   const [date, setDate] = useState<Moment>(moment(measuredAt));
   const [error, setError] = useState("");
-  const [currentInput, setCurrentInput] = useState<CurrentInput>({
-    index: 0,
-    label: "electricity"
-  });
+  const [currentInputIndex, setCurrentInputIndex] = useState<number>(-1);
   const tokenContext = useTokenContext();
 
   const inputRef = useRef<HTMLDivElement[]>([]);
 
-  console.log("debug inputRef", inputRef.current[0]);
-
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
-        inputRef.current &&
-        currentInput.index > 0 &&
+        inputRef?.current &&
+        currentInputIndex > -1 &&
         // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-        !inputRef.current[currentInput.index].contains(event.target as Node)
+        !inputRef?.current[currentInputIndex]?.contains(event.target as Node)
       ) {
         const newUtils = { ...utilsInputx };
-        newUtils[currentInput.label].focus = false;
+        Object.keys(newUtils).forEach(
+          (key: keyof UtilsInputInterface, index) => {
+            if (currentInputIndex === index) {
+              newUtils[key].focus = false;
+            }
+          }
+        );
         setUtilsInputx(newUtils);
       }
     };
@@ -80,7 +81,7 @@ export default function EditRow({
       document.removeEventListener("mousedown", handleClickOutside);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentInput]);
+  }, [currentInputIndex]);
 
   // const errs = false;
   // const [utilsInput, setUtilsInput] = useState<UtilsInputInterface>({
@@ -196,7 +197,9 @@ export default function EditRow({
               ) => {
                 return (
                   <TextField
-                    ref={(ref) => (inputRef.current[index] = ref)}
+                    ref={(ref) => {
+                      return (inputRef.current[label] = ref);
+                    }}
                     key={label}
                     error={state.errs}
                     id={label}
@@ -221,7 +224,7 @@ export default function EditRow({
                       // );
                       newUtils[label].focus = true;
                       setUtilsInputx(newUtils);
-                      setCurrentInput({ index, label });
+                      setCurrentInputIndex(index);
                     }}
                     inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                   />

@@ -29,7 +29,3 @@ interface UtilsInputInterface {
   units?: UtilsInterface;
   topup?: UtilsInterface;
 }
-interface CurrentInput {
-  index: number;
-  label: keyof UtilsInputInterface;
-}
