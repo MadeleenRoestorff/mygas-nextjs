@@ -14,10 +14,10 @@ import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import { styled } from "@mui/material/styles";
 
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
-import moment, { Moment } from "moment";
+// import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+// import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
+// import moment, { Moment } from "moment";
 
 import apiRequest from "../../services/apiRequest";
 import { useTokenContext } from "../../services/TokenContext";
@@ -48,7 +48,7 @@ export default function EditRow({
   triggerDataRefresh?: () => Promise<void>;
   handleCancel: () => void;
 }) {
-  const [date, setDate] = useState<Moment>(moment(measuredAt));
+  // const [date, setDate] = useState<Moment>(moment(measuredAt));
   const [error, setError] = useState("");
   const [currentInput, setCurrentInput] = useState<CurrentInputInterface>({
     index: 0,
@@ -59,6 +59,7 @@ export default function EditRow({
   const inputRef = useRef<HTMLDivElement[]>([]);
   console.log("DEBUG utilsInputx", utilsInputx);
   console.log("DEBUG currentInput", currentInput);
+  console.log("DEBUG measuredAt", measuredAt);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent | TouchEvent) => {
@@ -102,7 +103,7 @@ export default function EditRow({
   const handleSave = () => {
     let utilValid = 0;
     const payload = {
-      measuredAt: date.toISOString()
+      // measuredAt: date.toISOString()
     };
     Object.entries(utilsInputx).forEach(
       ([utilLabel, utilInput]: [keyof UtilsInputInterface, UtilsInterface]) => {
@@ -244,7 +245,7 @@ export default function EditRow({
                 : "topup focus false"}
             </div>
 
-            <LocalizationProvider dateAdapter={AdapterMoment}>
+            {/* <LocalizationProvider dateAdapter={AdapterMoment}>
               <MobileDateTimePicker
                 className="MobileDateTimePickerDate"
                 label="Date"
@@ -253,7 +254,7 @@ export default function EditRow({
                   setDate(newValue);
                 }}
               />
-            </LocalizationProvider>
+            </LocalizationProvider> */}
           </StackStyling>
 
           <TableRowActions
