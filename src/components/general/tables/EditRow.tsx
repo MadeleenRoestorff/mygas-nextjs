@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-max-depth */
-import { useState, Dispatch, SetStateAction } from "react";
+import { useState, Dispatch, SetStateAction, useRef, useEffect } from "react";
 
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
@@ -50,8 +50,37 @@ export default function EditRow({
 }) {
   const [date, setDate] = useState<Moment>(moment(measuredAt));
   const [error, setError] = useState("");
-  const [randomtext, setRandomtext] = useState("");
+  const [currentInput, setCurrentInput] = useState<CurrentInput>({
+    index: 0,
+    label: "electricity"
+  });
   const tokenContext = useTokenContext();
+
+  const inputRef = useRef<HTMLDivElement[]>([]);
+
+  console.log("debug inputRef", inputRef.current[0]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        inputRef.current &&
+        currentInput.index > 0 &&
+        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+        !inputRef.current[currentInput.index].contains(event.target as Node)
+      ) {
+        const newUtils = { ...utilsInputx };
+        newUtils[currentInput.label].focus = false;
+        setUtilsInputx(newUtils);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentInput]);
 
   // const errs = false;
   // const [utilsInput, setUtilsInput] = useState<UtilsInputInterface>({
@@ -159,49 +188,15 @@ export default function EditRow({
                 />
               );
             })} */}
-            {/* {Object.entries(utilsInputx).map(
-              ([label, state]: [keyof UtilsInputInterface, UtilsInterface]) => {
-                console.log("render");
-                return (
-                  <TextField
-                    key={label}
-                    error={state.errs}
-                    id={label}
-                    name={label}
-                    label={label}
-                    type="text"
-                    variant="outlined"
-                    value={state.value}
-                    focused={state.focus}
-                    onChange={(event) => {
-                      const newUtils = { ...utilsInputx };
-                      newUtils[label].value = event.target.value;
-                      newUtils[label].errs = false;
-                      setUtilsInputx(newUtils);
-                    }}
-                    onClick={() => {
-                      const newUtils = { ...utilsInputx };
-                      Object.keys(newUtils).forEach(
-                        (labelClicked: keyof UtilsInputInterface) => {
-                          if (labelClicked === label) {
-                            newUtils[labelClicked].focus = true;
-                          } else {
-                            console.log("hello");
-                            newUtils[labelClicked].focus = false;
-                          }
-                        }
-                      );
-                      setUtilsInputx(newUtils);
-                    }}
-                    inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-                  />
-                );
-              }
-            )} */}
+
             {Object.entries(utilsInputx).map(
-              ([label, state]: [keyof UtilsInputInterface, UtilsInterface]) => {
+              (
+                [label, state]: [keyof UtilsInputInterface, UtilsInterface],
+                index
+              ) => {
                 return (
                   <TextField
+                    ref={(ref) => (inputRef.current[index] = ref)}
                     key={label}
                     error={state.errs}
                     id={label}
@@ -218,29 +213,21 @@ export default function EditRow({
                     }}
                     onClick={() => {
                       const newUtils = { ...utilsInputx };
-                      Object.keys(newUtils).forEach(
-                        (labelClicked: keyof UtilsInputInterface) => {
-                          if (labelClicked === label) {
-                            newUtils[labelClicked].focus = true;
-                          } else {
-                            newUtils[labelClicked].focus = false;
-                          }
-                        }
-                      );
+                      // Object.keys(newUtils).forEach(
+                      //   (labelClicked: keyof UtilsInputInterface) => {
+                      //     newUtils[labelClicked].focus =
+                      //       labelClicked === label ? true : false;
+                      //   }
+                      // );
+                      newUtils[label].focus = true;
                       setUtilsInputx(newUtils);
+                      setCurrentInput({ index, label });
                     }}
                     inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-                    onBlur={() => {
-                      const newUtils = { ...utilsInputx };
-                      newUtils[label].focus = false;
-                      setUtilsInputx(newUtils);
-                      setRandomtext(label);
-                    }}
                   />
                 );
               }
             )}
-            <div>{randomtext}</div>
             <LocalizationProvider dateAdapter={AdapterMoment}>
               <MobileDateTimePicker
                 className="MobileDateTimePickerDate"

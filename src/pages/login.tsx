@@ -85,7 +85,6 @@ export default function LoginPage() {
             const readLabel = label[0].toUpperCase() + label.slice(1);
             return (
               <TextField
-                focused
                 autoComplete={autoComplete}
                 error={val.error}
                 fullWidth

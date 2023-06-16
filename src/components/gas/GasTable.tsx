@@ -89,6 +89,8 @@ export default function GasTable({
           handleCancel={handleCancel}
           triggerDataRefresh={triggerDataRefresh}
           urlPath="gas"
+          utilsInputx={utilsInputx}
+          setUtilsInputx={setUtilsInputx}
         />
       ) : null}
       {displayData?.map(({ gasLogID, topup, units, measuredAt, rate }) => {

@@ -52,7 +52,7 @@ export default function ElectricityTable({
   const errs = false;
   const focus = false;
   const [utilsInputx, setUtilsInputx] = useState<UtilsInputInterface>({
-    electricity: { value: "0", errs, focus }
+    electricity: { value: "", errs, focus }
   });
 
   useEffect(() => {
@@ -78,6 +78,8 @@ export default function ElectricityTable({
           handleCancel={handleCancel}
           triggerDataRefresh={triggerDataRefresh}
           urlPath="electricity"
+          utilsInputx={utilsInputx}
+          setUtilsInputx={setUtilsInputx}
         />
       ) : null}
       {displayData?.map(({ ElecLogID, electricity, used, measuredAt }) => {
