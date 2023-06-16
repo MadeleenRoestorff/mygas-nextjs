@@ -196,9 +196,6 @@ export default function EditRow({
                 />
               );
             })} */}
-            <div>
-              <pre>{JSON.stringify(utilsInputx, null, 2)}</pre>
-            </div>
 
             {Object.entries(utilsInputx).map(
               (
@@ -218,9 +215,9 @@ export default function EditRow({
                     focused={state.focus}
                     InputProps={{
                       endAdornment: (
-                        <InputAdornment position="end">{`focus: ${
-                          state?.focus ? "t" : "f"
-                        }`}</InputAdornment>
+                        <InputAdornment position="end">
+                          {JSON.stringify(state)}
+                        </InputAdornment>
                       )
                     }}
                     onChange={(event) => {
