@@ -86,7 +86,7 @@ export default function GasTable({
   console.log("DEBUG", JSON.stringify(utilsInputx));
   return (
     <>
-      <div>{JSON.stringify(utilsInputx)}</div>
+      {/* <div>{JSON.stringify(utilsInputx)}</div> */}
       <TableContainerBox headCells={headCells} tableLable="Gas Data">
         {addNew ? (
           <EditRow
