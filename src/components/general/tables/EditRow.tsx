@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-max-depth */
 import { useState, SetStateAction, Dispatch } from "react";
 
 import TableCell from "@mui/material/TableCell";
@@ -139,7 +138,6 @@ export default function EditRow({
                       const newUtils = { ...utilsInputx };
                       newUtils[label].value = event.target.value;
                       newUtils[label].errs = false;
-                      newUtils[label].focus = true;
                       setUtilsInputx(newUtils);
                     }}
                     onFocus={() => {
@@ -153,7 +151,7 @@ export default function EditRow({
                       newUtils[label].value ||= "0";
                       setUtilsInputx(newUtils);
                     }}
-                    // inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+                    inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                   />
                 );
               }
