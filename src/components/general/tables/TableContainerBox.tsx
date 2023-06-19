@@ -46,7 +46,7 @@ export default function TableContainerBox({
                 </ActionTableCellStyling>
               </TableRow>
             </TableHead>
-            <TableBody>{children}</TableBody>
+            <TableBody sx={{ position: "relative" }}>{children}</TableBody>
           </Table>
         </TableContainer>
       </Paper>
@@ -58,7 +58,6 @@ const BoxStyling = styled(Box)`
   @media (max-width: ${({ theme }) => theme.breakpoints.values.md}px) {
     width: 100%;
     margin: 0;
-    position: relative;
   }
 `;
 
