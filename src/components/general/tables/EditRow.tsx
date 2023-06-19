@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-max-depth */
-import { useState, Dispatch, SetStateAction, useRef } from "react";
+import { useState, Dispatch, SetStateAction } from "react";
 
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
@@ -51,55 +51,8 @@ export default function EditRow({
 }) {
   // const [date, setDate] = useState<Moment>(moment(measuredAt));
   const [error, setError] = useState("");
-  // const [currentInput, setCurrentInput] = useState<CurrentInputInterface>({
-  //   index: 0,
-  //   label: "electricity"
-  // });
   const tokenContext = useTokenContext();
-
-  const inputRef = useRef<HTMLDivElement[]>([]);
-  console.log("DEBUG utilsInputx", utilsInputx);
-  // console.log("DEBUG currentInput", currentInput);
-  console.log("DEBUG measuredAt", measuredAt);
-
-  // useEffect(() => {
-  //   const handleClickOutside = (event: MouseEvent | TouchEvent) => {
-  //     if (
-  //       inputRef?.current &&
-  //       currentInput.index > 0 &&
-  //       inputRef?.current[currentInput.index - 1] &&
-  //       !inputRef?.current[currentInput.index - 1]?.contains(
-  //         // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-  //         event.target as Node
-  //       )
-  //     ) {
-  //       console.log("DEBUG currentInput handleClickOutside", currentInput);
-  //       const newUtils = { ...utilsInputx };
-  //       newUtils[currentInput.label].focus = false;
-  //       setUtilsInputx(newUtils);
-  //     }
-  //   };
-
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   document.addEventListener("touchstart", handleClickOutside);
-
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //     document.removeEventListener("touchstart", handleClickOutside);
-  //   };
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [currentInput, inputRef]);
-
-  // const errs = false;
-  // const [utilsInput, setUtilsInput] = useState<UtilsInputInterface>({
-  //   electricity: { value: electricity.toString(), errs },
-  //   units: { value: units.toString(), errs },
-  //   topup: { value: topup.toString(), errs }
-  // });
-
-  // const utilTypeArray = urlPath.includes("gas")
-  //   ? ["units", "topup"]
-  //   : ["electricity"];
+  console.log("DEBUG measuredAt ", measuredAt);
 
   const handleSave = () => {
     let utilValid = 0;
@@ -176,84 +129,26 @@ export default function EditRow({
         </TableCell>
         <TableCellStyling>
           <StackStyling>
-            {/* {utilTypeArray.map((util: keyof UtilsInputInterface) => {
-              return (
-                <TextField
-                  key={`${util}-input-${logID}`}
-                  className={`TextFieldlogID-${util}`}
-                  error={utilsInput[util].errs}
-                  id={`${util}-input-${logID}`}
-                  label={`${util}`}
-                  variant="outlined"
-                  value={utilsInput[util].value}
-                  onChange={(event) => {
-                    const newUtils = { ...utilsInput };
-                    newUtils[util].value = event.target.value;
-                    newUtils[util].errs = false;
-                    setUtilsInput(newUtils);
-                  }}
-                  inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-                />
-              );
-            })} */}
-
             {Object.entries(utilsInputx).map(
-              (
-                [label, state]: [keyof UtilsInputInterface, UtilsInterface],
-                index
-              ) => {
+              ([label, state]: [keyof UtilsInputInterface, UtilsInterface]) => {
                 return (
-                  <>
-                    <div>{JSON.stringify(utilsInputx)}</div>
-                    <TextField
-                      ref={(ref) => (inputRef.current[index] = ref)}
-                      key={label}
-                      error={state.errs}
-                      id={label}
-                      name={label}
-                      label={label}
-                      type="text"
-                      value={state?.focus ? "t" : "f"}
-                      // value={state.value}
-                      // focused={state.focus}
-                      // InputProps={{
-                      //   endAdornment: (
-                      //     <InputAdornment position="end">
-                      //       {JSON.stringify(state)}
-                      //     </InputAdornment>
-                      //   )
-                      // }}
-                      onChange={(event) => {
-                        const newUtils = { ...utilsInputx };
-                        newUtils[label].value = event.target.value;
-                        newUtils[label].errs = false;
-                        setUtilsInputx(newUtils);
-                      }}
-                      onFocus={() => {
-                        const newUtils = { ...utilsInputx };
-                        newUtils[label].focus = true;
-                        setUtilsInputx(newUtils);
-                      }}
-                      onBlur={() => {
-                        const newUtils = { ...utilsInputx };
-                        newUtils[label].focus = false;
-                        setUtilsInputx(newUtils);
-                      }}
-                      // onClick={() => {
-                      //   const newUtils = { ...utilsInputx };
-                      //   Object.keys(newUtils).forEach(
-                      //     (utilLabelKeys: keyof UtilsInputInterface) => {
-                      //       newUtils[utilLabelKeys].focus =
-                      //         utilLabelKeys === label ? true : false;
-                      //     }
-                      //   );
-                      //   setUtilsInputx(newUtils);
-                      //   setCurrentInput({ index: index + 1, label });
-                      // }}
-                      // inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-                    />
-                    <div>{JSON.stringify(utilsInputx)}</div>
-                  </>
+                  <TextField
+                    key={label}
+                    error={state.errs}
+                    id={label}
+                    name={label}
+                    label={label}
+                    type="text"
+                    value={state.value}
+                    onChange={(event) => {
+                      const newUtils = { ...utilsInputx };
+                      newUtils[label].value = event.target.value;
+                      newUtils[label].errs = false;
+                      setUtilsInputx(newUtils);
+                    }}
+
+                    // inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+                  />
                 );
               }
             )}
@@ -293,12 +188,13 @@ const TableRowStyling = styled(TableRow)<TableCellStylingProps>`
   }
 `;
 const TableCellStyling = styled(TableCell)`
-  position: absolute;
+  /* position: absolute; */
   display: flex;
   justify-content: space-between;
-  width: calc(100% - 82px);
+  width: 300px;
+  /* width: calc(100% - 82px); */
   @media (max-width: ${({ theme }) => theme.breakpoints.values.md}px) {
-    width: calc(100% - 57px);
+    /* width: calc(100% - 57px); */
   }
 `;
 
