@@ -135,13 +135,20 @@ export default function EditRow({
                     type="text"
                     value={state.value}
                     onChange={(event) => {
+                      console.log("onChange");
                       const newUtils = { ...utilsInputx };
                       newUtils[label].value = event.target.value;
                       newUtils[label].errs = false;
                       newUtils[label].focus = true;
                       setUtilsInputx(newUtils);
                     }}
+                    onKeyDown={() => {
+                      const newUtils = { ...utilsInputx };
+                      newUtils[label].focus = true;
+                      setUtilsInputx(newUtils);
+                    }}
                     onFocus={() => {
+                      console.log("onFocus");
                       const newUtils = { ...utilsInputx };
                       newUtils[label].focus = true;
                       setUtilsInputx(newUtils);
