@@ -1,5 +1,6 @@
+/* eslint-disable array-bracket-newline */
 /* eslint-disable react/jsx-max-depth */
-import { useState, Dispatch, SetStateAction } from "react";
+import { useState, Dispatch, SetStateAction, memo } from "react";
 
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
@@ -24,140 +25,147 @@ import TableRowActions from "./TableRowActions";
 
 const initialDate = new Date();
 
-export default function EditRow({
-  urlPath,
-  logID = 0,
-  // electricity = 0,
-  utilsInputx,
-  setUtilsInputx,
-  // units = 0,
-  // topup = 0,
-  measuredAt = initialDate,
-  triggerDataRefresh,
-  handleCancel
-}: {
-  urlPath: string;
-  logID?: number;
-  // electricity?: number;
-  utilsInputx?: UtilsInputInterface;
-  setUtilsInputx?: Dispatch<SetStateAction<UtilsInputInterface>>;
-  // units?: number;
-  // topup?: number;
-  measuredAt?: Date;
-  triggerDataRefresh?: () => Promise<void>;
-  handleCancel: () => void;
-}) {
-  // const [date, setDate] = useState<Moment>(moment(measuredAt));
-  const [error, setError] = useState("");
-  const tokenContext = useTokenContext();
-  console.log("DEBUG measuredAt ", measuredAt);
+export default memo(
+  ({
+    urlPath,
+    logID = 0,
+    // electricity = 0,
+    utilsInputx,
+    setUtilsInputx,
+    // units = 0,
+    // topup = 0,
+    measuredAt = initialDate,
+    triggerDataRefresh,
+    handleCancel
+  }: {
+    urlPath: string;
+    logID?: number;
+    // electricity?: number;
+    utilsInputx?: UtilsInputInterface;
+    setUtilsInputx?: Dispatch<SetStateAction<UtilsInputInterface>>;
+    // units?: number;
+    // topup?: number;
+    measuredAt?: Date;
+    triggerDataRefresh?: () => Promise<void>;
+    handleCancel: () => void;
+  }) => {
+    // const [date, setDate] = useState<Moment>(moment(measuredAt));
+    const [error, setError] = useState("");
+    const tokenContext = useTokenContext();
+    console.log("DEBUG measuredAt ", measuredAt);
 
-  const handleSave = () => {
-    let utilValid = 0;
-    const payload = {
-      // measuredAt: date.toISOString()
-    };
-    Object.entries(utilsInputx).forEach(
-      ([utilLabel, utilInput]: [keyof UtilsInputInterface, UtilsInterface]) => {
-        // if (utilTypeArray.includes(utilLabel)) {
-        const utilValue = Number(utilInput.value);
-        if (utilValue >= 0) {
-          payload[utilLabel] = utilValue;
-          utilValid += utilValue;
-        }
-
-        if (isNaN(utilValue) || utilValue === 0) {
-          utilValid = isNaN(utilValue) ? 0 : utilValid;
-          const newutilsInput = { ...utilsInputx };
-          newutilsInput[utilLabel].errs = true;
-          setUtilsInputx(newutilsInput);
-        }
-        // }
-      }
-    );
-
-    if (utilValid > 0) {
-      setError("");
-      const method = logID ? "patch" : "post";
-      const urlPathName = `${urlPath}${logID ? `/${logID}` : ""}`;
-      const getResults = async () => {
-        await apiRequest({
-          urlPathName,
-          method,
-          tokenContext,
-          setError,
-          payload
-        });
+    const handleSave = () => {
+      let utilValid = 0;
+      const payload = {
+        // measuredAt: date.toISOString()
       };
-      void getResults().finally(() => {
-        void triggerDataRefresh();
-      });
-    } else {
-      setError("Cannot save");
-    }
-  };
+      Object.entries(utilsInputx).forEach(
+        ([utilLabel, utilInput]: [
+          keyof UtilsInputInterface,
+          UtilsInterface
+        ]) => {
+          // if (utilTypeArray.includes(utilLabel)) {
+          const utilValue = Number(utilInput.value);
+          if (utilValue >= 0) {
+            payload[utilLabel] = utilValue;
+            utilValid += utilValue;
+          }
 
-  return (
-    <Grow in>
-      <TableRowStyling
-        heightadjust={9 * Object.entries(utilsInputx).length}
-        key={`tablerow-${logID}`}
-      >
-        <TableCell id={`edit-cell-${logID}`}>
-          {logID}
-          <Snackbar
-            open={error.length > 0 ? true : false}
-            // autoHideDuration={6000}
-            onClose={() => setError("")}
-          >
-            <Alert
-              elevation={6}
-              variant="filled"
-              severity={error.includes("Success") ? "success" : "error"}
-              sx={{ width: "100%" }}
+          if (isNaN(utilValue) || utilValue === 0) {
+            utilValid = isNaN(utilValue) ? 0 : utilValid;
+            const newutilsInput = { ...utilsInputx };
+            newutilsInput[utilLabel].errs = true;
+            setUtilsInputx(newutilsInput);
+          }
+          // }
+        }
+      );
+
+      if (utilValid > 0) {
+        setError("");
+        const method = logID ? "patch" : "post";
+        const urlPathName = `${urlPath}${logID ? `/${logID}` : ""}`;
+        const getResults = async () => {
+          await apiRequest({
+            urlPathName,
+            method,
+            tokenContext,
+            setError,
+            payload
+          });
+        };
+        void getResults().finally(() => {
+          void triggerDataRefresh();
+        });
+      } else {
+        setError("Cannot save");
+      }
+    };
+
+    return (
+      <Grow in>
+        <TableRowStyling
+          heightadjust={9 * Object.entries(utilsInputx).length}
+          key={`tablerow-${logID}`}
+        >
+          <TableCell id={`edit-cell-${logID}`}>
+            {logID}
+            <Snackbar
+              open={error.length > 0 ? true : false}
+              // autoHideDuration={6000}
+              onClose={() => setError("")}
             >
-              {error}
-            </Alert>
-          </Snackbar>
-        </TableCell>
-        <TableCellStyling>
-          <StackStyling>
-            <InvisibleDiv>{JSON.stringify(utilsInputx)}</InvisibleDiv>
-            {Object.entries(utilsInputx).map(
-              ([label, state]: [keyof UtilsInputInterface, UtilsInterface]) => {
-                return (
-                  <TextField
-                    key={label}
-                    error={state.errs}
-                    id={label}
-                    name={label}
-                    label={label}
-                    type="text"
-                    value={state.value}
-                    onChange={(event) => {
-                      const newUtils = { ...utilsInputx };
-                      newUtils[label].value = event.target.value;
-                      newUtils[label].errs = false;
-                      setUtilsInputx(newUtils);
-                    }}
-                    onFocus={() => {
-                      const newUtils = { ...utilsInputx };
-                      console.log("triggered");
-                      newUtils[label].focus = true;
-                      setUtilsInputx(newUtils);
-                    }}
-                    onBlur={() => {
-                      const newUtils = { ...utilsInputx };
-                      newUtils[label].focus = false;
-                      newUtils[label].value ||= "0";
-                      setUtilsInputx(newUtils);
-                    }}
-                    // inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-                  />
-                );
-              }
-            )}
-            {/* <LocalizationProvider dateAdapter={AdapterMoment}>
+              <Alert
+                elevation={6}
+                variant="filled"
+                severity={error.includes("Success") ? "success" : "error"}
+                sx={{ width: "100%" }}
+              >
+                {error}
+              </Alert>
+            </Snackbar>
+          </TableCell>
+          <TableCellStyling>
+            <StackStyling>
+              <InvisibleDiv>{JSON.stringify(utilsInputx)}</InvisibleDiv>
+              {Object.entries(utilsInputx).map(
+                ([label, state]: [
+                  keyof UtilsInputInterface,
+                  UtilsInterface
+                ]) => {
+                  return (
+                    <TextField
+                      key={label}
+                      error={state.errs}
+                      id={label}
+                      name={label}
+                      label={label}
+                      type="text"
+                      value={state.value}
+                      onChange={(event) => {
+                        const newUtils = { ...utilsInputx };
+                        newUtils[label].value = event.target.value;
+                        newUtils[label].errs = false;
+                        setUtilsInputx(newUtils);
+                      }}
+                      onFocus={() => {
+                        const newUtils = { ...utilsInputx };
+                        console.log("triggered");
+                        newUtils[label].focus = true;
+                        setUtilsInputx(newUtils);
+                      }}
+                      onBlur={() => {
+                        const newUtils = { ...utilsInputx };
+                        newUtils[label].focus = false;
+                        newUtils[label].value ||= "0";
+                        setUtilsInputx(newUtils);
+                      }}
+                      // inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+                    />
+                  );
+                }
+              )}
+              {/* <LocalizationProvider dateAdapter={AdapterMoment}>
               <MobileDateTimePicker
                 className="MobileDateTimePickerDate"
                 label="Date"
@@ -167,17 +175,18 @@ export default function EditRow({
                 }}
               />
             </LocalizationProvider> */}
-          </StackStyling>
+            </StackStyling>
 
-          <TableRowActions
-            handleClick={handleSave}
-            handleCancel={handleCancel}
-          />
-        </TableCellStyling>
-      </TableRowStyling>
-    </Grow>
-  );
-}
+            <TableRowActions
+              handleClick={handleSave}
+              handleCancel={handleCancel}
+            />
+          </TableCellStyling>
+        </TableRowStyling>
+      </Grow>
+    );
+  }
+);
 interface TableCellStylingProps {
   heightadjust?: number;
 }
