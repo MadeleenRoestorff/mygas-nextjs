@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 
-import { styled } from "@mui/material/styles";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 
@@ -61,8 +60,8 @@ export default function GasTable({
   const errs = false;
   const focus = false;
   const [utilsInputx, setUtilsInputx] = useState<UtilsInputInterface>({
-    units: { value: "0", errs, focus },
-    topup: { value: "0", errs, focus }
+    units: { value: "0", errs, focus, editID },
+    topup: { value: "0", errs, focus, editID }
   });
 
   useEffect(() => {
@@ -78,7 +77,9 @@ export default function GasTable({
 
       const newUtilsInput = { ...utilsInputx };
       newUtilsInput.units.value = units.toString();
+      newUtilsInput.units.editID = editID;
       newUtilsInput.topup.value = topup.toString();
+      newUtilsInput.topup.editID = editID;
       setUtilsInputx(newUtilsInput);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -86,7 +87,7 @@ export default function GasTable({
 
   return (
     <>
-      <InvisibleSpan>{JSON.stringify(utilsInputx)}</InvisibleSpan>
+      <div>{JSON.stringify(utilsInputx)}</div>
       <TableContainerBox headCells={headCells} tableLable="Gas Data">
         {addNew ? (
           <EditRow
@@ -136,9 +137,9 @@ export default function GasTable({
   );
 }
 
-// Invisible span to fix mobile issues with inputs that are absolute
-const InvisibleSpan = styled("div")`
-  visibility: hidden;
-  height: 0;
-  width: 0;
-`;
+// Invisible div to fix mobile issues with inputs that are absolute
+// const InvisibleDiv = styled("div")`
+//   visibility: hidden;
+//   height: 0;
+//   width: 0;
+// `;

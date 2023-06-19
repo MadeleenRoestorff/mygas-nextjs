@@ -22,6 +22,7 @@ interface UtilsInterface {
   value: string;
   errs: boolean;
   focus: boolean;
+  editID: number;
 }
 
 interface UtilsInputInterface {
