@@ -165,8 +165,6 @@ export default function EditRow({
                 );
               }
             )}
-            <div>{JSON.stringify(utilsInputx)}</div>
-
             {/* <LocalizationProvider dateAdapter={AdapterMoment}>
               <MobileDateTimePicker
                 className="MobileDateTimePickerDate"
