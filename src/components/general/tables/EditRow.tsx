@@ -142,13 +142,17 @@ export default function EditRow({
                       newUtils[label].focus = true;
                       setUtilsInputx(newUtils);
                     }}
-                    onKeyDown={() => {
+                    onKeyDown={(event) => {
                       const newUtils = { ...utilsInputx };
-                      newUtils[label].focus = true;
-                      setUtilsInputx(newUtils);
+                      if (
+                        event.key === "Backspace" &&
+                        newUtils[label].value.length === 0
+                      ) {
+                        newUtils[label].value = "0";
+                        setUtilsInputx(newUtils);
+                      }
                     }}
                     onFocus={() => {
-                      console.log("onFocus");
                       const newUtils = { ...utilsInputx };
                       newUtils[label].focus = true;
                       setUtilsInputx(newUtils);
