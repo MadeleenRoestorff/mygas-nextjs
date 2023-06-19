@@ -107,11 +107,6 @@ export default function EditRow({
       >
         <TableCell id={`edit-cell-${logID}`}>
           {logID}
-          {/* <InvisibleSpan>
-            {utilsInput.electricity.value}
-            {utilsInput.units.value}
-            {utilsInput.topup.value}
-          </InvisibleSpan> */}
           <Snackbar
             open={error.length > 0 ? true : false}
             // autoHideDuration={6000}
@@ -130,11 +125,7 @@ export default function EditRow({
         <TableCellStyling>
           <StackStyling>
             {Object.entries(utilsInputx).map(
-              ([label, state]: [
-                keyof UtilsInputInterface,
-                UtilsInterface
-                // eslint-disable-next-line array-bracket-newline
-              ]) => {
+              ([label, state]: [keyof UtilsInputInterface, UtilsInterface]) => {
                 return (
                   <TextField
                     key={label}
@@ -150,16 +141,16 @@ export default function EditRow({
                       newUtils[label].errs = false;
                       setUtilsInputx(newUtils);
                     }}
-                    onFocus={() => {
-                      const newUtils = { ...utilsInputx };
-                      newUtils[label].focus = true;
-                      setUtilsInputx(newUtils);
-                    }}
-                    onBlur={() => {
-                      const newUtils = { ...utilsInputx };
-                      newUtils[label].focus = false;
-                      setUtilsInputx(newUtils);
-                    }}
+                    // onFocus={() => {
+                    //   const newUtils = { ...utilsInputx };
+                    //   newUtils[label].focus = true;
+                    //   setUtilsInputx(newUtils);
+                    // }}
+                    // onBlur={() => {
+                    //   const newUtils = { ...utilsInputx };
+                    //   newUtils[label].focus = false;
+                    //   setUtilsInputx(newUtils);
+                    // }}
                     // inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                   />
                 );

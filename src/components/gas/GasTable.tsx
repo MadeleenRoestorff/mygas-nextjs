@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 
+import { styled } from "@mui/material/styles";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 
@@ -81,12 +82,11 @@ export default function GasTable({
       setUtilsInputx(newUtilsInput);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editID, displayData, utilsInputx.topup.focus, utilsInputx.units.focus]);
+  }, [editID, displayData]);
 
-  console.log("DEBUG", JSON.stringify(utilsInputx));
   return (
     <>
-      {/* <div>{JSON.stringify(utilsInputx)}</div> */}
+      <InvisibleSpan>{JSON.stringify(utilsInputx)}</InvisibleSpan>
       <TableContainerBox headCells={headCells} tableLable="Gas Data">
         {addNew ? (
           <EditRow
@@ -135,3 +135,10 @@ export default function GasTable({
     </>
   );
 }
+
+// Invisible span to fix mobile issues with inputs that are absolute
+const InvisibleSpan = styled("div")`
+  visibility: hidden;
+  height: 0;
+  width: 0;
+`;
