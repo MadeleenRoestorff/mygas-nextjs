@@ -151,7 +151,6 @@ export default function EditRow({
                       // newUtils[label].value ||= "0";
                       setUtilsInputx(newUtils);
                     }}
-                    onEmptied={() => console.log("hello")}
                     // inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                   />
                 );
@@ -197,7 +196,8 @@ const TableCellStyling = styled(TableCell)`
   justify-content: space-between;
   width: calc(100% - 82px);
   @media (max-width: ${({ theme }) => theme.breakpoints.values.md}px) {
-    width: calc(100% - 57px);
+    /* width: calc(100% - 57px); */
+    width: 300px;
     position: relative;
   }
 `;
