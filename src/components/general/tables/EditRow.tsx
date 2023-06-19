@@ -146,7 +146,6 @@ export default function EditRow({
                       newUtils[label].errs = false;
                       setUtilsInputx(newUtils);
                     }}
-
                     // inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                   />
                 );
@@ -188,12 +187,12 @@ const TableRowStyling = styled(TableRow)<TableCellStylingProps>`
   }
 `;
 const TableCellStyling = styled(TableCell)`
-  /* position: absolute; */
+  position: absolute;
   display: flex;
   justify-content: space-between;
-  width: 300px;
-  /* width: calc(100% - 82px); */
+  width: calc(100% - 82px);
   @media (max-width: ${({ theme }) => theme.breakpoints.values.md}px) {
+    position: fixed;
     /* width: calc(100% - 57px); */
   }
 `;
