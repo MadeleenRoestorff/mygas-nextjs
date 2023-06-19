@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-max-depth */
-import { useState } from "react";
+import { useState, SetStateAction, Dispatch } from "react";
 
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
@@ -20,7 +20,6 @@ import { styled } from "@mui/material/styles";
 
 import apiRequest from "../../services/apiRequest";
 import { useTokenContext } from "../../services/TokenContext";
-import { useGasInputContext } from "../../gas/GasInputContext";
 import TableRowActions from "./TableRowActions";
 
 const initialDate = new Date();
@@ -29,8 +28,8 @@ export default function EditRow({
   urlPath,
   logID = 0,
   // electricity = 0,
-  // utilsInputx,
-  // setUtilsInputx,
+  utilsInputx,
+  setUtilsInputx,
   // units = 0,
   // topup = 0,
   measuredAt = initialDate,
@@ -40,8 +39,8 @@ export default function EditRow({
   urlPath: string;
   logID?: number;
   // electricity?: number;
-  // utilsInputx?: UtilsInputInterface;
-  // setUtilsInputx?: Dispatch<SetStateAction<UtilsInputInterface>>;
+  utilsInputx?: UtilsInputInterface;
+  setUtilsInputx?: Dispatch<SetStateAction<UtilsInputInterface>>;
   // units?: number;
   // topup?: number;
   measuredAt?: Date;
@@ -51,7 +50,6 @@ export default function EditRow({
   // const [date, setDate] = useState<Moment>(moment(measuredAt));
   const [error, setError] = useState("");
   const tokenContext = useTokenContext();
-  const { utilsInputx, setUtilsInputx } = useGasInputContext();
   console.log("DEBUG measuredAt ", measuredAt);
 
   const handleSave = () => {
@@ -200,6 +198,7 @@ const TableCellStyling = styled(TableCell)`
   width: calc(100% - 82px);
   @media (max-width: ${({ theme }) => theme.breakpoints.values.md}px) {
     width: calc(100% - 57px);
+    position: relative;
   }
 `;
 
