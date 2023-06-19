@@ -52,7 +52,7 @@ export default function ElectricityTable({
   const errs = false;
   const focus = false;
   const [utilsInputx, setUtilsInputx] = useState<UtilsInputInterface>({
-    electricity: { value: "", errs, focus, editID }
+    electricity: { value: "", errs, focus }
   });
 
   useEffect(() => {

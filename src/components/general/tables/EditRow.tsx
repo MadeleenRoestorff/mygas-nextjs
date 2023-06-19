@@ -123,6 +123,7 @@ export default function EditRow({
         </TableCell>
         <TableCellStyling>
           <StackStyling>
+            {JSON.stringify(utilsInputx)}
             {Object.entries(utilsInputx).map(
               ([label, state]: [keyof UtilsInputInterface, UtilsInterface]) => {
                 return (
@@ -142,6 +143,7 @@ export default function EditRow({
                     }}
                     onFocus={() => {
                       const newUtils = { ...utilsInputx };
+                      console.log("triggered");
                       newUtils[label].focus = true;
                       setUtilsInputx(newUtils);
                     }}

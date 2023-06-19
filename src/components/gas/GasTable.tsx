@@ -60,8 +60,8 @@ export default function GasTable({
   const errs = false;
   const focus = false;
   const [utilsInputx, setUtilsInputx] = useState<UtilsInputInterface>({
-    units: { value: "0", errs, focus, editID },
-    topup: { value: "0", errs, focus, editID }
+    units: { value: "0", errs, focus },
+    topup: { value: "0", errs, focus }
   });
 
   useEffect(() => {
@@ -77,9 +77,7 @@ export default function GasTable({
 
       const newUtilsInput = { ...utilsInputx };
       newUtilsInput.units.value = units.toString();
-      newUtilsInput.units.editID = editID;
       newUtilsInput.topup.value = topup.toString();
-      newUtilsInput.topup.editID = editID;
       setUtilsInputx(newUtilsInput);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
