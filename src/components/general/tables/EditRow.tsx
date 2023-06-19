@@ -105,6 +105,7 @@ export default function EditRow({
       >
         <TableCell id={`edit-cell-${logID}`}>
           {logID}
+          <InvisibleDiv>{JSON.stringify(utilsInputx)}</InvisibleDiv>
           <Snackbar
             open={error.length > 0 ? true : false}
             // autoHideDuration={6000}
@@ -122,41 +123,38 @@ export default function EditRow({
         </TableCell>
         <TableCellStyling>
           <StackStyling>
-            <InvisibleDiv>{JSON.stringify(utilsInputx)}</InvisibleDiv>
             {Object.entries(utilsInputx).map(
               ([label, state]: [keyof UtilsInputInterface, UtilsInterface]) => {
                 return (
-                  <div key={label}>
-                    <div>{JSON.stringify(state)}</div>
-                    <TextField
-                      error={state.errs}
-                      id={label}
-                      name={label}
-                      label={label}
-                      type="text"
-                      value={state.value}
-                      onChange={(event) => {
-                        console.log("onChange");
-                        const newUtils = { ...utilsInputx };
-                        newUtils[label].value = event.target.value;
-                        newUtils[label].errs = false;
-                        newUtils[label].focus = true;
-                        setUtilsInputx(newUtils);
-                      }}
-                      onFocus={() => {
-                        const newUtils = { ...utilsInputx };
-                        newUtils[label].focus = true;
-                        setUtilsInputx(newUtils);
-                      }}
-                      onBlur={() => {
-                        const newUtils = { ...utilsInputx };
-                        newUtils[label].focus = false;
-                        // newUtils[label].value ||= "0";
-                        setUtilsInputx(newUtils);
-                      }}
-                      // inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-                    />
-                  </div>
+                  <TextField
+                    key={label}
+                    error={state.errs}
+                    id={label}
+                    name={label}
+                    label={label}
+                    type="text"
+                    value={state.value}
+                    onChange={(event) => {
+                      console.log("onChange");
+                      const newUtils = { ...utilsInputx };
+                      newUtils[label].value = event.target.value;
+                      newUtils[label].errs = false;
+                      newUtils[label].focus = true;
+                      setUtilsInputx(newUtils);
+                    }}
+                    onFocus={() => {
+                      const newUtils = { ...utilsInputx };
+                      newUtils[label].focus = true;
+                      setUtilsInputx(newUtils);
+                    }}
+                    onBlur={() => {
+                      const newUtils = { ...utilsInputx };
+                      newUtils[label].focus = false;
+                      // newUtils[label].value ||= "0";
+                      setUtilsInputx(newUtils);
+                    }}
+                    // inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+                  />
                 );
               }
             )}
@@ -228,7 +226,7 @@ const StackStyling = styled(Box)`
 
 // Invisible div to fix mobile issues with inputs that are absolute
 const InvisibleDiv = styled("div")`
-  visibility: hidden;
-  height: 0;
-  width: 0;
+  /* visibility: hidden; */
+  height: 20px;
+  width: 20px;
 `;
