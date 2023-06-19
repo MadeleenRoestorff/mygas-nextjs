@@ -69,7 +69,9 @@ export default function ElectricityTable({
       setUtilsInputx(newUtilsInput);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editID, displayData, utilsInputx]);
+  }, [editID, displayData, utilsInputx.electricity.focus]);
+
+  console.log("DEBUG", JSON.stringify(utilsInputx));
 
   return (
     <TableContainerBox headCells={headCells} tableLable="Electricity Data">

@@ -81,7 +81,9 @@ export default function GasTable({
       setUtilsInputx(newUtilsInput);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editID, displayData]);
+  }, [editID, displayData, utilsInputx.topup.focus, utilsInputx.units.focus]);
+
+  console.log("DEBUG", JSON.stringify(utilsInputx));
   return (
     <TableContainerBox headCells={headCells} tableLable="Gas Data">
       {addNew ? (
@@ -97,7 +99,7 @@ export default function GasTable({
         if (editID !== 0 && editID === gasLogID) {
           return (
             <EditRow
-              key={`tablerow-${gasLogID}`}
+              key={`tablerow-${gasLogID}-editrow`}
               logID={gasLogID}
               urlPath="gas"
               // units={units}
