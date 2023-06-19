@@ -140,11 +140,11 @@ export default function EditRow({
                       newUtils[label].errs = false;
                       setUtilsInputx(newUtils);
                     }}
-                    onFocus={() => {
-                      const newUtils = { ...utilsInputx };
-                      newUtils[label].focus = true;
-                      setUtilsInputx(newUtils);
-                    }}
+                    // onFocus={() => {
+                    //   const newUtils = { ...utilsInputx };
+                    //   newUtils[label].focus = true;
+                    //   setUtilsInputx(newUtils);
+                    // }}
                     onBlur={() => {
                       const newUtils = { ...utilsInputx };
                       newUtils[label].focus = false;
@@ -196,9 +196,9 @@ const TableCellStyling = styled(TableCell)`
   justify-content: space-between;
   width: calc(100% - 82px);
   @media (max-width: ${({ theme }) => theme.breakpoints.values.md}px) {
-    /* width: calc(100% - 57px); */
-    width: 300px;
-    position: relative;
+    width: calc(100% - 57px);
+    /* width: 300px; */
+    /* position: relative; */
   }
 `;
 
