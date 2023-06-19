@@ -82,7 +82,7 @@ export default function GasTable({
       setUtilsInputx(newUtilsInput);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editID, displayData]);
+  }, [editID, displayData, utilsInputx.units.focus, utilsInputx.topup.focus]);
 
   return (
     <>
