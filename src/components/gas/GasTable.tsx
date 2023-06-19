@@ -98,20 +98,18 @@ export default function GasTable({
       {displayData?.map(({ gasLogID, topup, units, measuredAt, rate }) => {
         if (editID !== 0 && editID === gasLogID) {
           return (
-            <div key={`tablerow-${gasLogID}-editrow`}>
-              <div>{JSON.stringify(utilsInputx)}</div>
-              <EditRow
-                logID={gasLogID}
-                urlPath="gas"
-                // units={units}
-                // topup={topup}
-                utilsInputx={utilsInputx}
-                setUtilsInputx={setUtilsInputx}
-                measuredAt={measuredAt}
-                handleCancel={handleCancel}
-                triggerDataRefresh={triggerDataRefresh}
-              />
-            </div>
+            <EditRow
+              key={`tablerow-${gasLogID}-editrow`}
+              logID={gasLogID}
+              urlPath="gas"
+              // units={units}
+              // topup={topup}
+              utilsInputx={utilsInputx}
+              setUtilsInputx={setUtilsInputx}
+              measuredAt={measuredAt}
+              handleCancel={handleCancel}
+              triggerDataRefresh={triggerDataRefresh}
+            />
           );
         }
         return (
