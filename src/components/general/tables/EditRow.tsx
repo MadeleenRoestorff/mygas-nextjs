@@ -3,19 +3,16 @@ import { useState, SetStateAction, Dispatch } from "react";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import TextField from "@mui/material/TextField";
-// import FormControl from "@mui/material/FormControl";
-// import InputLabel from "@mui/material/InputLabel";
-// import OutlinedInput from "@mui/material/OutlinedInput";
 import Grow from "@mui/material/Grow";
 import Box from "@mui/material/Box";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import { styled } from "@mui/material/styles";
 
-// import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
-// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-// import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
-// import moment, { Moment } from "moment";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
+import moment, { Moment } from "moment";
 
 import apiRequest from "../../services/apiRequest";
 import { useTokenContext } from "../../services/TokenContext";
@@ -46,7 +43,7 @@ export default function EditRow({
   triggerDataRefresh?: () => Promise<void>;
   handleCancel: () => void;
 }) {
-  // const [date, setDate] = useState<Moment>(moment(measuredAt));
+  const [date, setDate] = useState<Moment>(moment(measuredAt));
   const [error, setError] = useState("");
   const tokenContext = useTokenContext();
   console.log("DEBUG measuredAt ", measuredAt);
@@ -54,7 +51,7 @@ export default function EditRow({
   const handleSave = () => {
     let utilValid = 0;
     const payload = {
-      // measuredAt: date.toISOString()
+      measuredAt: date.toISOString()
     };
     Object.entries(utilsInputx).forEach(
       ([utilLabel, utilInput]: [keyof UtilsInputInterface, UtilsInterface]) => {
@@ -156,7 +153,7 @@ export default function EditRow({
                 );
               }
             )}
-            {/* <LocalizationProvider dateAdapter={AdapterMoment}>
+            <LocalizationProvider dateAdapter={AdapterMoment}>
               <MobileDateTimePicker
                 className="MobileDateTimePickerDate"
                 label="Date"
@@ -165,7 +162,7 @@ export default function EditRow({
                   setDate(newValue);
                 }}
               />
-            </LocalizationProvider> */}
+            </LocalizationProvider>
           </StackStyling>
 
           <TableRowActions
