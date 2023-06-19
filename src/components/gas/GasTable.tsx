@@ -86,7 +86,7 @@ export default function GasTable({
 
   return (
     <>
-      <InvisibleDiv>{JSON.stringify(utilsInputx)}</InvisibleDiv>
+      <InvisibleDiv>hry</InvisibleDiv>
       <TableContainerBox headCells={headCells} tableLable="Gas Data">
         {addNew ? (
           <EditRow
