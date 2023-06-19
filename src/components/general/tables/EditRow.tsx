@@ -130,7 +130,11 @@ export default function EditRow({
         <TableCellStyling>
           <StackStyling>
             {Object.entries(utilsInputx).map(
-              ([label, state]: [keyof UtilsInputInterface, UtilsInterface]) => {
+              ([label, state]: [
+                keyof UtilsInputInterface,
+                UtilsInterface
+                // eslint-disable-next-line array-bracket-newline
+              ]) => {
                 return (
                   <TextField
                     key={label}
@@ -192,8 +196,7 @@ const TableCellStyling = styled(TableCell)`
   justify-content: space-between;
   width: calc(100% - 82px);
   @media (max-width: ${({ theme }) => theme.breakpoints.values.md}px) {
-    position: fixed;
-    /* width: calc(100% - 57px); */
+    width: calc(100% - 57px);
   }
 `;
 
