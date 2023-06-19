@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import TableContainerBox from "../general/tables/TableContainerBox";
-import EditRow from "../general/tables/EditRow";
+// import EditRow from "../general/tables/EditRow";
 import TableRowActions from "../general/tables/TableRowActions";
 
 const headCells: readonly HeadCell[] = [
@@ -36,17 +36,17 @@ const headCells: readonly HeadCell[] = [
 const emptyArray: ElecDataInterface[] = [];
 export default function ElectricityTable({
   displayData = emptyArray,
-  triggerDataRefresh,
-  addNew,
+  // triggerDataRefresh,
+  // addNew,
   handleEdit,
-  handleCancel,
+  // handleCancel,
   editID
 }: {
   displayData: ElecDataInterface[];
-  triggerDataRefresh: () => Promise<void>;
-  addNew: boolean;
+  // triggerDataRefresh: () => Promise<void>;
+  // addNew: boolean;
   handleEdit: (_logID: number) => void;
-  handleCancel: () => void;
+  // handleCancel: () => void;
   editID: number;
 }) {
   const errs = false;
@@ -75,7 +75,7 @@ export default function ElectricityTable({
 
   return (
     <TableContainerBox headCells={headCells} tableLable="Electricity Data">
-      {addNew ? (
+      {/* {addNew ? (
         <EditRow
           handleCancel={handleCancel}
           triggerDataRefresh={triggerDataRefresh}
@@ -83,23 +83,23 @@ export default function ElectricityTable({
           utilsInputx={utilsInputx}
           setUtilsInputx={setUtilsInputx}
         />
-      ) : null}
+      ) : null} */}
       {displayData?.map(({ ElecLogID, electricity, used, measuredAt }) => {
-        if (editID !== 0 && editID === ElecLogID) {
-          return (
-            <EditRow
-              key={`tablerow-${ElecLogID}-editrow`}
-              logID={ElecLogID}
-              urlPath="electricity"
-              // electricity={electricity}
-              utilsInputx={utilsInputx}
-              setUtilsInputx={setUtilsInputx}
-              measuredAt={measuredAt}
-              handleCancel={handleCancel}
-              triggerDataRefresh={triggerDataRefresh}
-            />
-          );
-        }
+        // if (editID !== 0 && editID === ElecLogID) {
+        //   return (
+        //     <EditRow
+        //       key={`tablerow-${ElecLogID}-editrow`}
+        //       logID={ElecLogID}
+        //       urlPath="electricity"
+        //       // electricity={electricity}
+        //       utilsInputx={utilsInputx}
+        //       setUtilsInputx={setUtilsInputx}
+        //       measuredAt={measuredAt}
+        //       handleCancel={handleCancel}
+        //       triggerDataRefresh={triggerDataRefresh}
+        //     />
+        //   );
+        // }
         return (
           <TableRow hover key={`tablerow-${ElecLogID}`}>
             <TableCell id={`elec-cell-${ElecLogID}`}>{ElecLogID}</TableCell>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 import { styled } from "@mui/material/styles";
 import TableCell from "@mui/material/TableCell";
@@ -7,6 +7,8 @@ import TableRow from "@mui/material/TableRow";
 import EditRow from "../general/tables/EditRow";
 import TableContainerBox from "../general/tables/TableContainerBox";
 import TableRowActions from "../general/tables/TableRowActions";
+
+import { useGasInputContext } from "./GasInputContext";
 
 const headCells: readonly HeadCell[] = [
   {
@@ -58,12 +60,14 @@ export default function GasTable({
   handleCancel: () => void;
   editID: number;
 }) {
-  const errs = false;
-  const focus = false;
-  const [utilsInputx, setUtilsInputx] = useState<UtilsInputInterface>({
-    units: { value: "0", errs, focus },
-    topup: { value: "0", errs, focus }
-  });
+  // const errs = false;
+  // const focus = false;
+  // const [utilsInputx, setUtilsInputx] = useState<UtilsInputInterface>({
+  //   units: { value: "0", errs, focus },
+  //   topup: { value: "0", errs, focus }
+  // });
+
+  const { utilsInputx, setUtilsInputx } = useGasInputContext();
 
   useEffect(() => {
     if (editID !== 0) {
@@ -93,8 +97,8 @@ export default function GasTable({
             handleCancel={handleCancel}
             triggerDataRefresh={triggerDataRefresh}
             urlPath="gas"
-            utilsInputx={utilsInputx}
-            setUtilsInputx={setUtilsInputx}
+            // utilsInputx={utilsInputx}
+            // setUtilsInputx={setUtilsInputx}
           />
         ) : null}
         {displayData?.map(({ gasLogID, topup, units, measuredAt, rate }) => {
@@ -106,8 +110,8 @@ export default function GasTable({
                 urlPath="gas"
                 // units={units}
                 // topup={topup}
-                utilsInputx={utilsInputx}
-                setUtilsInputx={setUtilsInputx}
+                // utilsInputx={utilsInputx}
+                // setUtilsInputx={setUtilsInputx}
                 measuredAt={measuredAt}
                 handleCancel={handleCancel}
                 triggerDataRefresh={triggerDataRefresh}
