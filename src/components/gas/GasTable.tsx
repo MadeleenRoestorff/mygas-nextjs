@@ -102,7 +102,7 @@ export default function GasTable({
             return (
               <EditRow
                 key={`tablerow-${gasLogID}-editrow`}
-                logID={gasLogID}
+                logID={editID}
                 urlPath="gas"
                 // units={units}
                 // topup={topup}
