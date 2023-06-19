@@ -150,7 +150,7 @@ export default function EditRow({
                     onBlur={() => {
                       const newUtils = { ...utilsInputx };
                       newUtils[label].focus = false;
-                      // newUtils[label].value ||= "0";
+                      newUtils[label].value ||= "0";
                       setUtilsInputx(newUtils);
                     }}
                     // inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
@@ -226,7 +226,7 @@ const StackStyling = styled(Box)`
 
 // Invisible div to fix mobile issues with inputs that are absolute
 const InvisibleDiv = styled("div")`
-  /* visibility: hidden; */
-  height: 20px;
-  width: 20px;
+  visibility: hidden;
+  height: 0px;
+  width: 0px;
 `;
