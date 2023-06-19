@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 
+import { styled } from "@mui/material/styles";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 
@@ -85,7 +86,7 @@ export default function GasTable({
 
   return (
     <>
-      {/* <div>{JSON.stringify(utilsInputx)}</div> */}
+      <InvisibleDiv>{JSON.stringify(utilsInputx)}</InvisibleDiv>
       <TableContainerBox headCells={headCells} tableLable="Gas Data">
         {addNew ? (
           <EditRow
@@ -136,8 +137,8 @@ export default function GasTable({
 }
 
 // Invisible div to fix mobile issues with inputs that are absolute
-// const InvisibleDiv = styled("div")`
-//   visibility: hidden;
-//   height: 0;
-//   width: 0;
-// `;
+const InvisibleDiv = styled("div")`
+  visibility: hidden;
+  height: 0;
+  width: 0;
+`;

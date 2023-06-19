@@ -122,7 +122,7 @@ export default function EditRow({
         </TableCell>
         <TableCellStyling>
           <StackStyling>
-            {JSON.stringify(utilsInputx)}
+            <InvisibleDiv>{JSON.stringify(utilsInputx)}</InvisibleDiv>
             {Object.entries(utilsInputx).map(
               ([label, state]: [keyof UtilsInputInterface, UtilsInterface]) => {
                 return (
@@ -219,4 +219,11 @@ const StackStyling = styled(Box)`
       margin-top: 16px;
     }
   }
+`;
+
+// Invisible div to fix mobile issues with inputs that are absolute
+const InvisibleDiv = styled("div")`
+  visibility: hidden;
+  height: 0;
+  width: 0;
 `;
