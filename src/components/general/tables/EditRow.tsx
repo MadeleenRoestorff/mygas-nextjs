@@ -199,8 +199,6 @@ const TableCellStyling = styled(TableCell)`
   width: calc(100% - 82px);
   @media (max-width: ${({ theme }) => theme.breakpoints.values.md}px) {
     width: calc(100% - 57px);
-    /* width: 300px; */
-    /* position: relative; */
   }
 `;
 
