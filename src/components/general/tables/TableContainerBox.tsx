@@ -25,7 +25,7 @@ export default function TableContainerBox({
 }) {
   return (
     <BoxStyling sx={{ width: "80%", m: "auto" }}>
-      <Paper sx={{ my: 2, borderRadius: 1 }}>
+      <Paper sx={{ my: 2, borderRadius: 1, position: "relative" }}>
         <TableContainer>
           <Table aria-labelledby={tableLable}>
             <TableHead>
@@ -46,7 +46,7 @@ export default function TableContainerBox({
                 </ActionTableCellStyling>
               </TableRow>
             </TableHead>
-            <TableBody sx={{ position: "relative" }}>{children}</TableBody>
+            <TableBody>{children}</TableBody>
           </Table>
         </TableContainer>
       </Paper>

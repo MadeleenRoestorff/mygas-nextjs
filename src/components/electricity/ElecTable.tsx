@@ -69,7 +69,7 @@ export default function ElectricityTable({
       setUtilsInputx(newUtilsInput);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editID, displayData, utilsInputx.electricity.focus]);
+  }, [editID, displayData, utilsInputx]);
 
   return (
     <TableContainerBox headCells={headCells} tableLable="Electricity Data">
@@ -86,7 +86,7 @@ export default function ElectricityTable({
         if (editID !== 0 && editID === ElecLogID) {
           return (
             <EditRow
-              key={`tablerow-${ElecLogID}`}
+              key={`tablerow-${ElecLogID}-editrow`}
               logID={ElecLogID}
               urlPath="electricity"
               // electricity={electricity}
