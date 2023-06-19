@@ -85,50 +85,53 @@ export default function GasTable({
 
   console.log("DEBUG", JSON.stringify(utilsInputx));
   return (
-    <TableContainerBox headCells={headCells} tableLable="Gas Data">
-      {addNew ? (
-        <EditRow
-          handleCancel={handleCancel}
-          triggerDataRefresh={triggerDataRefresh}
-          urlPath="gas"
-          utilsInputx={utilsInputx}
-          setUtilsInputx={setUtilsInputx}
-        />
-      ) : null}
-      {displayData?.map(({ gasLogID, topup, units, measuredAt, rate }) => {
-        if (editID !== 0 && editID === gasLogID) {
+    <>
+      <div>{JSON.stringify(utilsInputx)}</div>
+      <TableContainerBox headCells={headCells} tableLable="Gas Data">
+        {addNew ? (
+          <EditRow
+            handleCancel={handleCancel}
+            triggerDataRefresh={triggerDataRefresh}
+            urlPath="gas"
+            utilsInputx={utilsInputx}
+            setUtilsInputx={setUtilsInputx}
+          />
+        ) : null}
+        {displayData?.map(({ gasLogID, topup, units, measuredAt, rate }) => {
+          if (editID !== 0 && editID === gasLogID) {
+            return (
+              <EditRow
+                key={`tablerow-${gasLogID}-editrow`}
+                logID={gasLogID}
+                urlPath="gas"
+                // units={units}
+                // topup={topup}
+                utilsInputx={utilsInputx}
+                setUtilsInputx={setUtilsInputx}
+                measuredAt={measuredAt}
+                handleCancel={handleCancel}
+                triggerDataRefresh={triggerDataRefresh}
+              />
+            );
+          }
           return (
-            <EditRow
-              key={`tablerow-${gasLogID}-editrow`}
-              logID={gasLogID}
-              urlPath="gas"
-              // units={units}
-              // topup={topup}
-              utilsInputx={utilsInputx}
-              setUtilsInputx={setUtilsInputx}
-              measuredAt={measuredAt}
-              handleCancel={handleCancel}
-              triggerDataRefresh={triggerDataRefresh}
-            />
+            <TableRow hover key={`tablerow-${gasLogID}`}>
+              <TableCell id={`gas-cell-${gasLogID}`}>{gasLogID}</TableCell>
+              <TableCell align="right">{units > 0 ? units : "-"}</TableCell>
+              <TableCell align="right">{rate === 0 ? "-" : rate}</TableCell>
+              <TableCell align="right">{topup}</TableCell>
+              <TableCell align="right">
+                {`${measuredAt.toDateString()} ${measuredAt.toLocaleTimeString(
+                  "en-UK"
+                )}`}
+              </TableCell>
+              <TableCell align="right">
+                <TableRowActions handleClick={() => handleEdit(gasLogID)} />
+              </TableCell>
+            </TableRow>
           );
-        }
-        return (
-          <TableRow hover key={`tablerow-${gasLogID}`}>
-            <TableCell id={`gas-cell-${gasLogID}`}>{gasLogID}</TableCell>
-            <TableCell align="right">{units > 0 ? units : "-"}</TableCell>
-            <TableCell align="right">{rate === 0 ? "-" : rate}</TableCell>
-            <TableCell align="right">{topup}</TableCell>
-            <TableCell align="right">
-              {`${measuredAt.toDateString()} ${measuredAt.toLocaleTimeString(
-                "en-UK"
-              )}`}
-            </TableCell>
-            <TableCell align="right">
-              <TableRowActions handleClick={() => handleEdit(gasLogID)} />
-            </TableCell>
-          </TableRow>
-        );
-      })}
-    </TableContainerBox>
+        })}
+      </TableContainerBox>
+    </>
   );
 }
