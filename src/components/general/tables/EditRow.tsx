@@ -138,13 +138,14 @@ export default function EditRow({
                       const newUtils = { ...utilsInputx };
                       newUtils[label].value = event.target.value;
                       newUtils[label].errs = false;
+                      newUtils[label].focus = true;
                       setUtilsInputx(newUtils);
                     }}
-                    // onFocus={() => {
-                    //   const newUtils = { ...utilsInputx };
-                    //   newUtils[label].focus = true;
-                    //   setUtilsInputx(newUtils);
-                    // }}
+                    onFocus={() => {
+                      const newUtils = { ...utilsInputx };
+                      newUtils[label].focus = true;
+                      setUtilsInputx(newUtils);
+                    }}
                     onBlur={() => {
                       const newUtils = { ...utilsInputx };
                       newUtils[label].focus = false;
