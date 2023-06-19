@@ -141,16 +141,16 @@ export default function EditRow({
                       newUtils[label].errs = false;
                       setUtilsInputx(newUtils);
                     }}
-                    // onFocus={() => {
-                    //   const newUtils = { ...utilsInputx };
-                    //   newUtils[label].focus = true;
-                    //   setUtilsInputx(newUtils);
-                    // }}
-                    // onBlur={() => {
-                    //   const newUtils = { ...utilsInputx };
-                    //   newUtils[label].focus = false;
-                    //   setUtilsInputx(newUtils);
-                    // }}
+                    onFocus={() => {
+                      const newUtils = { ...utilsInputx };
+                      newUtils[label].focus = true;
+                      setUtilsInputx(newUtils);
+                    }}
+                    onBlur={() => {
+                      const newUtils = { ...utilsInputx };
+                      newUtils[label].focus = false;
+                      setUtilsInputx(newUtils);
+                    }}
                     // inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                   />
                 );
